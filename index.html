@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TournamentOS — Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#04040a;--bg2:#07070f;--surface:#0e0e1c;--card:#13131f;--card2:#1a1a2e;
+  --red:#ff2d55;--purple:#9b5de5;--cyan:#00f5d4;--gold:#ffd60a;--blue:#0096ff;--green:#39d353;
+  --text:#eeeeff;--muted:#6666aa;--border:#1e1e3a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(0,245,212,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,212,0.025) 1px,transparent 1px);
+  background-size:40px 40px;animation:gridScroll 20s linear infinite;}
+@keyframes gridScroll{to{background-position:0 40px;}}
+body::after{content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:500px;
+  background:radial-gradient(ellipse,rgba(155,93,229,0.15) 0%,transparent 70%);pointer-events:none;z-index:0;}
+
+.page{display:none;min-height:100vh;position:relative;z-index:1;}
+.page.active{display:block;}
+#auth-page{display:none;align-items:center;justify-content:center;}
+#auth-page.active{display:flex;}
+
+/* AUTH */
+.auth-wrap{perspective:1200px;}
+.auth-logo{font-family:'Orbitron',sans-serif;font-size:46px;font-weight:900;text-align:center;margin-bottom:6px;letter-spacing:6px;
+  background:linear-gradient(180deg,#fff 0%,var(--cyan) 40%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 30px rgba(0,245,212,0.5));animation:logoFloat 3s ease-in-out infinite;}
+@keyframes logoFloat{0%,100%{filter:drop-shadow(0 0 20px rgba(0,245,212,0.4));}50%{filter:drop-shadow(0 0 40px rgba(0,245,212,0.8));}}
+.auth-tagline{color:var(--muted);font-size:11px;letter-spacing:4px;text-align:center;text-transform:uppercase;margin-bottom:36px;font-family:'Share Tech Mono',monospace;}
+.auth-box{background:linear-gradient(145deg,#16162a 0%,#0e0e1c 50%,#13131f 100%);border:1px solid rgba(155,93,229,0.3);border-radius:16px;padding:36px 40px;width:420px;max-width:95vw;position:relative;overflow:hidden;transform-style:preserve-3d;
+  box-shadow:0 0 0 1px rgba(0,245,212,0.05),0 8px 32px rgba(0,0,0,0.8),0 32px 80px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.06),inset 0 -1px 0 rgba(0,0,0,0.4);transition:transform 0.1s;}
+.auth-box::before{content:'';position:absolute;top:-100%;left:-60%;width:40%;height:300%;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.04) 50%,transparent 60%);animation:shineSweep 4s ease-in-out infinite;pointer-events:none;z-index:10;}
+@keyframes shineSweep{0%,100%{left:-60%;}50%{left:120%;}}
+.auth-box::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(0,245,212,0.6),rgba(155,93,229,0.6),transparent);}
+.auth-tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:28px;}
+.auth-tab{flex:1;padding:10px;text-align:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;transition:all 0.2s;letter-spacing:2px;text-transform:uppercase;font-family:'Orbitron',sans-serif;}
+.auth-tab.active{color:var(--cyan);border-bottom-color:var(--cyan);text-shadow:0 0 12px rgba(0,245,212,0.6);}
+.form-group{margin-bottom:18px;}
+.form-label{display:block;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;font-family:'Share Tech Mono',monospace;}
+.form-input{width:100%;background:rgba(4,4,10,0.8);border:1px solid rgba(30,30,58,0.8);border-radius:8px;padding:12px 14px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:500;transition:all 0.2s;outline:none;box-shadow:inset 0 2px 8px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.02);}
+.form-input:focus{border-color:rgba(0,245,212,0.5);box-shadow:inset 0 2px 8px rgba(0,0,0,0.5),0 0 0 3px rgba(0,245,212,0.08),0 0 20px rgba(0,245,212,0.1);}
+.form-input::placeholder{color:#33334a;}
+select.form-input{cursor:pointer;}option{background:#0e0e1c;}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:10px;font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;cursor:pointer;border:none;transition:all 0.15s;text-decoration:none;text-transform:uppercase;position:relative;overflow:hidden;}
+.btn::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.08) 0%,transparent 50%);}
+.btn-primary{background:linear-gradient(180deg,#c53bff 0%,#7b2ff7 40%,#5a1fd4 100%);color:#fff;width:100%;
+  box-shadow:0 1px 0 rgba(255,255,255,0.15) inset,0 -3px 0 rgba(0,0,0,0.4) inset,0 4px 0 #3a0f80,0 6px 20px rgba(124,47,247,0.4),0 0 40px rgba(124,47,247,0.15);transform:translateY(0);}
+.btn-primary:hover{box-shadow:0 1px 0 rgba(255,255,255,0.15) inset,0 -3px 0 rgba(0,0,0,0.4) inset,0 4px 0 #3a0f80,0 8px 30px rgba(124,47,247,0.6),0 0 60px rgba(124,47,247,0.25);transform:translateY(-1px);}
+.btn-primary:active{transform:translateY(3px);}
+.btn-cyan{background:linear-gradient(180deg,#00f5d4 0%,#00c9ad 40%,#008f7a 100%);color:#002a23;
+  box-shadow:0 1px 0 rgba(255,255,255,0.3) inset,0 -3px 0 rgba(0,0,0,0.3) inset,0 4px 0 #005a4c,0 6px 20px rgba(0,245,212,0.35);}
+.btn-cyan:hover{transform:translateY(-1px);box-shadow:0 1px 0 rgba(255,255,255,0.3) inset,0 4px 0 #005a4c,0 8px 30px rgba(0,245,212,0.5);}
+.btn-cyan:active{transform:translateY(3px);}
+.btn-red{background:linear-gradient(180deg,#ff5577 0%,#e02040 40%,#a01030 100%);color:#fff;
+  box-shadow:0 1px 0 rgba(255,255,255,0.2) inset,0 -3px 0 rgba(0,0,0,0.3) inset,0 4px 0 #60091d,0 6px 20px rgba(255,45,85,0.35);}
+.btn-red:hover{transform:translateY(-1px);}
+.btn-red:active{transform:translateY(3px);}
+.btn-gold{background:linear-gradient(180deg,#ffe033 0%,#ffd60a 40%,#c9a800 100%);color:#1a1000;
+  box-shadow:0 1px 0 rgba(255,255,255,0.3) inset,0 -3px 0 rgba(0,0,0,0.3) inset,0 4px 0 #7a6500,0 6px 20px rgba(255,214,10,0.35);}
+.btn-gold:hover{transform:translateY(-1px);}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border:1px solid rgba(30,30,58,0.8);box-shadow:0 1px 0 rgba(255,255,255,0.04) inset,0 2px 8px rgba(0,0,0,0.3);}
+.btn-ghost:hover{color:var(--text);border-color:rgba(155,93,229,0.3);background:rgba(155,93,229,0.08);}
+.btn-sm{padding:8px 14px;font-size:10px;}
+.form-error{color:#ff4466;font-size:13px;margin-top:6px;}
+.form-success{color:var(--cyan);font-size:13px;margin-top:6px;}
+
+/* LAYOUT */
+.layout{display:flex;min-height:100vh;}
+.sidebar{width:250px;background:linear-gradient(180deg,#0b0b18 0%,#080810 100%);border-right:1px solid rgba(30,30,58,0.8);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100;box-shadow:4px 0 30px rgba(0,0,0,0.6),inset -1px 0 0 rgba(155,93,229,0.08);}
+.sidebar-brand{padding:22px 20px 18px;border-bottom:1px solid rgba(30,30,58,0.8);font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;letter-spacing:3px;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 12px rgba(0,245,212,0.3));display:flex;align-items:center;gap:10px;}
+.sidebar-brand-icon{width:36px;height:36px;border-radius:8px;flex-shrink:0;background:linear-gradient(135deg,var(--cyan),var(--purple));display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 12px rgba(0,245,212,0.3),0 4px 0 rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.2);}
+.sidebar-user{padding:14px 16px;border-bottom:1px solid rgba(30,30,58,0.8);display:flex;align-items:center;gap:10px;}
+.avatar{width:38px;height:38px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--purple),var(--red));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;font-family:'Orbitron',sans-serif;box-shadow:0 0 0 2px rgba(155,93,229,0.3),0 0 16px rgba(155,93,229,0.3),0 3px 0 rgba(0,0,0,0.5);}
+.sidebar-username{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;}
+.sidebar-role{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Share Tech Mono',monospace;}
+.sidebar-nav{padding:10px 0;flex:1;overflow-y:auto;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:12px 20px;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.15s;border-left:3px solid transparent;letter-spacing:1px;text-transform:uppercase;font-family:'Orbitron',sans-serif;position:relative;}
+.nav-item:hover{color:var(--text);background:rgba(155,93,229,0.06);}
+.nav-item.active{color:var(--cyan);border-left-color:var(--cyan);background:rgba(0,245,212,0.05);text-shadow:0 0 12px rgba(0,245,212,0.4);}
+.nav-item.active::after{content:'';position:absolute;right:0;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,var(--cyan),transparent);}
+.nav-icon{font-size:16px;width:20px;text-align:center;}
+.sidebar-footer{padding:16px 20px;border-top:1px solid rgba(30,30,58,0.8);}
+.main{margin-left:250px;flex:1;padding:28px 32px;}
+.page-header{margin-bottom:26px;}
+.page-title{font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;letter-spacing:3px;background:linear-gradient(135deg,#fff 40%,var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 20px rgba(0,245,212,0.2));}
+.page-subtitle{color:var(--muted);font-size:13px;margin-top:4px;font-family:'Share Tech Mono',monospace;letter-spacing:1px;}
+
+/* STAT CARDS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:28px;}
+.stat-card{border-radius:14px;padding:20px 18px;position:relative;overflow:hidden;cursor:default;transition:transform 0.2s;transform-style:preserve-3d;}
+.stat-card:hover{transform:translateY(-4px) rotateX(2deg);}
+.stat-card.c-red{background:linear-gradient(145deg,#2a0f18 0%,#1a0a10 100%);border:1px solid rgba(255,45,85,0.25);box-shadow:0 2px 0 rgba(255,45,85,0.15) inset,0 8px 32px rgba(0,0,0,0.6),0 0 0 1px rgba(255,45,85,0.08);}
+.stat-card.c-purple{background:linear-gradient(145deg,#1a0f2e 0%,#100a1e 100%);border:1px solid rgba(155,93,229,0.25);box-shadow:0 2px 0 rgba(155,93,229,0.1) inset,0 8px 32px rgba(0,0,0,0.6);}
+.stat-card.c-cyan{background:linear-gradient(145deg,#002a22 0%,#001a15 100%);border:1px solid rgba(0,245,212,0.2);box-shadow:0 2px 0 rgba(0,245,212,0.08) inset,0 8px 32px rgba(0,0,0,0.6);}
+.stat-card.c-gold{background:linear-gradient(145deg,#2a1f00 0%,#1a1400 100%);border:1px solid rgba(255,214,10,0.2);box-shadow:0 2px 0 rgba(255,214,10,0.08) inset,0 8px 32px rgba(0,0,0,0.6);}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;}
+.stat-card.c-red::before{background:linear-gradient(90deg,transparent,var(--red),transparent);}
+.stat-card.c-purple::before{background:linear-gradient(90deg,transparent,var(--purple),transparent);}
+.stat-card.c-cyan::before{background:linear-gradient(90deg,transparent,var(--cyan),transparent);}
+.stat-card.c-gold::before{background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.stat-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;font-family:'Share Tech Mono',monospace;}
+.stat-value{font-family:'Orbitron',sans-serif;font-size:38px;font-weight:900;line-height:1;}
+.stat-card.c-red .stat-value{color:var(--red);text-shadow:0 0 20px rgba(255,45,85,0.5);}
+.stat-card.c-purple .stat-value{color:var(--purple);text-shadow:0 0 20px rgba(155,93,229,0.5);}
+.stat-card.c-cyan .stat-value{color:var(--cyan);text-shadow:0 0 20px rgba(0,245,212,0.5);}
+.stat-card.c-gold .stat-value{color:var(--gold);text-shadow:0 0 20px rgba(255,214,10,0.5);}
+
+/* TOURNAMENT CARDS */
+.tournament-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:20px;}
+.t-card{background:linear-gradient(145deg,#16162a 0%,#0f0f1e 60%,#13131f 100%);border:1px solid rgba(30,30,58,0.9);border-radius:16px;padding:22px;position:relative;overflow:hidden;transform-style:preserve-3d;transition:transform 0.25s,box-shadow 0.25s;box-shadow:0 1px 0 rgba(255,255,255,0.04) inset,0 -1px 0 rgba(0,0,0,0.5) inset,0 8px 24px rgba(0,0,0,0.6),0 20px 0 rgba(0,0,0,0.2);}
+.t-card:hover{transform:translateY(-6px) rotateX(3deg) rotateY(-1deg);border-color:rgba(155,93,229,0.4);box-shadow:0 1px 0 rgba(255,255,255,0.06) inset,0 -1px 0 rgba(0,0,0,0.5) inset,0 20px 40px rgba(0,0,0,0.7),0 0 0 1px rgba(155,93,229,0.2),0 0 60px rgba(155,93,229,0.1);}
+.t-card::before{content:'';position:absolute;top:0;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);}
+.t-card-glow{position:absolute;top:0;left:0;right:0;height:80px;opacity:0.07;pointer-events:none;}
+.t-card.solo .t-card-glow{background:linear-gradient(180deg,var(--red),transparent);}
+.t-card.duo .t-card-glow{background:linear-gradient(180deg,var(--purple),transparent);}
+.t-card.squad .t-card-glow{background:linear-gradient(180deg,var(--cyan),transparent);}
+.t-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;gap:10px;}
+.t-name{font-size:16px;font-weight:700;line-height:1.3;font-family:'Orbitron',sans-serif;letter-spacing:0.5px;}
+.t-type-badge{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 10px;border-radius:20px;flex-shrink:0;font-family:'Share Tech Mono',monospace;}
+.badge-solo{background:rgba(255,45,85,0.12);color:var(--red);border:1px solid rgba(255,45,85,0.25);box-shadow:0 0 10px rgba(255,45,85,0.1);}
+.badge-duo{background:rgba(155,93,229,0.12);color:var(--purple);border:1px solid rgba(155,93,229,0.25);box-shadow:0 0 10px rgba(155,93,229,0.1);}
+.badge-squad{background:rgba(0,245,212,0.08);color:var(--cyan);border:1px solid rgba(0,245,212,0.2);box-shadow:0 0 10px rgba(0,245,212,0.08);}
+.badge-live{background:rgba(0,245,212,0.08);color:var(--cyan);border:1px solid rgba(0,245,212,0.2);}
+.badge-completed{background:rgba(100,100,180,0.1);color:#8888cc;border:1px solid rgba(100,100,180,0.2);}
+.badge-cancelled{background:rgba(255,45,85,0.1);color:var(--red);border:1px solid rgba(255,45,85,0.2);}
+.badge-pending{background:rgba(255,214,10,0.1);color:var(--gold);border:1px solid rgba(255,214,10,0.2);}
+.badge-approved{background:rgba(57,211,83,0.1);color:var(--green);border:1px solid rgba(57,211,83,0.2);}
+.badge-rejected{background:rgba(255,45,85,0.1);color:var(--red);border:1px solid rgba(255,45,85,0.2);}
+.badge-sm{font-size:9px;padding:4px 9px;letter-spacing:1.5px;font-family:'Share Tech Mono',monospace;}
+.t-meta{display:flex;gap:16px;margin-bottom:14px;flex-wrap:wrap;}
+.t-meta-item{font-size:12px;color:var(--muted);font-family:'Share Tech Mono',monospace;}
+.t-meta-item span{color:var(--text);font-weight:600;}
+.t-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(30,30,58,1),transparent);margin-bottom:14px;}
+.t-footer{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.t-fee{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;color:var(--gold);text-shadow:0 0 16px rgba(255,214,10,0.4);}
+.t-prize{font-size:12px;color:var(--muted);font-family:'Share Tech Mono',monospace;}
+.t-slots-bar{margin-top:10px;}
+.t-slots-label{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-bottom:4px;}
+.t-slots-track{height:4px;background:rgba(30,30,58,1);border-radius:2px;overflow:hidden;}
+.t-slots-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--cyan),var(--purple));transition:width 0.5s;}
+
+/* TABLE */
+.table-wrap{background:linear-gradient(180deg,#0f0f1e 0%,#0a0a16 100%);border:1px solid rgba(30,30,58,0.9);border-radius:14px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.5),0 1px 0 rgba(255,255,255,0.03) inset;}
+.table-wrap table{width:100%;border-collapse:collapse;}
+.table-wrap th{background:rgba(0,0,0,0.3);padding:12px 16px;text-align:left;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);font-weight:700;border-bottom:1px solid rgba(30,30,58,0.8);font-family:'Share Tech Mono',monospace;}
+.table-wrap td{padding:13px 16px;font-size:13px;border-bottom:1px solid rgba(20,20,36,0.8);font-weight:500;}
+.table-wrap tr:last-child td{border-bottom:none;}
+.table-wrap tr:hover td{background:rgba(155,93,229,0.04);}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,4,0.88);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
+.modal-overlay.open{display:flex;}
+.modal{background:linear-gradient(145deg,#14142a 0%,#0e0e1e 60%,#111120 100%);border:1px solid rgba(155,93,229,0.25);border-radius:18px;padding:32px;width:520px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 0 0 1px rgba(0,245,212,0.05),0 30px 80px rgba(0,0,0,0.9),0 0 100px rgba(155,93,229,0.1),inset 0 1px 0 rgba(255,255,255,0.05);animation:modalPop 0.25s cubic-bezier(0.34,1.56,0.64,1);position:relative;}
+.modal::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(0,245,212,0.4),rgba(155,93,229,0.4),transparent);}
+@keyframes modalPop{from{transform:scale(0.92) translateY(20px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
+.modal-title{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;letter-spacing:2px;margin-bottom:22px;background:linear-gradient(135deg,#fff,var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.modal-footer{display:flex;gap:10px;margin-top:24px;}
+
+.player-row{background:rgba(0,0,0,0.3);border:1px solid rgba(30,30,58,0.8);border-radius:12px;padding:14px;margin-bottom:10px;box-shadow:inset 0 2px 8px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.02);}
+.player-row-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);font-weight:700;margin-bottom:10px;font-family:'Share Tech Mono',monospace;text-shadow:0 0 10px rgba(0,245,212,0.3);}
+.player-fields{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.section-title{font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;letter-spacing:2px;margin-bottom:16px;display:flex;align-items:center;gap:12px;color:var(--text);}
+.section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(155,93,229,0.3),transparent);}
+
+/* TOAST */
+#toast{position:fixed;bottom:24px;right:24px;z-index:9999;background:linear-gradient(135deg,#14142a,#0e0e1e);border:1px solid rgba(30,30,58,0.8);border-radius:12px;padding:14px 20px;font-size:13px;font-weight:600;font-family:'Rajdhani',sans-serif;letter-spacing:0.5px;transform:translateX(130%);transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);max-width:320px;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
+#toast.show{transform:translateX(0);}
+#toast.success{border-left:3px solid var(--cyan);box-shadow:0 8px 32px rgba(0,0,0,0.6),0 0 30px rgba(0,245,212,0.1);}
+#toast.error{border-left:3px solid var(--red);box-shadow:0 8px 32px rgba(0,0,0,0.6),0 0 30px rgba(255,45,85,0.1);}
+#toast.info{border-left:3px solid var(--purple);}
+
+.empty-state{text-align:center;padding:60px 20px;color:var(--muted);}
+.empty-icon{font-size:44px;margin-bottom:12px;opacity:0.5;}
+.empty-text{font-size:14px;font-family:'Share Tech Mono',monospace;letter-spacing:1px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+.actions-cell{display:flex;gap:6px;flex-wrap:wrap;}
+
+/* CONFIRM DIALOG */
+.confirm-box{background:rgba(40,10,15,0.95);border:1px solid rgba(255,45,85,0.4);border-radius:14px;padding:24px;margin-bottom:16px;text-align:center;}
+.confirm-box .warn-icon{font-size:36px;margin-bottom:10px;}
+.confirm-box .warn-text{font-family:'Orbitron',sans-serif;font-size:14px;letter-spacing:1px;color:var(--red);margin-bottom:8px;}
+.confirm-box .warn-sub{font-size:12px;color:var(--muted);font-family:'Share Tech Mono',monospace;}
+
+/* PILL TABS */
+.pill-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.pill-tab{padding:8px 18px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;font-family:'Orbitron',sans-serif;cursor:pointer;border:1px solid var(--border);color:var(--muted);background:transparent;transition:all 0.15s;}
+.pill-tab.active{background:rgba(0,245,212,0.1);color:var(--cyan);border-color:rgba(0,245,212,0.3);}
+.pill-tab:hover:not(.active){color:var(--text);background:rgba(255,255,255,0.04);}
+
+/* ACTIVITY FEED */
+.activity-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid rgba(20,20,36,0.8);}
+.activity-item:last-child{border-bottom:none;}
+.activity-dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+.activity-dot.cyan{background:var(--cyan);box-shadow:0 0 8px rgba(0,245,212,0.5);}
+.activity-dot.gold{background:var(--gold);box-shadow:0 0 8px rgba(255,214,10,0.5);}
+.activity-dot.red{background:var(--red);box-shadow:0 0 8px rgba(255,45,85,0.5);}
+.activity-dot.purple{background:var(--purple);box-shadow:0 0 8px rgba(155,93,229,0.5);}
+.activity-text{font-size:13px;font-weight:500;line-height:1.4;}
+.activity-time{font-size:10px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-top:3px;}
+
+/* ADMIN SETTINGS PANEL */
+.settings-card{background:linear-gradient(145deg,#0f0f1e 0%,#0a0a16 100%);border:1px solid rgba(30,30,58,0.9);border-radius:16px;padding:24px;margin-bottom:20px;}
+.settings-card-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;color:var(--text);margin-bottom:18px;display:flex;align-items:center;gap:10px;}
+.settings-card-title .icon{font-size:18px;}
+.divider-line{height:1px;background:linear-gradient(90deg,transparent,rgba(30,30,58,1),transparent);margin:16px 0;}
+
+/* ONLINE DOT */
+.online-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(57,211,83,0.6);margin-right:5px;animation:pulse-dot 2s ease-in-out infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(155,93,229,0.3);border-radius:2px;}
+
+@media(max-width:720px){.sidebar{width:200px;}.main{margin-left:200px;padding:18px;}.player-fields,.two-col,.three-col{grid-template-columns:1fr;}}
+
+/* CONTACT STRIP */
+.contact-strip{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(90deg,rgba(4,4,10,0.97),rgba(14,14,28,0.97));border-top:1px solid rgba(0,245,212,0.15);padding:8px 20px;display:flex;align-items:center;justify-content:center;gap:12px;z-index:500;font-family:'Share Tech Mono',monospace;font-size:12px;}
+.contact-strip a{color:var(--cyan);text-decoration:none;font-weight:700;letter-spacing:1px;}
+.contact-strip a:hover{text-shadow:0 0 12px rgba(0,245,212,0.8);}
+
+/* PAYMENT BLOCK */
+.payment-block{background:rgba(255,214,10,0.04);border:1px solid rgba(255,214,10,0.2);border-radius:12px;padding:16px;margin-bottom:16px;}
+.payment-block-title{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.upi-box{background:rgba(0,0,0,0.4);border:1px solid rgba(255,214,10,0.15);border-radius:8px;padding:12px;text-align:center;margin-bottom:12px;}
+.upi-id{font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:var(--gold);letter-spacing:2px;text-shadow:0 0 12px rgba(255,214,10,0.4);}
+.upi-label{font-size:10px;color:var(--muted);font-family:'Share Tech Mono',monospace;letter-spacing:1px;margin-bottom:4px;}
+
+/* FORGOT PW */
+.forgot-link{text-align:right;margin-top:-10px;margin-bottom:14px;}
+.forgot-link a{font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace;cursor:pointer;letter-spacing:1px;text-decoration:none;}
+.forgot-link a:hover{color:var(--cyan);}
+
+/* FP REQUEST CARDS */
+.fp-request-card{background:rgba(0,0,0,0.3);border:1px solid rgba(255,214,10,0.2);border-radius:10px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+.fp-request-info{font-family:'Share Tech Mono',monospace;font-size:12px;}
+.fp-request-info strong{color:var(--gold);font-size:14px;}
+
+/* TOGGLE SWITCH */
+.toggle-wrap{display:flex;align-items:center;gap:12px;padding:12px;background:rgba(0,0,0,0.2);border-radius:8px;border:1px solid rgba(30,30,58,0.8);cursor:pointer;}
+.toggle-switch{width:44px;height:24px;background:rgba(30,30,58,0.8);border-radius:12px;position:relative;transition:background 0.2s;flex-shrink:0;}
+.toggle-switch.on{background:linear-gradient(90deg,var(--cyan),var(--purple));}
+.toggle-switch::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform 0.2s;box-shadow:0 1px 4px rgba(0,0,0,0.4);}
+.toggle-switch.on::after{transform:translateX(20px);}
+.toggle-label{font-size:12px;font-family:'Share Tech Mono',monospace;color:var(--text);letter-spacing:1px;}
+
+/* PAYMENT PROOF SECTION */
+.proof-upload{background:rgba(0,0,0,0.3);border:2px dashed rgba(155,93,229,0.3);border-radius:8px;padding:14px;text-align:center;font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace;letter-spacing:1px;}
+
+</style>
+</head>
+<body>
+<div id="toast"></div>
+
+<!-- CONTACT STRIP -->
+<div class="contact-strip">
+  <span style="color:var(--muted);font-size:11px">📞 SUPPORT & QUERIES:</span>
+  <a href="tel:7976726014">+91 7976726014</a>
+  <span style="color:var(--muted);font-size:10px">· WhatsApp Available</span>
+</div>
+
+<!-- AUTH -->
+<div id="auth-page" class="page active">
+  <div class="auth-wrap">
+    <div class="auth-logo">TournamentOS</div>
+    <div class="auth-tagline">// Compete · Conquer · Champion //</div>
+    <div class="auth-box" id="auth-box-3d">
+      <div class="auth-tabs">
+        <div class="auth-tab active" onclick="switchAuthTab('login')">Login</div>
+        <div class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</div>
+      </div>
+      <div id="login-form">
+        <div class="form-group">
+          <label class="form-label">⬡ Username</label>
+          <input type="text" id="login-username" class="form-input" placeholder="Enter username">
+        </div>
+        <div class="form-group">
+          <label class="form-label">⬡ Password</label>
+          <input type="password" id="login-password" class="form-input" placeholder="Enter password">
+        </div>
+        <div id="login-error" class="form-error"></div>
+        <button class="btn btn-primary" style="margin-top:10px" onclick="doLogin()">⚡ ENTER ARENA</button>
+        <div class="forgot-link" style="margin-top:10px"><a onclick="openForgotPassword()">Forgot Password?</a></div>
+        <p style="text-align:center;margin-top:10px;font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace">
+          Admin: <span style="color:var(--cyan)">admin</span> / <span style="color:var(--cyan)">admin123</span>
+        </p>
+      </div>
+      <div id="signup-form" style="display:none">
+        <div class="form-group">
+          <label class="form-label">⬡ Username</label>
+          <input type="text" id="signup-username" class="form-input" placeholder="Choose a callsign">
+        </div>
+        <div class="form-group">
+          <label class="form-label">⬡ Email (optional)</label>
+          <input type="email" id="signup-email" class="form-input" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">⬡ Password</label>
+          <input type="password" id="signup-password" class="form-input" placeholder="Create a password (min 4 chars)">
+        </div>
+        <div id="signup-msg" class="form-error"></div>
+        <button class="btn btn-primary" style="margin-top:10px" onclick="doSignup()">⚡ CREATE ACCOUNT</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- USER PAGE -->
+<div id="user-page" class="page">
+  <div class="layout">
+    <div class="sidebar">
+      <div class="sidebar-brand"><div class="sidebar-brand-icon">🏆</div>TOS</div>
+      <div class="sidebar-user">
+        <div class="avatar" id="user-avatar">U</div>
+        <div><div class="sidebar-username" id="user-name-display">Player</div><div class="sidebar-role">▸ Competitor</div></div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-item active" onclick="showUserSection('tournaments',this)"><span class="nav-icon">🏆</span> Tournaments</div>
+        <div class="nav-item" onclick="showUserSection('my-regs',this)"><span class="nav-icon">📋</span> My Registrations</div>
+      </nav>
+      <div class="sidebar-footer"><button class="btn btn-ghost" style="width:100%;font-size:10px" onclick="logout()">◀ LOGOUT</button></div>
+    </div>
+    <div class="main">
+      <div id="section-tournaments">
+        <div class="page-header"><div class="page-title">LIVE TOURNAMENTS</div><div class="page-subtitle">// Active arenas — register to compete</div></div>
+        <div class="tournament-grid" id="tournaments-grid"></div>
+      </div>
+      <div id="section-my-regs" style="display:none">
+        <div class="page-header"><div class="page-title">MY REGISTRATIONS</div><div class="page-subtitle">// Track your battle status</div></div>
+        <div id="my-regs-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN PAGE -->
+<div id="admin-page" class="page">
+  <div class="layout">
+    <div class="sidebar">
+      <div class="sidebar-brand"><div class="sidebar-brand-icon">👑</div>TOS</div>
+      <div class="sidebar-user">
+        <div class="avatar" style="background:linear-gradient(135deg,var(--gold),var(--red))">A</div>
+        <div><div class="sidebar-username" id="admin-name-display">ADMIN</div><div class="sidebar-role" style="color:var(--gold)">▸ System Control</div></div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-item active" onclick="showAdminSection('dashboard',this)"><span class="nav-icon">📊</span> Dashboard</div>
+        <div class="nav-item" onclick="showAdminSection('tournaments',this)"><span class="nav-icon">🏆</span> Tournaments</div>
+        <div class="nav-item" onclick="showAdminSection('registrations',this)"><span class="nav-icon">📋</span> Registrations</div>
+        <div class="nav-item" onclick="showAdminSection('users',this)"><span class="nav-icon">👥</span> Users</div>
+        <div class="nav-item" onclick="showAdminSection('forgot-requests',this)"><span class="nav-icon">🔐</span> PW Requests</div>
+        <div class="nav-item" onclick="showAdminSection('settings',this)"><span class="nav-icon">⚙️</span> Settings</div>
+      </nav>
+      <div class="sidebar-footer"><button class="btn btn-ghost" style="width:100%;font-size:10px" onclick="logout()">◀ LOGOUT</button></div>
+    </div>
+    <div class="main">
+      <!-- DASHBOARD -->
+      <div id="admin-section-dashboard">
+        <div class="page-header"><div class="page-title">COMMAND CENTER</div><div class="page-subtitle">// System overview & live statistics</div></div>
+        <div class="stats-grid">
+          <div class="stat-card c-red"><div class="stat-label">Total Users</div><div class="stat-value" id="stat-users">0</div></div>
+          <div class="stat-card c-purple"><div class="stat-label">Tournaments</div><div class="stat-value" id="stat-tournaments">0</div></div>
+          <div class="stat-card c-cyan"><div class="stat-label">Registrations</div><div class="stat-value" id="stat-regs">0</div></div>
+          <div class="stat-card c-gold"><div class="stat-label">Pending</div><div class="stat-value" id="stat-pending">0</div></div>
+        </div>
+        <div class="two-col" style="gap:20px;margin-bottom:24px">
+          <div>
+            <div class="section-title">Recent Registrations</div>
+            <div id="recent-regs-table"></div>
+          </div>
+          <div>
+            <div class="section-title">Activity Feed</div>
+            <div id="activity-feed" style="background:linear-gradient(180deg,#0f0f1e,#0a0a16);border:1px solid rgba(30,30,58,0.9);border-radius:14px;padding:16px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOURNAMENTS -->
+      <div id="admin-section-tournaments" style="display:none">
+        <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px">
+          <div><div class="page-title">TOURNAMENTS</div><div class="page-subtitle">// Manage all arenas</div></div>
+          <button class="btn btn-cyan" style="width:auto;font-size:10px" onclick="openCreateTournament()">+ CREATE ARENA</button>
+        </div>
+        <div class="pill-tabs">
+          <div class="pill-tab active" onclick="filterTournaments('all',this)">All</div>
+          <div class="pill-tab" onclick="filterTournaments('live',this)">Live</div>
+          <div class="pill-tab" onclick="filterTournaments('completed',this)">Completed</div>
+          <div class="pill-tab" onclick="filterTournaments('cancelled',this)">Cancelled</div>
+        </div>
+        <div class="tournament-grid" id="admin-tournaments-grid"></div>
+      </div>
+
+      <!-- REGISTRATIONS -->
+      <div id="admin-section-registrations" style="display:none">
+        <div class="page-header"><div class="page-title">REGISTRATIONS</div><div class="page-subtitle">// Approve or reject combatants</div></div>
+        <div class="pill-tabs">
+          <div class="pill-tab active" onclick="filterRegs('all',this)">All</div>
+          <div class="pill-tab" onclick="filterRegs('pending',this)">Pending</div>
+          <div class="pill-tab" onclick="filterRegs('approved',this)">Approved</div>
+          <div class="pill-tab" onclick="filterRegs('rejected',this)">Rejected</div>
+        </div>
+        <div id="all-regs-table"></div>
+      </div>
+
+      <!-- USERS -->
+      <div id="admin-section-users" style="display:none">
+        <div class="page-header"><div class="page-title">PLAYERS</div><div class="page-subtitle">// All registered combatants — edit or remove</div></div>
+        <div id="users-table"></div>
+      </div>
+
+      <!-- FORGOT PW REQUESTS -->
+      <div id="admin-section-forgot-requests" style="display:none">
+        <div class="page-header"><div class="page-title">PW RESET REQUESTS</div><div class="page-subtitle">// Approve or reject password reset requests from players</div></div>
+        <div id="forgot-requests-list"></div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div id="admin-section-settings" style="display:none">
+        <div class="page-header"><div class="page-title">SETTINGS</div><div class="page-subtitle">// Admin account & system configuration</div></div>
+
+        <!-- Change Admin Username -->
+        <div class="settings-card">
+          <div class="settings-card-title"><span class="icon">👤</span> Change Admin Username</div>
+          <div class="two-col">
+            <div class="form-group">
+              <label class="form-label">Current Username</label>
+              <input type="text" id="s-current-username" class="form-input" placeholder="Current username" readonly style="opacity:0.6;cursor:not-allowed;">
+            </div>
+            <div class="form-group">
+              <label class="form-label">New Username</label>
+              <input type="text" id="s-new-username" class="form-input" placeholder="Enter new username">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Confirm with Password</label>
+            <input type="password" id="s-confirm-pw-for-username" class="form-input" placeholder="Enter current password to confirm">
+          </div>
+          <button class="btn btn-cyan" style="width:auto" onclick="changeAdminUsername()">💾 SAVE USERNAME</button>
+        </div>
+
+        <!-- Change Admin Password -->
+        <div class="settings-card">
+          <div class="settings-card-title"><span class="icon">🔒</span> Change Admin Password</div>
+          <div class="three-col">
+            <div class="form-group">
+              <label class="form-label">Current Password</label>
+              <input type="password" id="s-old-password" class="form-input" placeholder="••••••••">
+            </div>
+            <div class="form-group">
+              <label class="form-label">New Password</label>
+              <input type="password" id="s-new-password" class="form-input" placeholder="Min 4 characters">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Confirm New Password</label>
+              <input type="password" id="s-confirm-password" class="form-input" placeholder="Repeat new password">
+            </div>
+          </div>
+          <button class="btn btn-gold" style="width:auto" onclick="changeAdminPassword()">🔑 UPDATE PASSWORD</button>
+        </div>
+
+        <!-- UPI Payment Settings -->
+        <div class="settings-card">
+          <div class="settings-card-title"><span class="icon">💳</span> UPI Payment Settings</div>
+          <p style="font-size:12px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-bottom:16px;line-height:1.7">Set your UPI ID here. Players will see direct <strong style="color:var(--cyan)">PhonePe / Google Pay / Paytm</strong> payment buttons that auto-fill the amount & UPI ID — no gateway needed.</p>
+          <div class="two-col">
+            <div class="form-group">
+              <label class="form-label">UPI ID</label>
+              <input type="text" id="s-upi-id" class="form-input" placeholder="e.g. 7976726014@ybl">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Display Name (Merchant Name)</label>
+              <input type="text" id="s-upi-name" class="form-input" placeholder="e.g. TournamentOS Payments">
+            </div>
+          </div>
+          <div id="s-upi-preview" style="display:none;background:rgba(0,245,212,0.04);border:1px solid rgba(0,245,212,0.2);border-radius:10px;padding:12px;margin-bottom:14px;font-family:'Share Tech Mono',monospace;font-size:12px;">
+            <div style="color:var(--muted);margin-bottom:6px;letter-spacing:1px">CURRENT UPI</div>
+            <div id="s-upi-current" style="color:var(--cyan);font-size:15px;font-weight:700;letter-spacing:1px"></div>
+          </div>
+          <button class="btn btn-cyan" style="width:auto" onclick="saveUpiSettings()">💾 SAVE UPI SETTINGS</button>
+        </div>
+
+        <!-- System Info -->
+        <div class="settings-card">
+          <div class="settings-card-title"><span class="icon">📡</span> System Information</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">VERSION<br><span style="color:var(--cyan);font-size:15px;font-weight:700">TOS v2.0.0</span></div>
+            <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">STATUS<br><span style="color:var(--green);font-size:15px;font-weight:700"><span class="online-dot"></span>ONLINE</span></div>
+            <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">STORAGE<br><span id="sys-storage" style="color:var(--gold);font-size:13px">—</span></div>
+            <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">ADMIN SINCE<br><span id="sys-since" style="color:var(--text);font-size:13px">—</span></div>
+          </div>
+          <div class="divider-line"></div>
+          <button class="btn btn-red" style="width:auto;font-size:10px" onclick="openDangerZone()">⚠ DANGER ZONE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER MODAL -->
+<div class="modal-overlay" id="register-modal">
+  <div class="modal">
+    <div class="modal-title">⚔ REGISTER</div>
+    <div id="register-tournament-info" style="margin-bottom:18px"></div>
+    <div id="players-fields"></div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" style="flex:1" onclick="proceedToPayment()">💳 NEXT: PAYMENT</button>
+      <button class="btn btn-ghost" style="width:auto" onclick="closeModal('register-modal')">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- CREATE TOURNAMENT MODAL -->
+<div class="modal-overlay" id="create-tournament-modal">
+  <div class="modal">
+    <div class="modal-title">⚡ CREATE ARENA</div>
+    <div class="two-col">
+      <div class="form-group"><label class="form-label">⬡ Tournament Name</label><input type="text" id="ct-name" class="form-input" placeholder="Winter Clash 2025"></div>
+      <div class="form-group"><label class="form-label">⬡ Type</label><select id="ct-type" class="form-input"><option value="solo">Solo (1 player)</option><option value="duo">Duo (2 players)</option><option value="squad">Squad (4 players)</option></select></div>
+    </div>
+    <div class="two-col">
+      <div class="form-group"><label class="form-label">⬡ Entry Fee (₹)</label><input type="number" id="ct-fee" class="form-input" placeholder="100" min="0"></div>
+      <div class="form-group"><label class="form-label">⬡ Prize Pool</label><input type="text" id="ct-prize" class="form-input" placeholder="₹10,000"></div>
+    </div>
+    <div class="two-col">
+      <div class="form-group"><label class="form-label">⬡ Date</label><input type="date" id="ct-date" class="form-input"></div>
+      <div class="form-group">
+        <label class="form-label">⬡ Max Slots</label>
+        <input type="number" id="ct-slots" class="form-input" placeholder="16" min="2" max="9999">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="toggle-wrap" onclick="toggleUnlimitedSlots()" id="unlimited-slots-toggle">
+        <div class="toggle-switch" id="unlimited-slots-switch"></div>
+        <div>
+          <div class="toggle-label">♾ UNLIMITED SLOTS</div>
+          <div style="font-size:10px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-top:2px">No player cap — open to all registrations</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group"><label class="form-label">⬡ Description (optional)</label><textarea id="ct-desc" class="form-input" rows="2" placeholder="Brief description of this tournament..."></textarea></div>
+    <div class="modal-footer">
+      <button class="btn btn-cyan" style="flex:1" onclick="submitCreateTournament()">⚡ CREATE TOURNAMENT</button>
+      <button class="btn btn-ghost" style="width:auto" onclick="closeModal('create-tournament-modal')">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT USER MODAL -->
+<div class="modal-overlay" id="edit-user-modal">
+  <div class="modal">
+    <div class="modal-title">✏ EDIT PLAYER</div>
+    <input type="hidden" id="edit-user-id">
+    <div class="form-group">
+      <label class="form-label">⬡ Username / Callsign</label>
+      <input type="text" id="edit-user-username" class="form-input" placeholder="New callsign">
+    </div>
+    <div class="divider-line" style="margin:12px 0"></div>
+    <div style="font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-bottom:14px;letter-spacing:1px">// RESET PASSWORD (leave blank to keep unchanged)</div>
+    <div class="two-col">
+      <div class="form-group"><label class="form-label">New Password</label><input type="password" id="edit-user-password" class="form-input" placeholder="Leave blank to keep"></div>
+      <div class="form-group"><label class="form-label">Confirm Password</label><input type="password" id="edit-user-password2" class="form-input" placeholder="Repeat new password"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cyan" style="flex:1" onclick="submitEditUser()">💾 SAVE CHANGES</button>
+      <button class="btn btn-ghost" style="width:auto" onclick="closeModal('edit-user-modal')">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE USER MODAL -->
+<div class="modal-overlay" id="delete-user-modal">
+  <div class="modal">
+    <div class="modal-title">⚠ DELETE PLAYER</div>
+    <input type="hidden" id="delete-user-id">
+    <div class="confirm-box">
+      <div class="warn-icon">🗑</div>
+      <div class="warn-text">PERMANENT ACTION</div>
+      <div class="warn-sub">You are about to permanently delete player <strong id="delete-user-name" style="color:var(--red)"></strong>. All their registrations will also be removed. This cannot be undone.</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-red" style="flex:1" onclick="confirmDeleteUser()">🗑 DELETE PERMANENTLY</button>
+      <button class="btn btn-ghost" style="width:auto" onclick="closeModal('delete-user-modal')">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- DANGER ZONE MODAL -->
+<div class="modal-overlay" id="danger-modal">
+  <div class="modal">
+    <div class="modal-title" style="color:var(--red)">⚠ DANGER ZONE</div>
+    <div class="confirm-box">
+      <div class="warn-icon">💣</div>
+      <div class="warn-text">RESET ALL DATA</div>
+      <div class="warn-sub">This will delete all users, tournaments, and registrations. The admin account will be reset to defaults. This is <strong style="color:var(--red)">irreversible</strong>.</div>
+    </div>
+    <div class="form-group" style="margin-top:10px">
+      <label class="form-label">Type <span style="color:var(--red)">RESET</span> to confirm</label>
+      <input type="text" id="danger-confirm-input" class="form-input" placeholder="RESET">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-red" style="flex:1" onclick="doSystemReset()">💥 WIPE SYSTEM</button>
+      <button class="btn btn-ghost" style="width:auto" onclick="closeModal('danger-modal')">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- FORGOT PASSWORD MODAL (User side) -->
+<div class="modal-overlay" id="forgot-pw-modal">
+  <div class="modal">
+    <div class="modal-title">🔐 FORGOT PASSWORD</div>
+    <p style="font-size:13px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-bottom:20px;line-height:1.6">Submit a password reset request. Admin will review and set a new password for your account.</p>
+    <div class="form-group">
+      <label class="form-label">⬡ Your Username</label>
+      <input type="text" id="fp-username" class="form-input" placeholder="Enter your username">
+    </div>
+    <div class="form-group">
+      <label class="form-label">⬡ Contact Number (for verification)</label>
+      <input type="text" id="fp-phone" class="form-input" placeholder="10-digit phone number">
+    </div>
+    <div class="form-group">
+      <label class="form-label">⬡ Reason / Note (optional)</label>
+      <textarea id="fp-reason" class="form-input" rows="2" placeholder="e.g. forgot my password, phone changed..."></textarea>
+    </div>
+    <div id="fp-msg" class="form-error"></div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" style="flex:1" onclick="submitForgotRequest()">📨 SUBMIT REQUEST</button>
+      <button class="btn btn-ghost" style="width:auto" onclick="closeModal('forgot-pw-modal')">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN: APPROVE FORGOT PW MODAL -->
+<div class="modal-overlay" id="approve-fp-modal">
+  <div class="modal">
+    <div class="modal-title">🔑 RESET USER PASSWORD</div>
+    <input type="hidden" id="afp-request-id">
+    <div id="afp-user-info" style="margin-bottom:16px;padding:12px;background:rgba(0,0,0,0.3);border-radius:8px;font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--muted)"></div>
+    <div class="form-group">
+      <label class="form-label">⬡ Set New Password</label>
+      <input type="password" id="afp-new-pw" class="form-input" placeholder="New password (min 4 chars)">
+    </div>
+    <div class="form-group">
+      <label class="form-label">⬡ Confirm New Password</label>
+      <input type="password" id="afp-confirm-pw" class="form-input" placeholder="Repeat new password">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cyan" style="flex:1" onclick="adminApproveForgotPw()">✓ APPROVE & RESET</button>
+      <button class="btn btn-red" style="width:auto" onclick="adminRejectForgotPw()">✗ REJECT</button>
+      <button class="btn btn-ghost" style="width:auto" onclick="closeModal('approve-fp-modal')">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAYMENT MODAL — UPI DEEP LINK -->
+<div class="modal-overlay" id="payment-modal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-title">💳 PAY & REGISTER</div>
+    <div id="payment-tournament-info" style="margin-bottom:16px"></div>
+
+    <!-- UPI App Buttons (hidden for free) -->
+    <div id="upi-pay-section">
+      <div class="payment-block">
+        <div class="payment-block-title">⚡ PAY INSTANTLY — CHOOSE YOUR APP</div>
+        <div id="upi-app-buttons" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px"></div>
+        <div class="upi-box" style="margin-bottom:10px">
+          <div class="upi-label">UPI ID</div>
+          <div class="upi-id" id="pay-display-upi-id">—</div>
+          <button onclick="copyUpiId()" style="margin-top:6px;background:rgba(0,245,212,0.1);border:1px solid rgba(0,245,212,0.25);color:var(--cyan);font-size:10px;padding:4px 12px;border-radius:6px;cursor:pointer;font-family:'Share Tech Mono',monospace;letter-spacing:1px">📋 COPY UPI ID</button>
+        </div>
+        <div style="font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace;line-height:1.8;background:rgba(0,0,0,0.3);padding:10px;border-radius:8px">
+          ① Tap a button above → your UPI app opens with amount &amp; ID pre-filled<br>
+          ② Complete payment in the app<br>
+          ③ Come back here &amp; enter your <strong style="color:var(--gold)">Transaction ID</strong><br>
+          ④ Admin verifies &amp; approves your slot
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">⬡ Transaction ID / UTR Number <span style="color:var(--red)">*</span></label>
+        <input type="text" id="pay-txn-id" class="form-input" placeholder="12-digit UTR / Transaction ID">
+      </div>
+      <div class="form-group">
+        <label class="form-label">⬡ Paid Via</label>
+        <select id="pay-app-used" class="form-input">
+          <option value="">— Select app used —</option>
+          <option value="PhonePe">PhonePe</option>
+          <option value="Google Pay">Google Pay</option>
+          <option value="Paytm">Paytm</option>
+          <option value="BHIM">BHIM UPI</option>
+          <option value="Other">Other UPI App</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Free tournament message -->
+    <div id="free-pay-section" style="display:none;text-align:center;padding:20px;background:rgba(57,211,83,0.06);border:1px solid rgba(57,211,83,0.2);border-radius:12px;margin-bottom:16px">
+      <div style="font-size:32px;margin-bottom:8px">🎉</div>
+      <div style="font-family:'Orbitron',sans-serif;font-size:14px;color:var(--green);letter-spacing:2px">FREE TOURNAMENT</div>
+      <div style="font-size:12px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-top:6px">No payment required. Click confirm to register!</div>
+    </div>
+
+    <div id="payment-note" style="display:none"></div>
+    <div class="modal-footer">
+      <button class="btn btn-gold" style="flex:1" onclick="submitWithPayment()">⚡ CONFIRM & REGISTER</button>
+      <button class="btn btn-ghost" style="width:auto" onclick="closeModal('payment-modal')">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SUPABASE CLIENT — auto-loaded from CDN
+     Replace SUPABASE_URL and SUPABASE_ANON_KEY below with your
+     values from Supabase > Project Settings > API
+============================================================ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// ============================================================
+// ⚙️  CONFIGURATION — EDIT THESE TWO VALUES
+// ============================================================
+const SUPABASE_URL  = 'https://wzjnphmaxqogecoynkic.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6am5waG1heHFvZ2Vjb3lua2ljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwOTY2NjgsImV4cCI6MjA5MDY3MjY2OH0.8FHIztYmgc0fIxXe1vt-iX0MWkb9It8ALPD-KnDC3JU';
+// ============================================================
+
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
+
+// ======================== LOADING UI ========================
+function showLoader(msg='Loading...'){
+  let el=document.getElementById('global-loader');
+  if(!el){el=document.createElement('div');el.id='global-loader';
+    el.style.cssText='position:fixed;inset:0;background:rgba(4,4,10,0.85);z-index:9998;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;backdrop-filter:blur(4px)';
+    el.innerHTML=`<div style="width:36px;height:36px;border:3px solid rgba(0,245,212,0.2);border-top-color:var(--cyan);border-radius:50%;animation:spin 0.8s linear infinite"></div><div id="loader-msg" style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:2px"></div>`;
+    const style=document.createElement('style');style.textContent='@keyframes spin{to{transform:rotate(360deg)}}';document.head.appendChild(style);
+    document.body.appendChild(el);}
+  document.getElementById('loader-msg').textContent=msg;el.style.display='flex';
+}
+function hideLoader(){const el=document.getElementById('global-loader');if(el)el.style.display='none';}
+
+// ======================== UTILS ========================
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+document.body.style.paddingBottom='40px';
+
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+function toast(msg,type='info'){const el=document.getElementById('toast');el.textContent=msg;el.className='show '+type;clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),3800);}
+function typeBadge(t){return`<span class="t-type-badge badge-${t}">${t.toUpperCase()}</span>`;}
+function statusBadge(s){return`<span class="t-type-badge badge-sm badge-${s}">${s.toUpperCase()}</span>`;}
+function playerCount(t){return{solo:1,duo:2,squad:4}[t]||1;}
+function timeAgo(ts){const d=Date.now()-ts;if(d<60000)return'just now';if(d<3600000)return Math.floor(d/60000)+'m ago';if(d<86400000)return Math.floor(d/3600000)+'h ago';return Math.floor(d/86400000)+'d ago';}
+
+async function addActivity(type,text){
+  await sb.from('activity').insert({type,text,time:Date.now()});
+}
+
+// ======================== SUPABASE CONFIG CHECK ========================
+function isConfigured(){
+  return SUPABASE_URL!=='PASTE_YOUR_SUPABASE_URL_HERE' && SUPABASE_ANON!=='PASTE_YOUR_SUPABASE_ANON_KEY_HERE';
+}
+
+// ======================== STATE ========================
+let currentUser=null, registeringTournamentId=null, currentRegFilter='all', currentTFilter='all';
+
+// ======================== BOOT ========================
+window.addEventListener('DOMContentLoaded', async ()=>{
+  if(!isConfigured()){
+    document.body.innerHTML=`<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;font-family:'Share Tech Mono',monospace;text-align:center;padding:30px">
+      <div style="font-size:48px">⚙️</div>
+      <div style="font-size:22px;color:#00f5d4;font-family:'Orbitron',sans-serif;letter-spacing:3px">SETUP REQUIRED</div>
+      <div style="color:#6666aa;font-size:13px;max-width:460px;line-height:1.8">Open <strong style="color:#fff">index.html</strong> and replace<br>
+        <code style="background:#111;padding:4px 10px;border-radius:4px;color:#ffd60a">PASTE_YOUR_SUPABASE_URL_HERE</code><br>and<br>
+        <code style="background:#111;padding:4px 10px;border-radius:4px;color:#ffd60a">PASTE_YOUR_SUPABASE_ANON_KEY_HERE</code><br>
+        with your actual Supabase credentials.</div>
+      <div style="color:#3a3a6a;font-size:11px">Refer to the SETUP-GUIDE.md for full instructions.</div>
+    </div>`;
+    return;
+  }
+  // Test connection
+  showLoader('CONNECTING TO DATABASE...');
+  try{
+    const {error}=await sb.from('users').select('id').limit(1);
+    if(error)throw error;
+    hideLoader();
+  } catch(e){
+    hideLoader();
+    toast('⚠ Database connection failed. Check your Supabase credentials.','error');
+    console.error(e);
+  }
+});
+
+// ======================== AUTH ========================
+function switchAuthTab(tab){
+  document.querySelectorAll('.auth-tab').forEach((t,i)=>t.classList.toggle('active',i===(tab==='login'?0:1)));
+  document.getElementById('login-form').style.display=tab==='login'?'block':'none';
+  document.getElementById('signup-form').style.display=tab==='signup'?'block':'none';
+}
+
+async function doLogin(){
+  const u=document.getElementById('login-username').value.trim();
+  const p=document.getElementById('login-password').value;
+  const err=document.getElementById('login-error');err.textContent='';
+  if(!u||!p){err.textContent='⚠ Please fill all fields.';return;}
+  showLoader('AUTHENTICATING...');
+  const {data,error}=await sb.from('users').select('*').eq('username',u).eq('password',p).single();
+  hideLoader();
+  if(error||!data){err.textContent='⚠ Invalid credentials.';return;}
+  currentUser={...data,createdAt:data.created_at};
+  await addActivity('purple',`${data.username} logged in`);
+  if(data.role==='admin'){
+    document.getElementById('admin-name-display').textContent=data.username.toUpperCase();
+    showPage('admin-page');loadAdminDashboard();
+  }else{
+    showPage('user-page');
+    document.getElementById('user-avatar').textContent=data.username[0].toUpperCase();
+    document.getElementById('user-name-display').textContent=data.username.toUpperCase();
+    loadTournaments();
+  }
+}
+
+async function doSignup(){
+  const u=document.getElementById('signup-username').value.trim();
+  const p=document.getElementById('signup-password').value;
+  const email=document.getElementById('signup-email').value.trim();
+  const msg=document.getElementById('signup-msg');msg.className='form-error';msg.textContent='';
+  if(!u||!p){msg.textContent='⚠ Please fill all fields.';return;}
+  if(u.length<3){msg.textContent='⚠ Username must be 3+ characters.';return;}
+  if(p.length<4){msg.textContent='⚠ Password must be 4+ characters.';return;}
+  showLoader('CREATING ACCOUNT...');
+  const {data:existing}=await sb.from('users').select('id').eq('username',u).single();
+  if(existing){hideLoader();msg.textContent='⚠ Username already taken.';return;}
+  const newUser={id:uid(),username:u,password:p,email:email||null,role:'user',created_at:Date.now()};
+  const {error}=await sb.from('users').insert(newUser);
+  hideLoader();
+  if(error){msg.textContent='⚠ Registration failed. Try again.';console.error(error);return;}
+  await addActivity('cyan',`New player "${u}" registered`);
+  msg.className='form-success';msg.textContent='✓ Account created! You can now login.';
+  setTimeout(()=>switchAuthTab('login'),1400);
+}
+
+async function logout(){
+  if(currentUser)await addActivity('purple',`${currentUser.username} logged out`);
+  currentUser=null;showPage('auth-page');
+  document.getElementById('login-username').value='';
+  document.getElementById('login-password').value='';
+  document.getElementById('login-error').textContent='';
+}
+
+// ======================== USER SECTIONS ========================
+function showUserSection(name,el){
+  document.querySelectorAll('#user-page .nav-item').forEach(i=>i.classList.remove('active'));el.classList.add('active');
+  ['tournaments','my-regs'].forEach(s=>document.getElementById('section-'+s).style.display='none');
+  document.getElementById('section-'+name).style.display='block';
+  if(name==='tournaments')loadTournaments();
+  if(name==='my-regs')loadMyRegistrations();
+}
+
+async function loadTournaments(){
+  showLoader('LOADING ARENAS...');
+  const {data:ts}=await sb.from('tournaments').select('*').eq('status','live').order('created_at',{ascending:false});
+  const {data:regs}=await sb.from('registrations').select('*');
+  hideLoader();
+  const grid=document.getElementById('tournaments-grid');
+  if(!ts||!ts.length){grid.innerHTML='<div class="empty-state"><div class="empty-icon">🏆</div><div class="empty-text">// NO LIVE TOURNAMENTS</div></div>';return;}
+  const allRegs=regs||[];
+  grid.innerHTML=ts.map(t=>{
+    const regCount=allRegs.filter(r=>r.tournament_id===t.id&&r.status!=='rejected').length;
+    const unlimited=t.unlimited_slots;
+    const maxSlots=unlimited?'∞':t.max_slots||16;
+    const pct=unlimited?Math.min(100,regCount*5):Math.min(100,Math.round((regCount/(t.max_slots||16))*100));
+    return`<div class="t-card ${t.type}"><div class="t-card-glow"></div>
+      <div class="t-card-header"><div class="t-name">${t.name}</div>${typeBadge(t.type)}</div>
+      <div class="t-meta">
+        <div class="t-meta-item">DATE: <span>${t.date}</span></div>
+        <div class="t-meta-item">PLAYERS: <span>${playerCount(t.type)}</span></div>
+        ${unlimited?`<div class="t-meta-item">SLOTS: <span style="color:var(--cyan)">♾ UNLIMITED</span></div>`:''}
+      </div>
+      ${t.description?`<div style="font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-bottom:10px;line-height:1.5">${t.description}</div>`:''}
+      <div class="t-divider"></div>
+      <div class="t-footer"><div class="t-fee">${t.entry_fee>0?'₹'+t.entry_fee:'FREE'}</div><div class="t-prize">🏅 ${t.prize}</div></div>
+      <div class="t-slots-bar"><div class="t-slots-label"><span>SLOTS FILLED</span><span>${regCount}/${maxSlots}</span></div><div class="t-slots-track"><div class="t-slots-fill" style="width:${pct}%"></div></div></div>
+      <button class="btn btn-primary" style="font-size:10px;padding:10px 16px;margin-top:12px" onclick="openRegister('${t.id}')">⚔ REGISTER NOW</button>
+    </div>`;
+  }).join('');
+}
+
+async function loadMyRegistrations(){
+  showLoader('LOADING YOUR REGISTRATIONS...');
+  const {data:regs}=await sb.from('registrations').select('*').eq('user_id',currentUser.id).order('created_at',{ascending:false});
+  const {data:ts}=await sb.from('tournaments').select('*');
+  hideLoader();
+  const el=document.getElementById('my-regs-list');
+  if(!regs||!regs.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-text">// NO REGISTRATIONS YET</div></div>';return;}
+  el.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Tournament</th><th>Type</th><th>Team</th><th>Status</th><th>Date</th></tr></thead><tbody>${regs.map(r=>{
+    const t=(ts||[]).find(x=>x.id===r.tournament_id);
+    return`<tr><td><strong style="font-family:'Orbitron',sans-serif;font-size:12px">${t?t.name:'—'}</strong></td><td>${t?typeBadge(t.type):'—'}</td><td style="font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace">${r.players.map(p=>`<span style="color:var(--text)">${p.username}</span>`).join(', ')}</td><td>${statusBadge(r.status)}</td><td style="font-size:11px;font-family:'Share Tech Mono',monospace;color:var(--muted)">${timeAgo(r.created_at)}</td></tr>`;
+  }).join('')}</tbody></table></div>`;
+}
+
+// ======================== REGISTER ========================
+async function openRegister(tId){
+  registeringTournamentId=tId;
+  showLoader('LOADING TOURNAMENT...');
+  const {data:t}=await sb.from('tournaments').select('*').eq('id',tId).single();
+  hideLoader();
+  if(!t)return;
+  const count=playerCount(t.type);
+  document.getElementById('register-tournament-info').innerHTML=`<div style="background:rgba(0,0,0,0.3);border:1px solid rgba(30,30,58,0.8);border-radius:12px;padding:14px;display:flex;gap:20px;flex-wrap:wrap;align-items:center">
+    <div><div style="font-size:10px;color:var(--muted);letter-spacing:2px;font-family:'Share Tech Mono',monospace">ARENA</div><div style="font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;margin-top:3px">${t.name}</div></div>
+    <div><div style="font-size:10px;color:var(--muted);letter-spacing:2px;font-family:'Share Tech Mono',monospace">MODE</div><div style="margin-top:4px">${typeBadge(t.type)}</div></div>
+    <div><div style="font-size:10px;color:var(--muted);letter-spacing:2px;font-family:'Share Tech Mono',monospace">ENTRY</div><div style="font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:var(--gold);margin-top:3px">${t.entry_fee>0?'₹'+t.entry_fee:'FREE'}</div></div>
+    <div><div style="font-size:10px;color:var(--muted);letter-spacing:2px;font-family:'Share Tech Mono',monospace">PRIZE</div><div style="font-size:14px;font-weight:600;color:var(--cyan);margin-top:3px">${t.prize}</div></div>
+  </div>`;
+  let html='';
+  for(let i=0;i<count;i++)html+=`<div class="player-row"><div class="player-row-title">▸ PLAYER ${i+1}${i===0?' — YOU':''}</div><div class="player-fields">
+    <div><label class="form-label" style="font-size:9px">Callsign</label><input type="text" class="form-input" id="p-${i}-username" placeholder="In-game name"${i===0?` value="${currentUser.username||''}"`:''} style="font-size:13px;padding:9px 12px"></div>
+    <div><label class="form-label" style="font-size:9px">UID</label><input type="text" class="form-input" id="p-${i}-uid" placeholder="Game UID" style="font-size:13px;padding:9px 12px"></div>
+    <div><label class="form-label" style="font-size:9px">Phone</label><input type="text" class="form-input" id="p-${i}-phone" placeholder="10 digits" style="font-size:13px;padding:9px 12px"></div>
+  </div></div>`;
+  document.getElementById('players-fields').innerHTML=html;
+  openModal('register-modal');
+}
+
+async function proceedToPayment(){
+  showLoader('CHECKING...');
+  const {data:t}=await sb.from('tournaments').select('*').eq('id',registeringTournamentId).single();
+  if(!t){hideLoader();toast('⚠ Tournament not found.','error');return;}
+  const count=playerCount(t.type);
+  for(let i=0;i<count;i++){
+    const username=document.getElementById(`p-${i}-username`).value.trim();
+    const uid2=document.getElementById(`p-${i}-uid`).value.trim();
+    const phone=document.getElementById(`p-${i}-phone`).value.trim();
+    if(!username||!uid2||!phone){hideLoader();toast('⚠ Fill all player fields.','error');return;}
+    if(!/^\d{10}$/.test(phone)){hideLoader();toast(`⚠ Player ${i+1}: Phone must be 10 digits.`,'error');return;}
+  }
+  const {data:existing}=await sb.from('registrations').select('id').eq('user_id',currentUser.id).eq('tournament_id',registeringTournamentId).single();
+  hideLoader();
+  if(existing){toast('⚠ Already registered!','error');return;}
+  closeModal('register-modal');
+
+  // Load UPI settings
+  const {data:upiRow}=await sb.from('settings').select('value').eq('key','upiSettings').single();
+  const upi=(upiRow&&upiRow.value)||{upiId:'7976726014@ybl',name:'TournamentOS Payments'};
+  const upiId=upi.upiId||'7976726014@ybl';
+  const upiName=encodeURIComponent(upi.name||'TournamentOS');
+  const upiNote=encodeURIComponent(`${currentUser.username} - ${t.name}`);
+  const fee=t.entry_fee;
+  const upiBase=`upi://pay?pa=${encodeURIComponent(upiId)}&pn=${upiName}&am=${fee}&cu=INR&tn=${upiNote}`;
+
+  document.getElementById('payment-tournament-info').innerHTML=`<div style="background:rgba(0,0,0,0.3);border:1px solid rgba(30,30,58,0.8);border-radius:10px;padding:12px;display:flex;gap:20px;flex-wrap:wrap;align-items:center;">
+    <div><div style="font-size:10px;color:var(--muted);font-family:'Share Tech Mono',monospace">ARENA</div><div style="font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700">${t.name}</div></div>
+    <div><div style="font-size:10px;color:var(--muted);font-family:'Share Tech Mono',monospace">ENTRY FEE</div><div style="font-family:'Orbitron',sans-serif;font-size:20px;font-weight:700;color:var(--gold)">${fee>0?'₹'+fee:'FREE'}</div></div>
+    <div><div style="font-size:10px;color:var(--muted);font-family:'Share Tech Mono',monospace">PLAYER</div><div style="font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;color:var(--cyan)">${currentUser.username}</div></div>
+  </div>`;
+
+  const upiSection=document.getElementById('upi-pay-section');
+  const freeSection=document.getElementById('free-pay-section');
+
+  if(fee===0||fee==='0'||!fee){
+    upiSection.style.display='none';freeSection.style.display='block';
+    document.getElementById('pay-txn-id').value='FREE';
+  } else {
+    upiSection.style.display='block';freeSection.style.display='none';
+    document.getElementById('pay-txn-id').value='';
+    document.getElementById('pay-app-used').value='';
+    document.getElementById('pay-display-upi-id').textContent=upiId;
+
+    const apps=[
+      {name:'PhonePe', icon:'📱', color:'#5f259f', bg:'rgba(95,37,159,0.15)', border:'rgba(95,37,159,0.4)',
+       url:`phonepe://pay?pa=${encodeURIComponent(upiId)}&pn=${upiName}&am=${fee}&cu=INR&tn=${upiNote}`},
+      {name:'Google Pay', icon:'🔵', color:'#4285f4', bg:'rgba(66,133,244,0.12)', border:'rgba(66,133,244,0.35)',
+       url:`tez://upi/pay?pa=${encodeURIComponent(upiId)}&pn=${upiName}&am=${fee}&cu=INR&tn=${upiNote}`},
+      {name:'Paytm', icon:'💙', color:'#00baf2', bg:'rgba(0,186,242,0.1)', border:'rgba(0,186,242,0.3)',
+       url:`paytmmp://pay?pa=${encodeURIComponent(upiId)}&pn=${upiName}&am=${fee}&cu=INR&tn=${upiNote}`},
+      {name:'BHIM', icon:'🇮🇳', color:'#ff6600', bg:'rgba(255,102,0,0.1)', border:'rgba(255,102,0,0.3)',
+       url:upiBase},
+      {name:'Any UPI', icon:'⚡', color:'#00f5d4', bg:'rgba(0,245,212,0.08)', border:'rgba(0,245,212,0.25)',
+       url:upiBase},
+      {name:'Copy Link', icon:'📋', color:'#ffd60a', bg:'rgba(255,214,10,0.08)', border:'rgba(255,214,10,0.25)',
+       url:null, copy:upiBase},
+    ];
+    document.getElementById('upi-app-buttons').innerHTML=apps.map(app=>`
+      <button onclick="${app.copy?`copyUpiLink('${app.copy.replace(/'/g,"\\'")}','${app.name}')`:`openUpiApp('${app.url.replace(/'/g,"\\'")}','${app.name}')`}"
+        style="background:${app.bg};border:1px solid ${app.border};border-radius:10px;padding:12px 6px;cursor:pointer;transition:all 0.15s;display:flex;flex-direction:column;align-items:center;gap:5px;color:${app.color};">
+        <span style="font-size:22px">${app.icon}</span>
+        <span style="font-family:'Share Tech Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.5px;color:${app.color}">${app.name}</span>
+      </button>`).join('');
+  }
+  openModal('payment-modal');
+}
+
+function openUpiApp(url,appName){
+  const a=document.createElement('a');a.href=url;a.click();
+  toast(`Opening ${appName}... Come back and enter your Transaction ID.`,'info');
+}
+function copyUpiLink(link){
+  navigator.clipboard.writeText(link).then(()=>toast('✓ UPI link copied!','success')).catch(()=>{const el=document.createElement('textarea');el.value=link;document.body.appendChild(el);el.select();document.execCommand('copy');document.body.removeChild(el);toast('✓ UPI link copied!','success');});
+}
+function copyUpiId(){
+  const id=document.getElementById('pay-display-upi-id').textContent;
+  navigator.clipboard.writeText(id).then(()=>toast('✓ UPI ID copied!','success')).catch(()=>{const el=document.createElement('textarea');el.value=id;document.body.appendChild(el);el.select();document.execCommand('copy');document.body.removeChild(el);toast('✓ UPI ID copied!','success');});
+}
+
+async function submitWithPayment(){
+  const txnId=document.getElementById('pay-txn-id').value.trim();
+  const appUsed=document.getElementById('pay-app-used')?document.getElementById('pay-app-used').value:'';
+  showLoader('CHECKING TOURNAMENT...');
+  const {data:t}=await sb.from('tournaments').select('*').eq('id',registeringTournamentId).single();
+  hideLoader();
+  if(!t)return;
+  const count=playerCount(t.type);
+  const fee=t.entry_fee;
+  if(fee>0&&!txnId){toast('⚠ Enter your Transaction ID / UTR number.','error');return;}
+  if(fee>0&&!appUsed){toast('⚠ Please select which UPI app you used.','error');return;}
+  const players=[];
+  for(let i=0;i<count;i++){
+    players.push({
+      username:document.getElementById(`p-${i}-username`).value.trim(),
+      uid:document.getElementById(`p-${i}-uid`).value.trim(),
+      phone:document.getElementById(`p-${i}-phone`).value.trim()
+    });
+  }
+  showLoader('SUBMITTING REGISTRATION...');
+  const {error}=await sb.from('registrations').insert({
+    id:uid(),user_id:currentUser.id,tournament_id:registeringTournamentId,
+    players,status:'pending',
+    payment:{txnId,appUsed,fee:fee,method:'upi'},
+    created_at:Date.now()
+  });
+  hideLoader();
+  if(error){toast('⚠ Registration failed. Try again.','error');console.error(error);return;}
+  await addActivity('gold',`${currentUser.username} registered for "${t.name}" via ${appUsed||'UPI'}`);
+  closeModal('payment-modal');toast('✓ Registered! Admin will verify payment & approve your slot.','success');
+}
+
+// ======================== ADMIN SECTIONS ========================
+function showAdminSection(name,el){
+  document.querySelectorAll('#admin-page .nav-item').forEach(i=>i.classList.remove('active'));el.classList.add('active');
+  ['dashboard','tournaments','registrations','users','forgot-requests','settings'].forEach(s=>document.getElementById('admin-section-'+s).style.display='none');
+  document.getElementById('admin-section-'+name).style.display='block';
+  if(name==='dashboard')loadAdminDashboard();
+  if(name==='tournaments')loadAdminTournaments();
+  if(name==='registrations')loadAllRegistrations();
+  if(name==='users')loadUsers();
+  if(name==='forgot-requests')loadForgotRequests();
+  if(name==='settings')loadSettings();
+}
+
+async function loadAdminDashboard(){
+  showLoader('LOADING DASHBOARD...');
+  const [{data:users},{data:ts},{data:regs},{data:fpReqs}]=await Promise.all([
+    sb.from('users').select('*').neq('role','admin'),
+    sb.from('tournaments').select('*'),
+    sb.from('registrations').select('*'),
+    sb.from('forgot_requests').select('*').eq('status','pending')
+  ]);
+  hideLoader();
+  document.getElementById('stat-users').textContent=(users||[]).length;
+  document.getElementById('stat-tournaments').textContent=(ts||[]).length;
+  document.getElementById('stat-regs').textContent=(regs||[]).length;
+  document.getElementById('stat-pending').textContent=(regs||[]).filter(r=>r.status==='pending').length;
+  const pending=fpReqs||[];
+  document.querySelectorAll('#admin-page .nav-item').forEach(item=>{
+    if(item.textContent.includes('PW Requests')){
+      const badge=pending.length>0?` <span style="background:var(--red);color:#fff;font-size:9px;padding:2px 6px;border-radius:8px;font-family:'Orbitron',sans-serif">${pending.length}</span>`:'';
+      item.innerHTML=`<span class="nav-icon">🔐</span> PW Requests${badge}`;
+    }
+  });
+  const recent=(regs||[]).slice(-5).reverse();
+  document.getElementById('recent-regs-table').innerHTML=recent.length?buildRegsTable(recent,true,users||[],ts||[]):'<div class="empty-state" style="padding:30px"><div class="empty-icon" style="font-size:28px">📋</div><div class="empty-text">// NO REGISTRATIONS YET</div></div>';
+  loadActivityFeed();
+}
+
+async function loadActivityFeed(){
+  const {data:acts}=await sb.from('activity').select('*').order('time',{ascending:false}).limit(10);
+  const el=document.getElementById('activity-feed');
+  if(!acts||!acts.length){el.innerHTML='<div class="empty-state" style="padding:20px"><div class="empty-text">// NO ACTIVITY</div></div>';return;}
+  el.innerHTML=acts.map(a=>`<div class="activity-item"><div class="activity-dot ${a.type}"></div><div><div class="activity-text">${a.text}</div><div class="activity-time">${timeAgo(a.time)}</div></div></div>`).join('');
+}
+
+function filterTournaments(filter,el){
+  currentTFilter=filter;
+  document.querySelectorAll('#admin-section-tournaments .pill-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');loadAdminTournaments();
+}
+
+async function loadAdminTournaments(){
+  showLoader('LOADING TOURNAMENTS...');
+  let q=sb.from('tournaments').select('*').order('created_at',{ascending:false});
+  if(currentTFilter!=='all')q=q.eq('status',currentTFilter);
+  const [{data:ts},{data:regs}]=await Promise.all([q, sb.from('registrations').select('*')]);
+  hideLoader();
+  const grid=document.getElementById('admin-tournaments-grid');
+  if(!ts||!ts.length){grid.innerHTML='<div class="empty-state"><div class="empty-icon">🏆</div><div class="empty-text">// NO TOURNAMENTS</div></div>';return;}
+  const allRegs=regs||[];
+  grid.innerHTML=ts.map(t=>{
+    const regCount=allRegs.filter(r=>r.tournament_id===t.id&&r.status!=='rejected').length;
+    const unlimited=t.unlimited_slots;
+    const maxSlots=unlimited?'∞':t.max_slots||16;
+    const pct=unlimited?Math.min(100,regCount*5):Math.min(100,Math.round((regCount/(t.max_slots||16))*100));
+    return`<div class="t-card ${t.type}"><div class="t-card-glow"></div>
+      <div class="t-card-header"><div class="t-name">${t.name}</div>${typeBadge(t.type)}</div>
+      <div class="t-meta"><div class="t-meta-item">DATE: <span>${t.date}</span></div><div class="t-meta-item">MODE: <span>${t.type.toUpperCase()}</span></div>${unlimited?`<div class="t-meta-item">SLOTS: <span style="color:var(--cyan)">♾ UNLIMITED</span></div>`:''}</div>
+      <div class="t-divider"></div>
+      <div class="t-footer"><div class="t-fee">${t.entry_fee>0?'₹'+t.entry_fee:'FREE'}</div><div>${statusBadge(t.status)}</div></div>
+      <div style="font-size:12px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-bottom:10px">PRIZE: <span style="color:var(--gold)">${t.prize}</span></div>
+      <div class="t-slots-bar"><div class="t-slots-label"><span>REGISTERED</span><span>${regCount}/${maxSlots}</span></div><div class="t-slots-track"><div class="t-slots-fill" style="width:${pct}%"></div></div></div>
+      <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">
+        ${t.status==='live'?`<button class="btn btn-ghost btn-sm" onclick="setTournamentStatus('${t.id}','completed')">✓ Mark Complete</button><button class="btn btn-red btn-sm" onclick="setTournamentStatus('${t.id}','cancelled')">✗ Cancel</button>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function setTournamentStatus(id,status){
+  showLoader('UPDATING...');
+  const {data:t}=await sb.from('tournaments').select('name').eq('id',id).single();
+  await sb.from('tournaments').update({status}).eq('id',id);
+  hideLoader();
+  await addActivity(status==='completed'?'cyan':'red',`Tournament "${t?.name}" marked as ${status}`);
+  toast(`✓ Tournament marked as ${status}.`,'success');loadAdminTournaments();
+}
+
+function filterRegs(filter,el){
+  currentRegFilter=filter;
+  document.querySelectorAll('#admin-section-registrations .pill-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');loadAllRegistrations();
+}
+
+async function loadAllRegistrations(){
+  showLoader('LOADING REGISTRATIONS...');
+  let q=sb.from('registrations').select('*').order('created_at',{ascending:false});
+  if(currentRegFilter!=='all')q=q.eq('status',currentRegFilter);
+  const [{data:regs},{data:users},{data:ts}]=await Promise.all([q,sb.from('users').select('*'),sb.from('tournaments').select('*')]);
+  hideLoader();
+  const el=document.getElementById('all-regs-table');
+  el.innerHTML=regs&&regs.length?buildRegsTable(regs,false,users||[],ts||[]):'<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-text">// NO REGISTRATIONS</div></div>';
+}
+
+function buildRegsTable(regs,compact,users=[],ts=[]){
+  return`<div class="table-wrap"><table><thead><tr><th>Player</th><th>Arena</th><th>Team</th><th>Payment</th><th>Status</th>${!compact?'<th>Time</th><th>Actions</th>':''}</tr></thead><tbody>${regs.map(r=>{
+    const user=users.find(u=>u.id===r.user_id);
+    const t=ts.find(x=>x.id===r.tournament_id);
+    const pList=(r.players||[]).map(p=>`<div style="font-family:'Share Tech Mono',monospace;font-size:11px"><span style="color:var(--text);font-weight:600">${p.username}</span> <span style="color:var(--muted)">${p.uid}</span></div>`).join('');
+    const pay=r.payment;
+    const payCell=pay?`<div style="font-family:'Share Tech Mono',monospace;font-size:10px">${pay.fee>0?`<span style="color:var(--gold)">₹${pay.fee}</span><br><span style="color:var(--muted)">${pay.appUsed||''}</span><br><span style="color:var(--cyan);font-size:9px">TXN: ${pay.txnId||'—'}</span>`:`<span style="color:var(--green)">FREE</span>`}</div>`:`<span style="color:var(--muted);font-size:10px">—</span>`;
+    const actions=!compact&&r.status==='pending'?`<div class="actions-cell"><button class="btn btn-cyan btn-sm" onclick="approveReg('${r.id}')">✓ OK</button><button class="btn btn-red btn-sm" onclick="rejectReg('${r.id}')">✗ REJ</button></div>`:(!compact?`<span style="color:var(--muted);font-size:11px;font-family:'Share Tech Mono',monospace">—</span>`:'');
+    return`<tr><td><strong style="font-family:'Orbitron',sans-serif;font-size:11px">${user?user.username:'—'}</strong></td><td style="font-size:12px;font-weight:600">${t?t.name:'—'}</td><td>${pList}</td><td>${payCell}</td><td>${statusBadge(r.status)}</td>${!compact?`<td style="font-size:11px;font-family:'Share Tech Mono',monospace;color:var(--muted)">${timeAgo(r.created_at)}</td><td>${actions}</td>`:''}</tr>`;
+  }).join('')}</tbody></table></div>`;
+}
+
+async function approveReg(id){
+  showLoader('APPROVING...');
+  const {data:r}=await sb.from('registrations').select('*,users(username)').eq('id',id).single();
+  await sb.from('registrations').update({status:'approved'}).eq('id',id);
+  hideLoader();
+  await addActivity('cyan',`Registration approved for ${r?.users?.username||'user'}`);
+  toast('✓ Registration approved!','success');loadAllRegistrations();loadAdminDashboard();
+}
+
+async function rejectReg(id){
+  showLoader('REJECTING...');
+  const {data:r}=await sb.from('registrations').select('*,users(username)').eq('id',id).single();
+  await sb.from('registrations').update({status:'rejected'}).eq('id',id);
+  hideLoader();
+  await addActivity('red',`Registration rejected for ${r?.users?.username||'user'}`);
+  toast('✗ Registration rejected.','error');loadAllRegistrations();loadAdminDashboard();
+}
+
+// ======================== USERS ========================
+async function loadUsers(){
+  showLoader('LOADING PLAYERS...');
+  const [{data:users},{data:regs}]=await Promise.all([
+    sb.from('users').select('*').neq('role','admin').order('created_at',{ascending:false}),
+    sb.from('registrations').select('*')
+  ]);
+  hideLoader();
+  const el=document.getElementById('users-table');
+  if(!users||!users.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">👥</div><div class="empty-text">// NO PLAYERS YET</div></div>';return;}
+  const allRegs=regs||[];
+  el.innerHTML=`<div class="table-wrap"><table><thead><tr><th>#</th><th>Callsign</th><th>Email</th><th>Joined</th><th>Regs</th><th>Pending</th><th>Actions</th></tr></thead><tbody>${users.map((u,i)=>{
+    const ur=allRegs.filter(r=>r.user_id===u.id);
+    return`<tr>
+      <td style="font-family:'Share Tech Mono',monospace;color:var(--muted)">${String(i+1).padStart(2,'0')}</td>
+      <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="width:30px;height:30px;font-size:11px">${u.username[0].toUpperCase()}</div><strong style="font-family:'Orbitron',sans-serif;font-size:11px">${u.username}</strong></div></td>
+      <td style="font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace">${u.email||'—'}</td>
+      <td style="font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace">${u.created_at?timeAgo(u.created_at):'—'}</td>
+      <td style="font-family:'Orbitron',sans-serif;font-size:14px;color:var(--cyan)">${ur.length}</td>
+      <td style="font-family:'Orbitron',sans-serif;font-size:14px;color:var(--gold)">${ur.filter(r=>r.status==='pending').length}</td>
+      <td><div class="actions-cell">
+        <button class="btn btn-cyan btn-sm" onclick="openEditUser('${u.id}','${u.username}')">✏ EDIT</button>
+        <button class="btn btn-red btn-sm" onclick="openDeleteUser('${u.id}','${u.username}')">🗑 DEL</button>
+      </div></td>
+    </tr>`;
+  }).join('')}</tbody></table></div>`;
+}
+
+function openEditUser(userId,username){
+  document.getElementById('edit-user-id').value=userId;
+  document.getElementById('edit-user-username').value=username;
+  document.getElementById('edit-user-password').value='';
+  document.getElementById('edit-user-password2').value='';
+  openModal('edit-user-modal');
+}
+
+async function submitEditUser(){
+  const userId=document.getElementById('edit-user-id').value;
+  const newUsername=document.getElementById('edit-user-username').value.trim();
+  const newPw=document.getElementById('edit-user-password').value;
+  const newPw2=document.getElementById('edit-user-password2').value;
+  if(!newUsername){toast('⚠ Username cannot be empty.','error');return;}
+  if(newUsername.length<3){toast('⚠ Username must be 3+ characters.','error');return;}
+  if(newPw&&newPw!==newPw2){toast('⚠ Passwords do not match.','error');return;}
+  if(newPw&&newPw.length<4){toast('⚠ New password must be 4+ characters.','error');return;}
+  showLoader('SAVING...');
+  const {data:existing}=await sb.from('users').select('id').eq('username',newUsername).neq('id',userId).single();
+  if(existing){hideLoader();toast('⚠ Username already taken.','error');return;}
+  const upd={username:newUsername};if(newPw)upd.password=newPw;
+  const {data:oldUser}=await sb.from('users').select('username').eq('id',userId).single();
+  await sb.from('users').update(upd).eq('id',userId);
+  hideLoader();
+  await addActivity('gold',`Player "${oldUser?.username}" updated${newPw?' (password reset)':''}`);
+  toast('✓ Player updated successfully!','success');
+  closeModal('edit-user-modal');loadUsers();
+}
+
+function openDeleteUser(userId,username){
+  document.getElementById('delete-user-id').value=userId;
+  document.getElementById('delete-user-name').textContent=username;
+  openModal('delete-user-modal');
+}
+
+async function confirmDeleteUser(){
+  const userId=document.getElementById('delete-user-id').value;
+  showLoader('DELETING...');
+  const {data:u}=await sb.from('users').select('username').eq('id',userId).single();
+  await Promise.all([
+    sb.from('users').delete().eq('id',userId),
+    sb.from('registrations').delete().eq('user_id',userId)
+  ]);
+  hideLoader();
+  await addActivity('red',`Player "${u?.username}" was deleted by admin`);
+  toast(`🗑 Player "${u?.username}" deleted.`,'error');
+  closeModal('delete-user-modal');loadUsers();loadAdminDashboard();
+}
+
+// ======================== TOURNAMENT CREATE ========================
+let unlimitedSlotsOn=false;
+
+function toggleUnlimitedSlots(){
+  unlimitedSlotsOn=!unlimitedSlotsOn;
+  const sw=document.getElementById('unlimited-slots-switch');
+  sw.classList.toggle('on',unlimitedSlotsOn);
+  const inp=document.getElementById('ct-slots');
+  inp.disabled=unlimitedSlotsOn;inp.style.opacity=unlimitedSlotsOn?'0.4':'1';inp.style.cursor=unlimitedSlotsOn?'not-allowed':'text';
+  if(unlimitedSlotsOn)inp.value='';
+}
+
+function openCreateTournament(){
+  ['ct-name','ct-fee','ct-prize','ct-desc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('ct-date').value='';document.getElementById('ct-slots').value='16';
+  unlimitedSlotsOn=false;
+  const sw=document.getElementById('unlimited-slots-switch');sw.classList.remove('on');
+  const inp=document.getElementById('ct-slots');inp.disabled=false;inp.style.opacity='1';inp.style.cursor='text';
+  openModal('create-tournament-modal');
+}
+
+async function submitCreateTournament(){
+  const name=document.getElementById('ct-name').value.trim();
+  const type=document.getElementById('ct-type').value;
+  const fee=parseFloat(document.getElementById('ct-fee').value);
+  const prize=document.getElementById('ct-prize').value.trim();
+  const date=document.getElementById('ct-date').value;
+  const slots=unlimitedSlotsOn?9999:parseInt(document.getElementById('ct-slots').value)||16;
+  const desc=document.getElementById('ct-desc').value.trim();
+  if(!name||isNaN(fee)||!prize||!date){toast('⚠ Fill all required fields.','error');return;}
+  showLoader('CREATING TOURNAMENT...');
+  const {error}=await sb.from('tournaments').insert({
+    id:uid(),name,type,entry_fee:fee,prize,date,status:'live',
+    max_slots:slots,unlimited_slots:unlimitedSlotsOn,description:desc,created_at:Date.now()
+  });
+  hideLoader();
+  if(error){toast('⚠ Failed to create tournament.','error');console.error(error);return;}
+  await addActivity('cyan',`Tournament "${name}" created${unlimitedSlotsOn?' (unlimited slots)':''}`);
+  closeModal('create-tournament-modal');
+  toast(`✓ Arena "${name}" created!`,'success');
+  loadAdminTournaments();loadAdminDashboard();
+}
+
+// ======================== ADMIN SETTINGS ========================
+async function loadSettings(){
+  showLoader('LOADING SETTINGS...');
+  const [{data:admin},{data:upiRow}]=await Promise.all([
+    sb.from('users').select('*').eq('role','admin').single(),
+    sb.from('settings').select('value').eq('key','upiSettings').single()
+  ]);
+  hideLoader();
+  if(admin){
+    document.getElementById('s-current-username').value=admin.username;
+    document.getElementById('s-new-username').value='';
+    document.getElementById('s-confirm-pw-for-username').value='';
+    document.getElementById('s-old-password').value='';
+    document.getElementById('s-new-password').value='';
+    document.getElementById('s-confirm-password').value='';
+  }
+  const upi=(upiRow&&upiRow.value)||{upiId:'',name:''};
+  document.getElementById('s-upi-id').value=upi.upiId||'';
+  document.getElementById('s-upi-name').value=upi.name||'';
+  const preview=document.getElementById('s-upi-preview');
+  const cur=document.getElementById('s-upi-current');
+  if(upi.upiId){preview.style.display='block';cur.textContent=upi.upiId;}
+  else preview.style.display='none';
+
+  let storageEst=0; // Supabase cloud — no local storage used
+  document.getElementById('sys-storage').textContent='Supabase Cloud';
+  document.getElementById('sys-since').textContent=admin&&admin.created_at?new Date(admin.created_at).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}):'—';
+}
+
+async function saveUpiSettings(){
+  const upiId=document.getElementById('s-upi-id').value.trim();
+  const name=document.getElementById('s-upi-name').value.trim();
+  if(!upiId){toast('⚠ UPI ID cannot be empty.','error');return;}
+  if(!upiId.includes('@')){toast('⚠ Invalid UPI ID. Must contain @','error');return;}
+  showLoader('SAVING UPI SETTINGS...');
+  await sb.from('settings').upsert({key:'upiSettings',value:{upiId,name:name||'TournamentOS Payments'}});
+  hideLoader();
+  await addActivity('gold',`UPI ID updated to ${upiId}`);
+  toast('✓ UPI settings saved!','success');loadSettings();
+}
+
+async function changeAdminUsername(){
+  const newUsername=document.getElementById('s-new-username').value.trim();
+  const confirmPw=document.getElementById('s-confirm-pw-for-username').value;
+  if(!newUsername){toast('⚠ New username cannot be empty.','error');return;}
+  if(newUsername.length<3){toast('⚠ Username must be 3+ characters.','error');return;}
+  showLoader('VERIFYING...');
+  const {data:admin}=await sb.from('users').select('*').eq('role','admin').single();
+  if(!admin||admin.password!==confirmPw){hideLoader();toast('⚠ Incorrect password.','error');return;}
+  const {data:conflict}=await sb.from('users').select('id').eq('username',newUsername).neq('role','admin').single();
+  if(conflict){hideLoader();toast('⚠ Username already taken.','error');return;}
+  const oldName=admin.username;
+  await sb.from('users').update({username:newUsername}).eq('id',admin.id);
+  hideLoader();
+  currentUser={...currentUser,username:newUsername};
+  document.getElementById('admin-name-display').textContent=newUsername.toUpperCase();
+  await addActivity('gold',`Admin username changed from "${oldName}" to "${newUsername}"`);
+  toast(`✓ Username changed to "${newUsername}".`,'success');loadSettings();
+}
+
+async function changeAdminPassword(){
+  const oldPw=document.getElementById('s-old-password').value;
+  const newPw=document.getElementById('s-new-password').value;
+  const confirmPw=document.getElementById('s-confirm-password').value;
+  if(!oldPw||!newPw||!confirmPw){toast('⚠ Fill all password fields.','error');return;}
+  if(newPw.length<4){toast('⚠ New password must be 4+ characters.','error');return;}
+  if(newPw!==confirmPw){toast('⚠ New passwords do not match.','error');return;}
+  showLoader('UPDATING PASSWORD...');
+  const {data:admin}=await sb.from('users').select('*').eq('role','admin').single();
+  if(!admin||admin.password!==oldPw){hideLoader();toast('⚠ Current password is incorrect.','error');return;}
+  if(oldPw===newPw){hideLoader();toast('⚠ New password must differ from current.','error');return;}
+  await sb.from('users').update({password:newPw}).eq('id',admin.id);
+  hideLoader();
+  currentUser={...currentUser,password:newPw};
+  await addActivity('gold','Admin password was changed');
+  toast('✓ Password updated successfully!','success');
+  ['s-old-password','s-new-password','s-confirm-password'].forEach(id=>document.getElementById(id).value='');
+}
+
+function openDangerZone(){document.getElementById('danger-confirm-input').value='';openModal('danger-modal');}
+
+async function doSystemReset(){
+  if(document.getElementById('danger-confirm-input').value!=='RESET'){toast('⚠ Type RESET to confirm.','error');return;}
+  showLoader('RESETTING SYSTEM...');
+  await Promise.all([
+    sb.from('users').delete().neq('role','admin'),
+    sb.from('tournaments').delete().neq('id','__none__'),
+    sb.from('registrations').delete().neq('id','__none__'),
+    sb.from('activity').delete().neq('id','__none__'),
+    sb.from('forgot_requests').delete().neq('id','__none__')
+  ]);
+  await sb.from('activity').insert({type:'red',text:'System was reset by admin',time:Date.now()});
+  hideLoader();
+  toast('💥 System reset complete.','info');
+  closeModal('danger-modal');logout();
+}
+
+// ======================== FORGOT PASSWORD ========================
+function openForgotPassword(){
+  ['fp-username','fp-phone','fp-reason'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fp-msg').textContent='';
+  document.getElementById('fp-msg').className='form-error';
+  openModal('forgot-pw-modal');
+}
+
+async function submitForgotRequest(){
+  const username=document.getElementById('fp-username').value.trim();
+  const phone=document.getElementById('fp-phone').value.trim();
+  const reason=document.getElementById('fp-reason').value.trim();
+  const msg=document.getElementById('fp-msg');
+  msg.textContent='';msg.className='form-error';
+  if(!username){msg.textContent='⚠ Please enter your username.';return;}
+  if(!phone||!/^\d{10}$/.test(phone)){msg.textContent='⚠ Enter a valid 10-digit phone number.';return;}
+  showLoader('SUBMITTING REQUEST...');
+  const {data:user}=await sb.from('users').select('id,username').eq('username',username).neq('role','admin').single();
+  if(!user){hideLoader();msg.textContent='⚠ Username not found. Check spelling.';return;}
+  const {data:existing}=await sb.from('forgot_requests').select('id').eq('user_id',user.id).eq('status','pending').single();
+  if(existing){hideLoader();msg.textContent='⚠ You already have a pending reset request.';return;}
+  await sb.from('forgot_requests').insert({id:uid(),user_id:user.id,username:user.username,phone,reason:reason||null,status:'pending',created_at:Date.now()});
+  hideLoader();
+  await addActivity('gold',`Password reset request by "${username}"`);
+  msg.className='form-success';msg.textContent='✓ Request submitted! Admin will reset your password soon.';
+  setTimeout(()=>closeModal('forgot-pw-modal'),2500);
+}
+
+async function loadForgotRequests(){
+  showLoader('LOADING REQUESTS...');
+  const {data:requests}=await sb.from('forgot_requests').select('*').order('created_at',{ascending:false});
+  hideLoader();
+  const el=document.getElementById('forgot-requests-list');
+  if(!requests||!requests.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">🔐</div><div class="empty-text">// NO PASSWORD RESET REQUESTS</div></div>';return;}
+  el.innerHTML=requests.map(r=>`
+    <div class="fp-request-card">
+      <div class="fp-request-info">
+        <strong>${r.username}</strong>
+        <div style="margin-top:4px;color:var(--muted)">📞 ${r.phone} &nbsp;|&nbsp; ${timeAgo(r.created_at)}</div>
+        ${r.reason?`<div style="margin-top:4px;color:var(--muted);font-size:11px">Note: ${r.reason}</div>`:''}
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        ${statusBadge(r.status)}
+        ${r.status==='pending'?`<button class="btn btn-cyan btn-sm" onclick="openApproveForgotPw('${r.id}','${r.username}','${r.phone}')">🔑 SET PASSWORD</button>
+        <button class="btn btn-red btn-sm" onclick="rejectForgotPwRequest('${r.id}')">✗ REJECT</button>`:''}
+      </div>
+    </div>`).join('');
+}
+
+function openApproveForgotPw(requestId,username,phone){
+  document.getElementById('afp-request-id').value=requestId;
+  document.getElementById('afp-user-info').innerHTML=`User: <strong style="color:var(--gold)">${username}</strong> &nbsp;|&nbsp; Phone: <strong style="color:var(--cyan)">${phone}</strong>`;
+  document.getElementById('afp-new-pw').value='';
+  document.getElementById('afp-confirm-pw').value='';
+  openModal('approve-fp-modal');
+}
+
+async function adminApproveForgotPw(){
+  const requestId=document.getElementById('afp-request-id').value;
+  const newPw=document.getElementById('afp-new-pw').value;
+  const confirmPw=document.getElementById('afp-confirm-pw').value;
+  if(!newPw||!confirmPw){toast('⚠ Fill both password fields.','error');return;}
+  if(newPw.length<4){toast('⚠ Password must be 4+ characters.','error');return;}
+  if(newPw!==confirmPw){toast('⚠ Passwords do not match.','error');return;}
+  showLoader('RESETTING PASSWORD...');
+  const {data:req}=await sb.from('forgot_requests').select('*').eq('id',requestId).single();
+  if(!req){hideLoader();toast('⚠ Request not found.','error');return;}
+  await Promise.all([
+    sb.from('users').update({password:newPw}).eq('id',req.user_id),
+    sb.from('forgot_requests').update({status:'approved',resolved_at:Date.now()}).eq('id',requestId)
+  ]);
+  hideLoader();
+  await addActivity('cyan',`Password reset approved for "${req.username}"`);
+  toast(`✓ Password for "${req.username}" has been reset!`,'success');
+  closeModal('approve-fp-modal');loadForgotRequests();
+}
+
+async function rejectForgotPwRequest(requestId){
+  showLoader('REJECTING...');
+  const {data:req}=await sb.from('forgot_requests').select('username').eq('id',requestId).single();
+  await sb.from('forgot_requests').update({status:'rejected',resolved_at:Date.now()}).eq('id',requestId);
+  hideLoader();
+  await addActivity('red',`Password reset rejected for "${req?.username}"`);
+  toast('✗ Request rejected.','error');loadForgotRequests();
+}
+
+function adminRejectForgotPw(){
+  rejectForgotPwRequest(document.getElementById('afp-request-id').value);
+  closeModal('approve-fp-modal');
+}
+
+// ======================== 3D TILT ========================
+const box=document.getElementById('auth-box-3d');
+if(box){
+  box.addEventListener('mousemove',e=>{const r=box.getBoundingClientRect();const cx=r.left+r.width/2,cy=r.top+r.height/2;const dx=(e.clientX-cx)/(r.width/2),dy=(e.clientY-cy)/(r.height/2);box.style.transform=`rotateY(${dx*6}deg) rotateX(${-dy*4}deg)`;});
+  box.addEventListener('mouseleave',()=>{box.style.transform='';});
+}
+
+// ======================== KEYBOARD / OVERLAY ========================
+document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
+document.getElementById('login-password').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+document.getElementById('signup-password').addEventListener('keydown',e=>{if(e.key==='Enter')doSignup();});
+</script>
+</body>
+</html>
