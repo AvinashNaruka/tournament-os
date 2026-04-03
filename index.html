@@ -252,6 +252,59 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
 .toggle-switch.on::after{transform:translateX(20px);}
 .toggle-label{font-size:12px;font-family:'Share Tech Mono',monospace;color:var(--text);letter-spacing:1px;}
 
+
+/* GUILD PAGE */
+.guild-hero{position:relative;background:linear-gradient(135deg,#0a0a1a 0%,#120820 40%,#0d1020 100%);border:1px solid rgba(155,93,229,0.3);border-radius:20px;padding:40px 30px;margin-bottom:28px;overflow:hidden;text-align:center;}
+.guild-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(155,93,229,0.2) 0%,transparent 60%);}
+.guild-hero-title{font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,#ffd60a,#ff6b00,#ff2d55);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 20px rgba(255,107,0,0.4));position:relative;z-index:1;}
+.guild-hero-sub{color:var(--muted);font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:3px;margin-top:6px;position:relative;z-index:1;}
+.guild-hero-id{display:inline-block;margin-top:12px;background:rgba(0,0,0,0.4);border:1px solid rgba(255,214,10,0.3);padding:8px 20px;border-radius:20px;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:2px;position:relative;z-index:1;cursor:pointer;}
+.social-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px;position:relative;z-index:1;}
+.social-btn{display:flex;align-items:center;gap:7px;padding:9px 16px;border-radius:30px;text-decoration:none;font-family:'Share Tech Mono',monospace;font-size:10px;font-weight:700;letter-spacing:1px;transition:all 0.2s;border:1px solid;white-space:nowrap;}
+.social-btn:hover{transform:translateY(-2px);filter:brightness(1.2);}
+.social-btn.insta{background:rgba(225,48,108,0.12);border-color:rgba(225,48,108,0.4);color:#e1306c;}
+.social-btn.discord{background:rgba(88,101,242,0.12);border-color:rgba(88,101,242,0.4);color:#5865f2;}
+.social-btn.whatsapp{background:rgba(37,211,102,0.1);border-color:rgba(37,211,102,0.3);color:#25d366;}
+.social-btn.ff-guild{background:rgba(255,107,0,0.1);border-color:rgba(255,107,0,0.35);color:#ff6b00;}
+/* FF AVATAR 3D */
+.ff-avatar-wrap{position:relative;width:100px;height:100px;margin:0 auto 10px;perspective:600px;}
+.ff-avatar-3d{width:100px;height:100px;border-radius:50%;position:relative;transform-style:preserve-3d;animation:avatarFloat 4s ease-in-out infinite;}
+.ff-avatar-3d:hover{animation:none;transform:scale(1.1) rotateY(20deg);}
+@keyframes avatarFloat{0%,100%{transform:translateY(0) rotateY(0deg);}50%{transform:translateY(-5px) rotateY(10deg);}}
+.ff-avatar-body{width:100%;height:100%;border-radius:50%;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;position:relative;}
+.ff-avatar-body.male{background:radial-gradient(circle at 40% 30%,#1e4a7a,#091929);box-shadow:0 0 0 3px rgba(0,150,255,0.5),0 0 30px rgba(0,150,255,0.25),0 6px 0 rgba(0,0,0,0.5),inset 0 -4px 0 rgba(0,0,0,0.4);}
+.ff-avatar-body.female{background:radial-gradient(circle at 40% 30%,#4a1060,#1a0828);box-shadow:0 0 0 3px rgba(200,60,220,0.5),0 0 30px rgba(200,60,220,0.25),0 6px 0 rgba(0,0,0,0.5),inset 0 -4px 0 rgba(0,0,0,0.4);}
+.ff-avatar-glow{position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:60px;height:12px;border-radius:50%;filter:blur(6px);}
+.ff-avatar-body.male .ff-avatar-glow{background:rgba(0,150,255,0.4);}
+.ff-avatar-body.female .ff-avatar-glow{background:rgba(200,60,220,0.4);}
+.ff-avatar-badge{position:absolute;top:-2px;right:0px;background:linear-gradient(135deg,var(--gold),#ff6b00);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:11px;box-shadow:0 2px 8px rgba(255,107,0,0.5),0 0 0 2px rgba(0,0,0,0.5);z-index:2;}
+.member-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:18px;margin-bottom:24px;}
+.member-card{background:linear-gradient(145deg,#14142a 0%,#0e0e1e 60%,#111120 100%);border:1px solid rgba(30,30,58,0.9);border-radius:18px;padding:22px 16px;text-align:center;position:relative;overflow:hidden;transition:all 0.3s;transform-style:preserve-3d;cursor:default;}
+.member-card:hover{transform:translateY(-8px) rotateX(4deg);border-color:rgba(155,93,229,0.45);box-shadow:0 20px 40px rgba(0,0,0,0.7),0 0 40px rgba(155,93,229,0.1);}
+.member-card::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,214,10,0.3),transparent);}
+.member-card-top-glow{position:absolute;top:0;left:0;right:0;height:50px;opacity:0.08;pointer-events:none;}
+.member-card.role-leader .member-card-top-glow{background:linear-gradient(180deg,var(--gold),transparent);}
+.member-card.role-captain .member-card-top-glow{background:linear-gradient(180deg,var(--cyan),transparent);}
+.member-card.role-member .member-card-top-glow{background:linear-gradient(180deg,var(--purple),transparent);}
+.member-name{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;margin-bottom:3px;}
+.member-uid{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;margin-bottom:7px;}
+.member-role-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;letter-spacing:2px;font-family:'Share Tech Mono',monospace;text-transform:uppercase;margin-bottom:6px;}
+.role-leader .member-role-badge{background:rgba(255,214,10,0.1);color:var(--gold);border:1px solid rgba(255,214,10,0.3);}
+.role-captain .member-role-badge{background:rgba(0,245,212,0.08);color:var(--cyan);border:1px solid rgba(0,245,212,0.2);}
+.role-member .member-role-badge{background:rgba(155,93,229,0.08);color:var(--purple);border:1px solid rgba(155,93,229,0.2);}
+.member-bio{font-size:10px;color:var(--muted);font-family:'Share Tech Mono',monospace;letter-spacing:0.5px;line-height:1.5;}
+/* GLORY WINNER */
+.glory-banner{background:linear-gradient(135deg,#1a1000,#2a1600,#1a0a00);border:1px solid rgba(255,214,10,0.4);border-radius:20px;padding:32px;margin-bottom:24px;position:relative;overflow:hidden;text-align:center;}
+.glory-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,214,10,0.15) 0%,transparent 65%);}
+.glory-crown{font-size:50px;filter:drop-shadow(0 0 20px rgba(255,214,10,0.7));animation:crownPulse 2s ease-in-out infinite;display:block;margin-bottom:8px;position:relative;z-index:1;}
+@keyframes crownPulse{0%,100%{filter:drop-shadow(0 0 16px rgba(255,214,10,0.5));}50%{filter:drop-shadow(0 0 36px rgba(255,214,10,0.9));}}
+.glory-player-name{font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;letter-spacing:3px;color:var(--gold);text-shadow:0 0 24px rgba(255,214,10,0.5);position:relative;z-index:1;}
+.glory-prize-tag{display:inline-block;background:linear-gradient(135deg,#ffd60a,#ff8c00);color:#1a0a00;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:900;padding:8px 24px;border-radius:30px;margin-top:10px;letter-spacing:2px;box-shadow:0 4px 20px rgba(255,214,10,0.4),0 0 0 2px rgba(255,214,10,0.2);position:relative;z-index:1;}
+.glory-meta{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);margin-top:8px;letter-spacing:1px;position:relative;z-index:1;}
+.glory-no-winner{text-align:center;padding:40px 20px;color:var(--muted);}
+.glory-history-card{background:linear-gradient(145deg,#1a1400,#0f0f00);border:1px solid rgba(255,214,10,0.15);border-radius:12px;padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;}
+.glory-week-tag{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;margin-top:3px;}
+
 /* PAYMENT PROOF SECTION */
 .proof-upload{background:rgba(0,0,0,0.3);border:2px dashed rgba(155,93,229,0.3);border-radius:8px;padding:14px;text-align:center;font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace;letter-spacing:1px;}
 
@@ -261,10 +314,14 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
 <div id="toast"></div>
 
 <!-- CONTACT STRIP -->
-<div class="contact-strip">
-  <span style="color:var(--muted);font-size:11px">📞 SUPPORT & QUERIES:</span>
-  <a href="tel:7976726014">+91 7976726014</a>
-  <span style="color:var(--muted);font-size:10px">· WhatsApp Available</span>
+<div class="contact-strip" style="gap:14px;flex-wrap:wrap;">
+  <a href="https://www.instagram.com/ajgamming_official?igsh=OHZqbmd4ZDYxanNz" target="_blank" style="color:#e1306c;text-decoration:none;font-weight:700;font-size:11px;">📸 Instagram</a>
+  <span style="color:rgba(255,255,255,0.1)">|</span>
+  <a href="https://discord.gg/UZqmNUgt6a" target="_blank" style="color:#5865f2;text-decoration:none;font-weight:700;font-size:11px;">🎮 Discord</a>
+  <span style="color:rgba(255,255,255,0.1)">|</span>
+  <a href="https://whatsapp.com/channel/0029VbC2ztjAInPma4lFkn3T" target="_blank" style="color:#25d366;text-decoration:none;font-weight:700;font-size:11px;">📢 WA Channel</a>
+  <span style="color:rgba(255,255,255,0.1)">|</span>
+  <a href="https://wa.me/917976726014" target="_blank" style="color:#25d366;text-decoration:none;font-weight:700;font-size:11px;">💬 WhatsApp</a>
 </div>
 
 <!-- AUTH -->
@@ -295,12 +352,12 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
       </div>
       <div id="signup-form" style="display:none">
         <div class="form-group">
-          <label class="form-label">⬡ Username</label>
+          <label class="form-label">⬡ Username / Callsign</label>
           <input type="text" id="signup-username" class="form-input" placeholder="Choose a callsign">
         </div>
         <div class="form-group">
-          <label class="form-label">⬡ Email (optional)</label>
-          <input type="email" id="signup-email" class="form-input" placeholder="your@email.com">
+          <label class="form-label">⬡ Mobile Number <span style="color:var(--red)">*</span></label>
+          <input type="tel" id="signup-phone" class="form-input" placeholder="10-digit mobile number" maxlength="10">
         </div>
         <div class="form-group">
           <label class="form-label">⬡ Password</label>
@@ -325,6 +382,7 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
       <nav class="sidebar-nav">
         <div class="nav-item active" onclick="showUserSection('tournaments',this)"><span class="nav-icon">🏆</span> Tournaments</div>
         <div class="nav-item" onclick="showUserSection('my-regs',this)"><span class="nav-icon">📋</span> My Registrations</div>
+        <div class="nav-item" onclick="showUserSection('guild',this)"><span class="nav-icon">⚔</span> Guild</div>
       </nav>
       <div class="sidebar-footer"><button class="btn btn-ghost" style="width:100%;font-size:10px" onclick="logout()">◀ LOGOUT</button></div>
     </div>
@@ -336,6 +394,9 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
       <div id="section-my-regs" style="display:none">
         <div class="page-header"><div class="page-title">MY REGISTRATIONS</div><div class="page-subtitle">// Track your battle status</div></div>
         <div id="my-regs-list"></div>
+      </div>
+      <div id="section-guild" style="display:none">
+        <div id="guild-page-content"></div>
       </div>
     </div>
   </div>
@@ -355,6 +416,8 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
         <div class="nav-item" onclick="showAdminSection('tournaments',this)"><span class="nav-icon">🏆</span> Tournaments</div>
         <div class="nav-item" onclick="showAdminSection('registrations',this)"><span class="nav-icon">📋</span> Registrations</div>
         <div class="nav-item" onclick="showAdminSection('users',this)"><span class="nav-icon">👥</span> Users</div>
+        <div class="nav-item" onclick="showAdminSection('glory',this)"><span class="nav-icon">🌟</span> Glory Winner</div>
+        <div class="nav-item" onclick="showAdminSection('guild-admin',this)"><span class="nav-icon">⚔</span> Guild Members</div>
         <div class="nav-item" onclick="showAdminSection('forgot-requests',this)"><span class="nav-icon">🔐</span> PW Requests</div>
         <div class="nav-item" onclick="showAdminSection('settings',this)"><span class="nav-icon">⚙️</span> Settings</div>
       </nav>
@@ -419,6 +482,50 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
       <div id="admin-section-forgot-requests" style="display:none">
         <div class="page-header"><div class="page-title">PW RESET REQUESTS</div><div class="page-subtitle">// Approve or reject password reset requests from players</div></div>
         <div id="forgot-requests-list"></div>
+      </div>
+
+      <!-- GLORY WINNER -->
+      <div id="admin-section-glory" style="display:none">
+        <div class="page-header"><div class="page-title">🌟 GLORY WINNER</div><div class="page-subtitle">// Update this week's glory champion</div></div>
+        <div class="settings-card">
+          <div class="settings-card-title"><span class="icon">🌟</span> Set Weekly Glory Winner</div>
+          <div class="two-col">
+            <div class="form-group"><label class="form-label">Winner Name</label><input type="text" id="glory-name" class="form-input" placeholder="Player name"></div>
+            <div class="form-group"><label class="form-label">Prize Received</label><input type="text" id="glory-prize" class="form-input" placeholder="e.g. ₹5,000"></div>
+          </div>
+          <div class="two-col">
+            <div class="form-group"><label class="form-label">Free Fire UID</label><input type="text" id="glory-uid" class="form-input" placeholder="Player UID"></div>
+            <div class="form-group"><label class="form-label">Week Label</label><input type="text" id="glory-week" class="form-input" placeholder="e.g. Week 5, Apr 2026"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Achievement Note</label><input type="text" id="glory-note" class="form-input" placeholder="e.g. 12 kills, 3 Booyahs"></div>
+          <button class="btn btn-gold" style="width:auto;margin-top:4px" onclick="saveGloryWinner()">🌟 PUBLISH GLORY WINNER</button>
+        </div>
+        <div class="section-title">Past Glory Winners</div>
+        <div id="glory-winners-admin-list"></div>
+      </div>
+
+      <!-- GUILD ADMIN -->
+      <div id="admin-section-guild-admin" style="display:none">
+        <div class="page-header"><div class="page-title">⚔ GUILD ROSTER</div><div class="page-subtitle">// Manage guild members & avatars</div></div>
+        <div class="settings-card">
+          <div class="settings-card-title"><span class="icon">➕</span> Add / Update Member</div>
+          <input type="hidden" id="gm-edit-id">
+          <div class="two-col">
+            <div class="form-group"><label class="form-label">Member Name</label><input type="text" id="gm-name" class="form-input" placeholder="Player name"></div>
+            <div class="form-group"><label class="form-label">Rank / Role</label><input type="text" id="gm-rank" class="form-input" placeholder="Leader / Captain / Member"></div>
+          </div>
+          <div class="two-col">
+            <div class="form-group"><label class="form-label">Free Fire UID</label><input type="text" id="gm-uid" class="form-input" placeholder="Game UID"></div>
+            <div class="form-group"><label class="form-label">Gender (Avatar)</label><select id="gm-gender" class="form-input"><option value="male">Male</option><option value="female">Female</option></select></div>
+          </div>
+          <div class="form-group"><label class="form-label">Specialty / Bio</label><input type="text" id="gm-bio" class="form-input" placeholder="e.g. Sniper, Rusher, IGL..."></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-cyan" style="width:auto" onclick="saveGuildMember()">💾 SAVE MEMBER</button>
+            <button class="btn btn-ghost" style="width:auto" onclick="clearGuildForm()">✕ CLEAR</button>
+          </div>
+        </div>
+        <div class="section-title">Current Roster</div>
+        <div id="guild-admin-roster"></div>
       </div>
 
       <!-- SETTINGS -->
@@ -490,7 +597,7 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
         <div class="settings-card">
           <div class="settings-card-title"><span class="icon">📡</span> System Information</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-            <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">VERSION<br><span style="color:var(--cyan);font-size:15px;font-weight:700">TOS v2.0.0</span></div>
+            <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">VERSION<br><span style="color:var(--cyan);font-size:15px;font-weight:700">TOS v2.1.0</span></div>
             <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">STATUS<br><span style="color:var(--green);font-size:15px;font-weight:700"><span class="online-dot"></span>ONLINE</span></div>
             <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">STORAGE<br><span id="sys-storage" style="color:var(--gold);font-size:13px">—</span></div>
             <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">ADMIN SINCE<br><span id="sys-since" style="color:var(--text);font-size:13px">—</span></div>
@@ -826,15 +933,16 @@ async function doLogin(){
 async function doSignup(){
   const u=document.getElementById('signup-username').value.trim();
   const p=document.getElementById('signup-password').value;
-  const email=document.getElementById('signup-email').value.trim();
+  const phone=document.getElementById('signup-phone').value.trim();
   const msg=document.getElementById('signup-msg');msg.className='form-error';msg.textContent='';
-  if(!u||!p){msg.textContent='⚠ Please fill all fields.';return;}
+  if(!u||!p||!phone){msg.textContent='⚠ Please fill all fields.';return;}
   if(u.length<3){msg.textContent='⚠ Username must be 3+ characters.';return;}
   if(p.length<4){msg.textContent='⚠ Password must be 4+ characters.';return;}
+  if(!/^\d{10}$/.test(phone)){msg.textContent='⚠ Mobile must be exactly 10 digits.';return;}
   showLoader('CREATING ACCOUNT...');
   const {data:existing}=await sb.from('users').select('id').eq('username',u).single();
   if(existing){hideLoader();msg.textContent='⚠ Username already taken.';return;}
-  const newUser={id:uid(),username:u,password:p,email:email||null,role:'user',created_at:Date.now()};
+  const newUser={id:uid(),username:u,password:p,email:phone,role:'user',created_at:Date.now()};
   const {error}=await sb.from('users').insert(newUser);
   hideLoader();
   if(error){msg.textContent='⚠ Registration failed. Try again.';console.error(error);return;}
@@ -854,10 +962,11 @@ async function logout(){
 // ======================== USER SECTIONS ========================
 function showUserSection(name,el){
   document.querySelectorAll('#user-page .nav-item').forEach(i=>i.classList.remove('active'));el.classList.add('active');
-  ['tournaments','my-regs'].forEach(s=>document.getElementById('section-'+s).style.display='none');
+  ['tournaments','my-regs','guild'].forEach(s=>document.getElementById('section-'+s).style.display='none');
   document.getElementById('section-'+name).style.display='block';
   if(name==='tournaments')loadTournaments();
   if(name==='my-regs')loadMyRegistrations();
+  if(name==='guild')loadGuildPage();
 }
 
 async function loadTournaments(){
@@ -883,7 +992,7 @@ async function loadTournaments(){
       ${t.description?`<div style="font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-bottom:10px;line-height:1.5">${t.description}</div>`:''}
       <div class="t-divider"></div>
       <div class="t-footer"><div class="t-fee">${t.entry_fee>0?'₹'+t.entry_fee:'FREE'}</div><div class="t-prize">🏅 ${t.prize}</div></div>
-      <div class="t-slots-bar"><div class="t-slots-label"><span>SLOTS FILLED</span><span>${regCount}/${maxSlots}</span></div><div class="t-slots-track"><div class="t-slots-fill" style="width:${pct}%"></div></div></div>
+      <div class="t-slots-bar"><div class="t-slots-label"><span>FILLING UP</span><span style='color:var(--muted);letter-spacing:3px'>● ● ●</span></div><div class="t-slots-track"><div class="t-slots-fill" style="width:${pct}%"></div></div></div>
       <button class="btn btn-primary" style="font-size:10px;padding:10px 16px;margin-top:12px" onclick="openRegister('${t.id}')">⚔ REGISTER NOW</button>
     </div>`;
   }).join('');
@@ -1041,12 +1150,14 @@ async function submitWithPayment(){
 // ======================== ADMIN SECTIONS ========================
 function showAdminSection(name,el){
   document.querySelectorAll('#admin-page .nav-item').forEach(i=>i.classList.remove('active'));el.classList.add('active');
-  ['dashboard','tournaments','registrations','users','forgot-requests','settings'].forEach(s=>document.getElementById('admin-section-'+s).style.display='none');
+  ['dashboard','tournaments','registrations','users','glory','guild-admin','forgot-requests','settings'].forEach(s=>document.getElementById('admin-section-'+s).style.display='none');
   document.getElementById('admin-section-'+name).style.display='block';
   if(name==='dashboard')loadAdminDashboard();
   if(name==='tournaments')loadAdminTournaments();
   if(name==='registrations')loadAllRegistrations();
   if(name==='users')loadUsers();
+  if(name==='glory')loadGloryAdmin();
+  if(name==='guild-admin')loadGuildAdmin();
   if(name==='forgot-requests')loadForgotRequests();
   if(name==='settings')loadSettings();
 }
@@ -1188,7 +1299,7 @@ async function loadUsers(){
     return`<tr>
       <td style="font-family:'Share Tech Mono',monospace;color:var(--muted)">${String(i+1).padStart(2,'0')}</td>
       <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="width:30px;height:30px;font-size:11px">${u.username[0].toUpperCase()}</div><strong style="font-family:'Orbitron',sans-serif;font-size:11px">${u.username}</strong></div></td>
-      <td style="font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace">${u.email||'—'}</td>
+      <td style="font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace">${u.email&&/^\d{10}$/.test(u.email)?'📱 '+u.email:u.email||'—'}</td>
       <td style="font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace">${u.created_at?timeAgo(u.created_at):'—'}</td>
       <td style="font-family:'Orbitron',sans-serif;font-size:14px;color:var(--cyan)">${ur.length}</td>
       <td style="font-family:'Orbitron',sans-serif;font-size:14px;color:var(--gold)">${ur.filter(r=>r.status==='pending').length}</td>
@@ -1479,6 +1590,332 @@ function adminRejectForgotPw(){
   rejectForgotPwRequest(document.getElementById('afp-request-id').value);
   closeModal('approve-fp-modal');
 }
+
+
+// ======================== GUILD PAGE ========================
+function ffAvatarSVG(gender){
+  if(gender==='female'){
+    return `<svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" class="ff-avatar-svg">
+      <defs>
+        <radialGradient id="skinF" cx="50%" cy="40%" r="50%"><stop offset="0%" stop-color="#f5c8a0"/><stop offset="100%" stop-color="#d4956a"/></radialGradient>
+        <radialGradient id="hairF" cx="50%" cy="20%" r="60%"><stop offset="0%" stop-color="#1a0040"/><stop offset="100%" stop-color="#0d001a"/></radialGradient>
+        <linearGradient id="armorF" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c040d0"/><stop offset="100%" stop-color="#7010a0"/></linearGradient>
+        <linearGradient id="glowF" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ff80ff" stop-opacity="0.8"/><stop offset="100%" stop-color="#c040d0" stop-opacity="0"/></linearGradient>
+      </defs>
+      <!-- glow aura -->
+      <ellipse cx="50" cy="55" rx="38" ry="50" fill="url(#glowF)" opacity="0.15"/>
+      <!-- body armor -->
+      <path d="M20,110 Q15,75 20,60 Q35,50 50,52 Q65,50 80,60 Q85,75 80,110 Z" fill="url(#armorF)"/>
+      <path d="M35,60 Q40,55 50,54 Q60,55 65,60 L62,52 Q56,44 50,43 Q44,44 38,52 Z" fill="#e060f0"/>
+      <!-- armor details -->
+      <path d="M30,75 Q32,70 36,72 Q34,80 32,88 Q28,85 30,75 Z" fill="rgba(255,160,255,0.3)"/>
+      <path d="M70,75 Q68,70 64,72 Q66,80 68,88 Q72,85 70,75 Z" fill="rgba(255,160,255,0.3)"/>
+      <rect x="44" y="62" width="12" height="20" rx="3" fill="rgba(255,100,255,0.2)" stroke="rgba(255,150,255,0.4)" stroke-width="0.5"/>
+      <!-- neck -->
+      <rect x="44" y="40" width="12" height="8" rx="3" fill="url(#skinF)"/>
+      <!-- head -->
+      <ellipse cx="50" cy="28" rx="17" ry="18" fill="url(#skinF)"/>
+      <!-- hair -->
+      <path d="M34,22 Q33,8 50,6 Q67,8 66,22 Q64,14 50,13 Q36,14 34,22 Z" fill="url(#hairF)"/>
+      <path d="M33,22 Q28,24 30,32 Q33,18 34,22 Z" fill="url(#hairF)"/>
+      <path d="M67,22 Q72,24 70,32 Q67,18 66,22 Z" fill="url(#hairF)"/>
+      <!-- ears -->
+      <ellipse cx="33" cy="30" rx="3.5" ry="4" fill="url(#skinF)"/>
+      <ellipse cx="67" cy="30" rx="3.5" ry="4" fill="url(#skinF)"/>
+      <!-- eyes -->
+      <ellipse cx="43" cy="26" rx="5" ry="4" fill="white"/>
+      <ellipse cx="57" cy="26" rx="5" ry="4" fill="white"/>
+      <ellipse cx="43" cy="27" rx="3" ry="3" fill="#200040"/>
+      <ellipse cx="57" cy="27" rx="3" ry="3" fill="#200040"/>
+      <circle cx="44.5" cy="25.5" r="1" fill="white"/>
+      <circle cx="58.5" cy="25.5" r="1" fill="white"/>
+      <!-- eyebrows -->
+      <path d="M38,21 Q43,19 48,21" stroke="#3a0060" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M52,21 Q57,19 62,21" stroke="#3a0060" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <!-- lashes -->
+      <path d="M38,23 L37,21 M40,22.5 L39,20 M42,22 L41.5,20" stroke="#200040" stroke-width="0.8"/>
+      <path d="M52,23 L53,21 M55,22.5 L56,20 M58,22 L58.5,20" stroke="#200040" stroke-width="0.8"/>
+      <!-- lips -->
+      <path d="M45,36 Q50,39 55,36 Q50,38 45,36 Z" fill="#e06080"/>
+      <!-- hair ornament -->
+      <circle cx="50" cy="9" r="4" fill="#ff40ff" opacity="0.8"/>
+      <circle cx="50" cy="9" r="2" fill="white" opacity="0.5"/>
+      <!-- energy sparks -->
+      <line x1="26" y1="65" x2="22" y2="60" stroke="#ff80ff" stroke-width="1" opacity="0.7"/>
+      <line x1="74" y1="65" x2="78" y2="60" stroke="#ff80ff" stroke-width="1" opacity="0.7"/>
+    </svg>`;
+  } else {
+    return `<svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" class="ff-avatar-svg">
+      <defs>
+        <radialGradient id="skinM" cx="50%" cy="40%" r="50%"><stop offset="0%" stop-color="#d4956a"/><stop offset="100%" stop-color="#b87050"/></radialGradient>
+        <radialGradient id="hairM" cx="50%" cy="20%" r="60%"><stop offset="0%" stop-color="#1a1400"/><stop offset="100%" stop-color="#050500"/></radialGradient>
+        <linearGradient id="armorM" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1060d0"/><stop offset="100%" stop-color="#052070"/></linearGradient>
+        <linearGradient id="glowM" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#40a0ff" stop-opacity="0.8"/><stop offset="100%" stop-color="#0050c0" stop-opacity="0"/></linearGradient>
+      </defs>
+      <!-- glow aura -->
+      <ellipse cx="50" cy="55" rx="42" ry="52" fill="url(#glowM)" opacity="0.12"/>
+      <!-- body armor -->
+      <path d="M18,110 Q13,72 18,57 Q33,46 50,48 Q67,46 82,57 Q87,72 82,110 Z" fill="url(#armorM)"/>
+      <!-- shoulder pads -->
+      <path d="M18,57 Q10,52 12,65 Q16,62 18,70 Q14,63 18,57 Z" fill="#2070e0"/>
+      <path d="M82,57 Q90,52 88,65 Q84,62 82,70 Q86,63 82,57 Z" fill="#2070e0"/>
+      <!-- chest plate -->
+      <path d="M36,56 Q43,46 50,44 Q57,46 64,56 Q57,50 50,49 Q43,50 36,56 Z" fill="#3080f0"/>
+      <rect x="44" y="58" width="12" height="22" rx="3" fill="rgba(80,160,255,0.2)" stroke="rgba(100,180,255,0.4)" stroke-width="0.5"/>
+      <!-- armor chest detail -->
+      <path d="M44,60 L56,60 L56,65 L50,68 L44,65 Z" fill="rgba(100,200,255,0.15)" stroke="rgba(100,200,255,0.3)" stroke-width="0.5"/>
+      <!-- neck -->
+      <rect x="44" y="38" width="12" height="8" rx="3" fill="url(#skinM)"/>
+      <!-- head - wider/squarer for male -->
+      <ellipse cx="50" cy="26" rx="18" ry="17" fill="url(#skinM)"/>
+      <!-- hair -->
+      <path d="M33,20 Q32,6 50,5 Q68,6 67,20 Q65,11 50,10 Q35,11 33,20 Z" fill="url(#hairM)"/>
+      <!-- ears -->
+      <ellipse cx="32" cy="28" rx="3.5" ry="4.5" fill="url(#skinM)"/>
+      <ellipse cx="68" cy="28" rx="3.5" ry="4.5" fill="url(#skinM)"/>
+      <!-- eyes -->
+      <ellipse cx="42" cy="24" rx="5.5" ry="4.5" fill="white"/>
+      <ellipse cx="58" cy="24" rx="5.5" ry="4.5" fill="white"/>
+      <ellipse cx="42" cy="25" rx="3.5" ry="3.5" fill="#101840"/>
+      <ellipse cx="58" cy="25" rx="3.5" ry="3.5" fill="#101840"/>
+      <circle cx="43.5" cy="23.5" r="1" fill="white"/>
+      <circle cx="59.5" cy="23.5" r="1" fill="white"/>
+      <!-- eyebrows - thicker for male -->
+      <path d="M36,19 Q42,17 48,19" stroke="#1a1000" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M52,19 Q58,17 64,19" stroke="#1a1000" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <!-- jaw/chin definition -->
+      <path d="M33,32 Q34,42 50,46 Q66,42 67,32 Q64,38 50,41 Q36,38 33,32 Z" fill="rgba(0,0,0,0.08)"/>
+      <!-- mouth -->
+      <path d="M43,37 Q50,40 57,37" stroke="#a06040" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <!-- scar detail -->
+      <path d="M44,28 L46,22" stroke="rgba(80,40,20,0.4)" stroke-width="0.8"/>
+      <!-- energy sparks -->
+      <line x1="24" y1="62" x2="19" y2="57" stroke="#60a0ff" stroke-width="1.2" opacity="0.7"/>
+      <line x1="76" y1="62" x2="81" y2="57" stroke="#60a0ff" stroke-width="1.2" opacity="0.7"/>
+      <line x1="22" y1="68" x2="16" y2="65" stroke="#60a0ff" stroke-width="0.8" opacity="0.5"/>
+      <line x1="78" y1="68" x2="84" y2="65" stroke="#60a0ff" stroke-width="0.8" opacity="0.5"/>
+    </svg>`;
+  }
+}
+
+function rankBadgeEmoji(rank){
+  const r=(rank||'').toLowerCase();
+  if(r.includes('leader'))return'👑';
+  if(r.includes('captain')||r.includes('co'))return'⭐';
+  return'⚔';
+}
+function rankClass(rank){
+  const r=(rank||'').toLowerCase();
+  if(r.includes('leader'))return'role-leader';
+  if(r.includes('captain')||r.includes('co'))return'role-captain';
+  return'role-member';
+}
+
+async function loadGuildPage(){
+  const el=document.getElementById('guild-page-content');
+  el.innerHTML='<div class="empty-state"><div class="empty-icon" style="animation:crownPulse 1.5s infinite">⚔</div><div class="empty-text">// LOADING GUILD...</div></div>';
+  const [{data:members},{data:gloryRows}]=await Promise.all([
+    sb.from('settings').select('value').eq('key','guildMembers').single(),
+    sb.from('settings').select('value').eq('key','gloryWinners').single()
+  ]);
+  const list=(members&&members.value&&Array.isArray(members.value))?members.value:[];
+  const gloryList=(gloryRows&&gloryRows.value&&Array.isArray(gloryRows.value))?gloryRows.value:[];
+  const latest=gloryList[0]||null;
+
+  let gloryHTML='';
+  if(latest){
+    gloryHTML=`<div class="glory-banner">
+      <span class="glory-crown">👑</span>
+      <div class="glory-player-name">${latest.name}</div>
+      <div class="glory-prize-tag">🏅 ${latest.prize}</div>
+      <div class="glory-meta">${latest.note||''} &nbsp;·&nbsp; ${latest.week||''} &nbsp;·&nbsp; UID: ${latest.uid||'—'}</div>
+    </div>`;
+  }
+
+  let membersHTML='';
+  if(!list.length){
+    membersHTML='<div class="empty-state"><div class="empty-icon">⚔</div><div class="empty-text">// NO GUILD MEMBERS YET</div></div>';
+  } else {
+    membersHTML=`<div class="member-grid">${list.map(m=>{
+      const rc=rankClass(m.rank);
+      const be=rankBadgeEmoji(m.rank);
+      return`<div class="member-card ${rc}">
+        <div class="member-card-top-glow"></div>
+        <div class="ff-avatar-wrap">
+          <div class="ff-avatar-3d">
+            <div class="ff-avatar-body ${m.gender||'male'}">
+              ${ffAvatarSVG(m.gender||'male')}
+              <div class="ff-avatar-glow"></div>
+            </div>
+          </div>
+          <div class="ff-avatar-badge">${be}</div>
+        </div>
+        <div class="member-name">${m.name}</div>
+        <div class="member-uid">UID: ${m.uid||'—'}</div>
+        <div class="member-role-badge">${m.rank||'Member'}</div>
+        <div class="member-bio">${m.bio||''}</div>
+      </div>`;
+    }).join('')}</div>`;
+  }
+
+  el.innerHTML=`
+    <div class="guild-hero">
+      <div class="guild-hero-title">⚔ AJ GAMING GUILD</div>
+      <div class="guild-hero-sub">// Free Fire Official Guild — India</div>
+      <div class="guild-hero-id" onclick="window.open('https://ffshare.garena.com/?region=IND&lang=en&action=locate_clan&clan_id=3046940002&version=OB52','_blank')" title="Click to view guild in Free Fire">🔥 Guild ID: 3046940002 — Tap to Join</div>
+      <div class="social-links">
+        <a href="https://www.instagram.com/ajgamming_official?igsh=OHZqbmd4ZDYxanNz" target="_blank" class="social-btn insta">📸 Instagram</a>
+        <a href="https://discord.gg/UZqmNUgt6a" target="_blank" class="social-btn discord">🎮 Discord</a>
+        <a href="https://whatsapp.com/channel/0029VbC2ztjAInPma4lFkn3T" target="_blank" class="social-btn whatsapp">📢 WA Channel</a>
+        <a href="https://ffshare.garena.com/?region=IND&lang=en&action=locate_clan&clan_id=3046940002&version=OB52" target="_blank" class="social-btn ff-guild">🔥 Join Guild</a>
+      </div>
+    </div>
+    ${gloryHTML?'<div class="section-title">&#127775; This Week Glory Champion</div>'+gloryHTML:''}
+    <div class="section-title">⚔ Guild Roster</div>
+    ${membersHTML}`;
+}
+
+// ======================== GLORY WINNER ADMIN ========================
+async function loadGloryAdmin(){
+  const {data:row}=await sb.from('settings').select('value').eq('key','gloryWinners').single().catch(()=>({data:null}));
+  const list=(row&&row.value&&Array.isArray(row.value))?row.value:[];
+  // Pre-fill current winner
+  if(list[0]){
+    document.getElementById('glory-name').value=list[0].name||'';
+    document.getElementById('glory-prize').value=list[0].prize||'';
+    document.getElementById('glory-uid').value=list[0].uid||'';
+    document.getElementById('glory-week').value=list[0].week||'';
+    document.getElementById('glory-note').value=list[0].note||'';
+  }
+  const el=document.getElementById('glory-winners-admin-list');
+  if(!list.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">🌟</div><div class="empty-text">// NO GLORY WINNERS YET</div></div>';return;}
+  el.innerHTML=`<div class="admin-glory-list">${list.map((w,i)=>`
+    <div class="glory-history-card">
+      <div style="font-family:'Orbitron',sans-serif;font-size:22px;color:rgba(255,214,10,${i===0?'0.9':'0.3'})">${i===0?'👑':'#'+(i+1)}</div>
+      <div style="flex:1">
+        <div style="font-family:'Orbitron',sans-serif;font-size:13px;color:${i===0?'var(--gold)':'var(--text)'};">${w.name}</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);margin-top:3px">UID: ${w.uid||'—'} &nbsp;·&nbsp; ${w.week||''}</div>
+        ${w.note?`<div style="font-size:10px;color:var(--muted);margin-top:2px">${w.note}</div>`:''}
+      </div>
+      <div style="font-family:'Orbitron',sans-serif;font-size:14px;color:var(--gold)">${w.prize}</div>
+      ${i===0?`<button class="btn btn-ghost btn-sm" onclick="deleteGloryWinner(0)">✕</button>`:`<button class="btn btn-ghost btn-sm" onclick="deleteGloryWinner(${i})">✕</button>`}
+    </div>`).join('')}</div>`;
+}
+
+async function saveGloryWinner(){
+  const name=document.getElementById('glory-name').value.trim();
+  const prize=document.getElementById('glory-prize').value.trim();
+  const uid2=document.getElementById('glory-uid').value.trim();
+  const week=document.getElementById('glory-week').value.trim();
+  const note=document.getElementById('glory-note').value.trim();
+  if(!name||!prize){toast('⚠ Name and Prize are required.','error');return;}
+  showLoader('SAVING GLORY WINNER...');
+  const {data:row}=await sb.from('settings').select('value').eq('key','gloryWinners').single().catch(()=>({data:null}));
+  const list=(row&&row.value&&Array.isArray(row.value))?row.value:[];
+  const newEntry={name,prize,uid:uid2,week,note,savedAt:Date.now()};
+  list.unshift(newEntry); // newest first
+  await sb.from('settings').upsert({key:'gloryWinners',value:list});
+  hideLoader();
+  await addActivity('gold',`Glory Winner set: ${name} — ${prize}`);
+  toast('🌟 Glory Winner published!','success');
+  loadGloryAdmin();
+}
+
+async function deleteGloryWinner(index){
+  showLoader('REMOVING...');
+  const {data:row}=await sb.from('settings').select('value').eq('key','gloryWinners').single().catch(()=>({data:null}));
+  const list=(row&&row.value&&Array.isArray(row.value))?row.value:[];
+  list.splice(index,1);
+  await sb.from('settings').upsert({key:'gloryWinners',value:list});
+  hideLoader();toast('Removed.','info');loadGloryAdmin();
+}
+
+// ======================== GUILD ADMIN ========================
+async function loadGuildAdmin(){
+  clearGuildForm();
+  const {data:row}=await sb.from('settings').select('value').eq('key','guildMembers').single().catch(()=>({data:null}));
+  const list=(row&&row.value&&Array.isArray(row.value))?row.value:[];
+  const el=document.getElementById('guild-admin-roster');
+  if(!list.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">⚔</div><div class="empty-text">// NO MEMBERS YET</div></div>';return;}
+  el.innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px">${list.map((m,i)=>{
+    const rc=rankClass(m.rank);
+    const be=rankBadgeEmoji(m.rank);
+    return`<div style="background:linear-gradient(145deg,#14142a,#0e0e1e);border:1px solid rgba(30,30,58,0.9);border-radius:14px;padding:16px;display:flex;align-items:center;gap:12px">
+      <div class="ff-avatar-wrap" style="width:60px;height:60px;flex-shrink:0">
+        <div class="ff-avatar-3d" style="width:60px;height:60px;">
+          <div class="ff-avatar-body ${m.gender||'male'}" style="width:60px;height:60px;">
+            ${ffAvatarSVG(m.gender||'male')}
+            <div class="ff-avatar-glow"></div>
+          </div>
+        </div>
+        <div class="ff-avatar-badge" style="width:20px;height:20px;font-size:9px;">${be}</div>
+      </div>
+      <div style="flex:1;min-width:0">
+        <div style="font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${m.name}</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);margin-top:2px">${m.rank||'Member'} · ${m.gender==='female'?'Female':'Male'}</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted)">UID: ${m.uid||'—'}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <button class="btn btn-cyan btn-sm" onclick="editGuildMember(${i})">✏</button>
+        <button class="btn btn-red btn-sm" onclick="deleteGuildMember(${i})">✕</button>
+      </div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+function clearGuildForm(){
+  document.getElementById('gm-edit-id').value='';
+  ['gm-name','gm-uid','gm-rank','gm-bio'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('gm-gender').value='male';
+}
+
+async function editGuildMember(index){
+  const {data:row}=await sb.from('settings').select('value').eq('key','guildMembers').single().catch(()=>({data:null}));
+  const list=(row&&row.value&&Array.isArray(row.value))?row.value:[];
+  const m=list[index];if(!m)return;
+  document.getElementById('gm-edit-id').value=String(index);
+  document.getElementById('gm-name').value=m.name||'';
+  document.getElementById('gm-uid').value=m.uid||'';
+  document.getElementById('gm-rank').value=m.rank||'';
+  document.getElementById('gm-gender').value=m.gender||'male';
+  document.getElementById('gm-bio').value=m.bio||'';
+  window.scrollTo({top:0,behavior:'smooth'});
+  toast('📝 Editing member — make changes above.','info');
+}
+
+async function saveGuildMember(){
+  const name=document.getElementById('gm-name').value.trim();
+  const uid2=document.getElementById('gm-uid').value.trim();
+  const rank=document.getElementById('gm-rank').value.trim();
+  const gender=document.getElementById('gm-gender').value;
+  const bio=document.getElementById('gm-bio').value.trim();
+  if(!name){toast('⚠ Name is required.','error');return;}
+  showLoader('SAVING MEMBER...');
+  const {data:row}=await sb.from('settings').select('value').eq('key','guildMembers').single().catch(()=>({data:null}));
+  const list=(row&&row.value&&Array.isArray(row.value))?[...row.value]:[];
+  const editIdx=document.getElementById('gm-edit-id').value;
+  const entry={name,uid:uid2,rank:rank||'Member',gender,bio};
+  if(editIdx!==''){list[parseInt(editIdx)]=entry;}else{list.push(entry);}
+  await sb.from('settings').upsert({key:'guildMembers',value:list});
+  hideLoader();
+  await addActivity('cyan',`Guild member ${editIdx!==''?'updated':'added'}: ${name}`);
+  toast(`✓ Member "${name}" saved!`,'success');
+  clearGuildForm();loadGuildAdmin();
+}
+
+async function deleteGuildMember(index){
+  if(!confirm('Remove this member from the guild?'))return;
+  showLoader('REMOVING...');
+  const {data:row}=await sb.from('settings').select('value').eq('key','guildMembers').single().catch(()=>({data:null}));
+  const list=(row&&row.value&&Array.isArray(row.value))?row.value:[];
+  const name=list[index]&&list[index].name;
+  list.splice(index,1);
+  await sb.from('settings').upsert({key:'guildMembers',value:list});
+  hideLoader();
+  await addActivity('red',`Guild member removed: ${name}`);
+  toast('Removed.','info');loadGuildAdmin();
+}
+
 
 // ======================== 3D TILT ========================
 const box=document.getElementById('auth-box-3d');
