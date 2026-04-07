@@ -308,10 +308,65 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
 /* PAYMENT PROOF SECTION */
 .proof-upload{background:rgba(0,0,0,0.3);border:2px dashed rgba(155,93,229,0.3);border-radius:8px;padding:14px;text-align:center;font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace;letter-spacing:1px;}
 
+
+/* ═══ MOBILE HAMBURGER ═══ */
+.hbtn{display:none;position:fixed;top:12px;left:12px;z-index:500;width:44px;height:44px;background:linear-gradient(135deg,#13131f,#0a0a16);border:1px solid rgba(0,245,212,0.3);border-radius:12px;align-items:center;justify-content:center;cursor:pointer;font-size:20px;color:var(--cyan);box-shadow:0 4px 20px rgba(0,0,0,0.6);}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:150;backdrop-filter:blur(4px);}
+.sidebar-overlay.open{display:block;}
+
+/* ═══ SEARCH BAR ═══ */
+.search-wrap{margin-bottom:18px;position:relative;}
+.search-wrap::before{content:'🔍';position:absolute;left:13px;top:50%;transform:translateY(-50%);pointer-events:none;font-size:13px;}
+.search-input{width:100%;background:rgba(4,4,10,0.8);border:1px solid rgba(30,30,58,0.9);border-radius:10px;padding:10px 14px 10px 38px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s;}
+.search-input:focus{border-color:rgba(0,245,212,0.4);box-shadow:0 0 0 3px rgba(0,245,212,0.06);}
+.search-input::placeholder{color:#33334a;}
+
+/* ═══ ANNOUNCEMENT BANNER ═══ */
+.announce-bar{background:linear-gradient(135deg,rgba(155,93,229,0.1),rgba(0,245,212,0.06));border:1px solid rgba(155,93,229,0.25);border-radius:12px;padding:12px 16px;margin-bottom:18px;display:flex;align-items:flex-start;gap:12px;}
+.announce-bar::before{content:'';display:block;position:absolute;} /* placeholder */
+.announce-icon{font-size:20px;flex-shrink:0;}
+.announce-text{flex:1;font-size:13px;color:var(--text);font-family:'Rajdhani',sans-serif;font-weight:500;line-height:1.5;}
+.announce-close{background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;}
+.announce-close:hover{color:var(--red);}
+
+/* ═══ EDIT TOURNAMENT MODAL ═══ */
+#edit-tournament-modal .modal{max-width:560px;}
+
+/* ═══ COUNTDOWN BADGE ═══ */
+.t-countdown{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--gold);background:rgba(255,214,10,0.08);border:1px solid rgba(255,214,10,0.2);border-radius:6px;padding:3px 8px;display:inline-block;margin-bottom:8px;}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:768px){
+  .hbtn{display:flex;}
+  .sidebar{transform:translateX(-260px);transition:transform 0.28s ease;z-index:200;}
+  .sidebar.mobile-open{transform:translateX(0);}
+  .main{margin-left:0!important;padding:68px 14px 24px;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .tournament-grid{grid-template-columns:1fr;}
+  .two-col,.three-col{grid-template-columns:1fr;}
+  .player-fields{grid-template-columns:1fr 1fr;}
+  .page-title{font-size:20px!important;}
+  .modal{padding:22px 16px;}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .table-wrap table{min-width:560px;}
+  #upi-app-buttons{grid-template-columns:repeat(3,1fr)!important;}
+  .auth-box{padding:24px 18px;}
+  .auth-logo{font-size:32px;}
+  .two-col[style*="gap:20px"]{grid-template-columns:1fr;}
+  .section-title{font-size:14px;}
+}
+@media(max-width:420px){
+  .player-fields{grid-template-columns:1fr;}
+  #upi-app-buttons{grid-template-columns:repeat(2,1fr)!important;}
+  .modal{padding:18px 12px;}
+}
+
 </style>
 </head>
 <body>
 <div id="toast"></div>
+<button class="hbtn" id="hbtn" onclick="toggleSidebar()">☰</button>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
 
 <!-- CONTACT STRIP -->
 <div class="contact-strip" style="gap:14px;flex-wrap:wrap;">
@@ -389,6 +444,8 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
     <div class="main">
       <div id="section-tournaments">
         <div class="page-header"><div class="page-title">LIVE TOURNAMENTS</div><div class="page-subtitle">// Active arenas — register to compete</div></div>
+        <div id="announce-banner"></div>
+        <div class="search-wrap"><input class="search-input" id="t-search" placeholder="Search tournaments..." oninput="searchTs(this.value)"></div>
         <div class="tournament-grid" id="tournaments-grid"></div>
       </div>
       <div id="section-my-regs" style="display:none">
@@ -475,6 +532,7 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
       <!-- USERS -->
       <div id="admin-section-users" style="display:none">
         <div class="page-header"><div class="page-title">PLAYERS</div><div class="page-subtitle">// All registered combatants — edit or remove</div></div>
+        <div class="search-wrap" style="max-width:380px"><input class="search-input" id="u-search" placeholder="Search players..." oninput="searchUsers(this.value)"></div>
         <div id="users-table"></div>
       </div>
 
@@ -531,6 +589,17 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
       <!-- SETTINGS -->
       <div id="admin-section-settings" style="display:none">
         <div class="page-header"><div class="page-title">SETTINGS</div><div class="page-subtitle">// Admin account & system configuration</div></div>
+
+        <!-- Announcement Banner -->
+        <div class="settings-card">
+          <div class="settings-card-title"><span class="icon">📢</span> Announcement Banner</div>
+          <p style="font-size:12px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-bottom:14px;line-height:1.7">Players dekhenge yeh message Tournaments page pe. Blank rakhne se banner chhuup jayega.</p>
+          <div class="form-group"><label class="form-label">Message</label><textarea id="s-announce" class="form-input" rows="2" placeholder="e.g. Aaj raat 10 baje registration band! Discord join karo updates ke liye."></textarea></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-cyan" style="width:auto" onclick="saveAnnouncement()">📢 PUBLISH</button>
+            <button class="btn btn-red" style="width:auto" onclick="clearAnnouncement()">✕ CLEAR</button>
+          </div>
+        </div>
 
         <!-- Change Admin Username -->
         <div class="settings-card">
@@ -597,7 +666,7 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
         <div class="settings-card">
           <div class="settings-card-title"><span class="icon">📡</span> System Information</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-            <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">VERSION<br><span style="color:var(--cyan);font-size:15px;font-weight:700">TOS v2.1.0</span></div>
+            <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">VERSION<br><span style="color:var(--cyan);font-size:15px;font-weight:700">TOS v3.11.5</span></div>
             <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">STATUS<br><span style="color:var(--green);font-size:15px;font-weight:700"><span class="online-dot"></span>ONLINE</span></div>
             <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">STORAGE<br><span id="sys-storage" style="color:var(--gold);font-size:13px">—</span></div>
             <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">ADMIN SINCE<br><span id="sys-since" style="color:var(--text);font-size:13px">—</span></div>
@@ -619,6 +688,34 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
     <div class="modal-footer">
       <button class="btn btn-primary" style="flex:1" onclick="proceedToPayment()">💳 NEXT: PAYMENT</button>
       <button class="btn btn-ghost" style="width:auto" onclick="closeModal('register-modal')">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT TOURNAMENT MODAL -->
+<div class="modal-overlay" id="edit-tournament-modal">
+  <div class="modal">
+    <div class="modal-title">✏ EDIT ARENA</div>
+    <input type="hidden" id="et-id">
+    <div class="two-col">
+      <div class="form-group"><label class="form-label">Tournament Name</label><input type="text" id="et-name" class="form-input"></div>
+      <div class="form-group"><label class="form-label">Type</label><select id="et-type" class="form-input"><option value="solo">Solo</option><option value="duo">Duo</option><option value="squad">Squad</option></select></div>
+    </div>
+    <div class="two-col">
+      <div class="form-group"><label class="form-label">Entry Fee (₹)</label><input type="number" id="et-fee" class="form-input" min="0"></div>
+      <div class="form-group"><label class="form-label">Prize Pool</label><input type="text" id="et-prize" class="form-input"></div>
+    </div>
+    <div class="two-col">
+      <div class="form-group"><label class="form-label">Date</label><input type="date" id="et-date" class="form-input"></div>
+      <div class="form-group"><label class="form-label">Status</label><select id="et-status" class="form-input"><option value="live">Live</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option></select></div>
+    </div>
+    <div class="two-col">
+      <div class="form-group"><label class="form-label">Max Slots</label><input type="number" id="et-slots" class="form-input" min="2"></div>
+      <div class="form-group"><label class="form-label">Description</label><input type="text" id="et-desc" class="form-input"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cyan" style="flex:1" onclick="submitEditTournament()">💾 SAVE CHANGES</button>
+      <button class="btn btn-ghost" style="width:auto" onclick="closeModal('edit-tournament-modal')">CANCEL</button>
     </div>
   </div>
 </div>
@@ -888,17 +985,7 @@ window.addEventListener('DOMContentLoaded', async ()=>{
     </div>`;
     return;
   }
-  // Test connection
-  showLoader('CONNECTING TO DATABASE...');
-  try{
-    const {error}=await sb.from('users').select('id').limit(1);
-    if(error)throw error;
-    hideLoader();
-  } catch(e){
-    hideLoader();
-    toast('⚠ Database connection failed. Check your Supabase credentials.','error');
-    console.error(e);
-  }
+  showPage('auth-page');
 });
 
 // ======================== AUTH ========================
@@ -914,20 +1001,24 @@ async function doLogin(){
   const err=document.getElementById('login-error');err.textContent='';
   if(!u||!p){err.textContent='⚠ Please fill all fields.';return;}
   showLoader('AUTHENTICATING...');
-  const {data,error}=await sb.from('users').select('*').eq('username',u).eq('password',p).single();
-  hideLoader();
-  if(error||!data){err.textContent='⚠ Invalid credentials.';return;}
-  currentUser={...data,createdAt:data.created_at};
-  await addActivity('purple',`${data.username} logged in`);
-  if(data.role==='admin'){
-    document.getElementById('admin-name-display').textContent=data.username.toUpperCase();
-    showPage('admin-page');loadAdminDashboard();
-  }else{
-    showPage('user-page');
-    document.getElementById('user-avatar').textContent=data.username[0].toUpperCase();
-    document.getElementById('user-name-display').textContent=data.username.toUpperCase();
-    loadTournaments();
-  }
+  try{
+    const {data:found,error:e1}=await sb.from('users').select('*').eq('username',u).maybeSingle();
+    if(e1){hideLoader();err.textContent='⚠ Connection error. Try again.';return;}
+    if(!found){hideLoader();err.textContent='⚠ Username not found.';return;}
+    if(found.password!==p){hideLoader();err.textContent='⚠ Incorrect password.';return;}
+    hideLoader();
+    currentUser={...found,createdAt:found.created_at};
+    await addActivity('purple',`${found.username} logged in`);
+    if(found.role==='admin'){
+      document.getElementById('admin-name-display').textContent=found.username.toUpperCase();
+      showPage('admin-page');loadAdminDashboard();
+    }else{
+      showPage('user-page');
+      document.getElementById('user-avatar').textContent=found.username[0].toUpperCase();
+      document.getElementById('user-name-display').textContent=found.username.toUpperCase();
+      loadTournaments();
+    }
+  }catch(ex){hideLoader();err.textContent='⚠ Login failed. Try again.';}
 }
 
 async function doSignup(){
@@ -940,7 +1031,7 @@ async function doSignup(){
   if(p.length<4){msg.textContent='⚠ Password must be 4+ characters.';return;}
   if(!/^\d{10}$/.test(phone)){msg.textContent='⚠ Mobile must be exactly 10 digits.';return;}
   showLoader('CREATING ACCOUNT...');
-  const {data:existing}=await sb.from('users').select('id').eq('username',u).single();
+  const {data:existing}=await sb.from('users').select('id').eq('username',u).maybeSingle();
   if(existing){hideLoader();msg.textContent='⚠ Username already taken.';return;}
   const newUser={id:uid(),username:u,password:p,email:phone,role:'user',created_at:Date.now()};
   const {error}=await sb.from('users').insert(newUser);
@@ -969,31 +1060,58 @@ function showUserSection(name,el){
   if(name==='guild')loadGuildPage();
 }
 
+// Tournament + regs cache for search
+let _tsCache=[],_regsCache=[];
 async function loadTournaments(){
   showLoader('LOADING ARENAS...');
-  const {data:ts}=await sb.from('tournaments').select('*').eq('status','live').order('created_at',{ascending:false});
-  const {data:regs}=await sb.from('registrations').select('*');
+  const [{data:ts},{data:regs}]=await Promise.all([
+    sb.from('tournaments').select('*').eq('status','live').order('created_at',{ascending:false}),
+    sb.from('registrations').select('*')
+  ]);
   hideLoader();
+  _tsCache=ts||[];_regsCache=regs||[];
   const grid=document.getElementById('tournaments-grid');
-  if(!ts||!ts.length){grid.innerHTML='<div class="empty-state"><div class="empty-icon">🏆</div><div class="empty-text">// NO LIVE TOURNAMENTS</div></div>';return;}
-  const allRegs=regs||[];
+  if(!_tsCache.length){grid.innerHTML='<div class="empty-state"><div class="empty-icon">🏆</div><div class="empty-text">// NO LIVE TOURNAMENTS</div></div>';return;}
+  renderTCards(_tsCache);
+  loadAnnouncement();
+}
+function searchTs(q){
+  const s=q.toLowerCase().trim();
+  renderTCards(s?_tsCache.filter(t=>t.name.toLowerCase().includes(s)||t.type.includes(s)||t.prize.toLowerCase().includes(s)):_tsCache);
+}
+function countdown(dateStr){
+  const d=new Date(dateStr)-new Date();
+  if(d<=0)return'<span class="t-countdown">🔴 STARTED</span>';
+  const days=Math.floor(d/86400000);
+  if(days>0)return`<span class="t-countdown">⏳ ${days} day${days>1?'s':''} left</span>`;
+  const hrs=Math.floor(d/3600000);
+  return`<span class="t-countdown">⚡ ${hrs}h left</span>`;
+}
+function renderTCards(ts){
+  const grid=document.getElementById('tournaments-grid');
+  if(!ts||!ts.length){grid.innerHTML='<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-text">// NO RESULTS</div></div>';return;}
   grid.innerHTML=ts.map(t=>{
-    const regCount=allRegs.filter(r=>r.tournament_id===t.id&&r.status!=='rejected').length;
+    const regCount=_regsCache.filter(r=>r.tournament_id===t.id&&r.status!=='rejected').length;
     const unlimited=t.unlimited_slots;
     const maxSlots=unlimited?'∞':t.max_slots||16;
     const pct=unlimited?Math.min(100,regCount*5):Math.min(100,Math.round((regCount/(t.max_slots||16))*100));
+    const full=!unlimited&&regCount>=(t.max_slots||16);
     return`<div class="t-card ${t.type}"><div class="t-card-glow"></div>
       <div class="t-card-header"><div class="t-name">${t.name}</div>${typeBadge(t.type)}</div>
+      ${countdown(t.date)}
       <div class="t-meta">
         <div class="t-meta-item">DATE: <span>${t.date}</span></div>
-        <div class="t-meta-item">PLAYERS: <span>${playerCount(t.type)}</span></div>
-        ${unlimited?`<div class="t-meta-item">SLOTS: <span style="color:var(--cyan)">♾ UNLIMITED</span></div>`:''}
+        <div class="t-meta-item">MODE: <span>${t.type.toUpperCase()}</span></div>
+        <div class="t-meta-item">SLOTS: <span style="color:${full?'var(--red)':'var(--cyan)'}">${regCount}/${maxSlots}</span></div>
+        ${unlimited?`<div class="t-meta-item"><span style="color:var(--cyan)">♾ UNLIMITED</span></div>`:''}
       </div>
       ${t.description?`<div style="font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-bottom:10px;line-height:1.5">${t.description}</div>`:''}
       <div class="t-divider"></div>
       <div class="t-footer"><div class="t-fee">${t.entry_fee>0?'₹'+t.entry_fee:'FREE'}</div><div class="t-prize">🏅 ${t.prize}</div></div>
-      <div class="t-slots-bar"><div class="t-slots-label"><span>FILLING UP</span><span style='color:var(--muted);letter-spacing:3px'>● ● ●</span></div><div class="t-slots-track"><div class="t-slots-fill" style="width:${pct}%"></div></div></div>
-      <button class="btn btn-primary" style="font-size:10px;padding:10px 16px;margin-top:12px" onclick="openRegister('${t.id}')">⚔ REGISTER NOW</button>
+      <div class="t-slots-bar"><div class="t-slots-label"><span>${full?'🔴 FULL':'FILLING UP'}</span><span>${regCount}/${maxSlots}</span></div><div class="t-slots-track"><div class="t-slots-fill" style="width:${pct}%;background:${full?'var(--red)':'linear-gradient(90deg,var(--cyan),var(--purple))'}"></div></div></div>
+      <button class="btn btn-primary" style="font-size:10px;padding:10px 16px;margin-top:12px" onclick="openRegister('${t.id}')"${full&&!unlimited?' disabled style="opacity:0.4;cursor:not-allowed"':''}>
+        ${full&&!unlimited?'🔴 SLOTS FULL':'⚔ REGISTER NOW'}
+      </button>
     </div>`;
   }).join('');
 }
@@ -1040,16 +1158,19 @@ async function proceedToPayment(){
   const {data:t}=await sb.from('tournaments').select('*').eq('id',registeringTournamentId).single();
   if(!t){hideLoader();toast('⚠ Tournament not found.','error');return;}
   const count=playerCount(t.type);
+  const collectedPlayers=[];
   for(let i=0;i<count;i++){
     const username=document.getElementById(`p-${i}-username`).value.trim();
     const uid2=document.getElementById(`p-${i}-uid`).value.trim();
     const phone=document.getElementById(`p-${i}-phone`).value.trim();
     if(!username||!uid2||!phone){hideLoader();toast('⚠ Fill all player fields.','error');return;}
     if(!/^\d{10}$/.test(phone)){hideLoader();toast(`⚠ Player ${i+1}: Phone must be 10 digits.`,'error');return;}
+    collectedPlayers.push({username,uid:uid2,phone});
   }
-  const {data:existing}=await sb.from('registrations').select('id').eq('user_id',currentUser.id).eq('tournament_id',registeringTournamentId).single();
+  const {data:existing}=await sb.from('registrations').select('id').eq('user_id',currentUser.id).eq('tournament_id',registeringTournamentId).maybeSingle();
   hideLoader();
   if(existing){toast('⚠ Already registered!','error');return;}
+  window._pendingPlayers=collectedPlayers;
   closeModal('register-modal');
 
   // Load UPI settings
@@ -1070,7 +1191,7 @@ async function proceedToPayment(){
   const upiSection=document.getElementById('upi-pay-section');
   const freeSection=document.getElementById('free-pay-section');
 
-  if(fee===0||fee==='0'||!fee){
+  if(Number(fee)===0||!fee){
     upiSection.style.display='none';freeSection.style.display='block';
     document.getElementById('pay-txn-id').value='FREE';
   } else {
@@ -1124,27 +1245,24 @@ async function submitWithPayment(){
   if(!t)return;
   const count=playerCount(t.type);
   const fee=t.entry_fee;
-  if(fee>0&&!txnId){toast('⚠ Enter your Transaction ID / UTR number.','error');return;}
-  if(fee>0&&!appUsed){toast('⚠ Please select which UPI app you used.','error');return;}
-  const players=[];
-  for(let i=0;i<count;i++){
-    players.push({
-      username:document.getElementById(`p-${i}-username`).value.trim(),
-      uid:document.getElementById(`p-${i}-uid`).value.trim(),
-      phone:document.getElementById(`p-${i}-phone`).value.trim()
-    });
-  }
+  if(Number(fee)>0&&!txnId){toast('⚠ Enter your Transaction ID / UTR number.','error');return;}
+  if(Number(fee)>0&&!appUsed){toast('⚠ Please select which UPI app you used.','error');return;}
+  const players=window._pendingPlayers||[];
+  if(!players.length){toast('⚠ Player data missing. Please start over.','error');closeModal('payment-modal');return;}
   showLoader('SUBMITTING REGISTRATION...');
   const {error}=await sb.from('registrations').insert({
     id:uid(),user_id:currentUser.id,tournament_id:registeringTournamentId,
     players,status:'pending',
-    payment:{txnId,appUsed,fee:fee,method:'upi'},
+    payment:{txnId,appUsed,fee:Number(fee),method:Number(fee)===0?'free':'upi'},
     created_at:Date.now()
   });
   hideLoader();
   if(error){toast('⚠ Registration failed. Try again.','error');console.error(error);return;}
-  await addActivity('gold',`${currentUser.username} registered for "${t.name}" via ${appUsed||'UPI'}`);
-  closeModal('payment-modal');toast('✓ Registered! Admin will verify payment & approve your slot.','success');
+  window._pendingPlayers=[];
+  await addActivity('gold',`${currentUser.username} registered for "${t.name}"${appUsed?' via '+appUsed:''}`);
+  closeModal('payment-modal');
+  toast('✓ Registered! Admin will verify & approve your slot.','success');
+  loadTournaments();
 }
 
 // ======================== ADMIN SECTIONS ========================
@@ -1222,7 +1340,8 @@ async function loadAdminTournaments(){
       <div style="font-size:12px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-bottom:10px">PRIZE: <span style="color:var(--gold)">${t.prize}</span></div>
       <div class="t-slots-bar"><div class="t-slots-label"><span>REGISTERED</span><span>${regCount}/${maxSlots}</span></div><div class="t-slots-track"><div class="t-slots-fill" style="width:${pct}%"></div></div></div>
       <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">
-        ${t.status==='live'?`<button class="btn btn-ghost btn-sm" onclick="setTournamentStatus('${t.id}','completed')">✓ Mark Complete</button><button class="btn btn-red btn-sm" onclick="setTournamentStatus('${t.id}','cancelled')">✗ Cancel</button>`:''}
+        <button class="btn btn-ghost btn-sm" onclick="openEditTournament('${t.id}')">✏ Edit</button>
+        ${t.status==='live'?`<button class="btn btn-ghost btn-sm" onclick="setTournamentStatus('${t.id}','completed')">✓ Complete</button><button class="btn btn-red btn-sm" onclick="setTournamentStatus('${t.id}','cancelled')">✗ Cancel</button>`:''}
       </div>
     </div>`;
   }).join('');
@@ -1284,6 +1403,7 @@ async function rejectReg(id){
 }
 
 // ======================== USERS ========================
+let _usersCache=[],_uregsCache=[];
 async function loadUsers(){
   showLoader('LOADING PLAYERS...');
   const [{data:users},{data:regs}]=await Promise.all([
@@ -1291,11 +1411,18 @@ async function loadUsers(){
     sb.from('registrations').select('*')
   ]);
   hideLoader();
+  _usersCache=users||[];_uregsCache=regs||[];
+  renderUsers(_usersCache);
+}
+function searchUsers(q){
+  const s=q.toLowerCase().trim();
+  renderUsers(s?_usersCache.filter(u=>u.username.toLowerCase().includes(s)||(u.email||'').includes(s)):_usersCache);
+}
+function renderUsers(users){
   const el=document.getElementById('users-table');
-  if(!users||!users.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">👥</div><div class="empty-text">// NO PLAYERS YET</div></div>';return;}
-  const allRegs=regs||[];
-  el.innerHTML=`<div class="table-wrap"><table><thead><tr><th>#</th><th>Callsign</th><th>Email</th><th>Joined</th><th>Regs</th><th>Pending</th><th>Actions</th></tr></thead><tbody>${users.map((u,i)=>{
-    const ur=allRegs.filter(r=>r.user_id===u.id);
+  if(!users||!users.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">👥</div><div class="empty-text">// NO PLAYERS FOUND</div></div>';return;}
+  el.innerHTML=`<div class="table-wrap"><table><thead><tr><th>#</th><th>Callsign</th><th>Mobile</th><th>Joined</th><th>Regs</th><th>Pending</th><th>Actions</th></tr></thead><tbody>${users.map((u,i)=>{
+    const ur=_uregsCache.filter(r=>r.user_id===u.id);
     return`<tr>
       <td style="font-family:'Share Tech Mono',monospace;color:var(--muted)">${String(i+1).padStart(2,'0')}</td>
       <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="width:30px;height:30px;font-size:11px">${u.username[0].toUpperCase()}</div><strong style="font-family:'Orbitron',sans-serif;font-size:11px">${u.username}</strong></div></td>
@@ -1427,8 +1554,8 @@ async function loadSettings(){
   if(upi.upiId){preview.style.display='block';cur.textContent=upi.upiId;}
   else preview.style.display='none';
 
-  let storageEst=0; // Supabase cloud — no local storage used
   document.getElementById('sys-storage').textContent='Supabase Cloud';
+  loadAnnouncementSetting();
   document.getElementById('sys-since').textContent=admin&&admin.created_at?new Date(admin.created_at).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}):'—';
 }
 
@@ -1715,8 +1842,8 @@ async function loadGuildPage(){
   const el=document.getElementById('guild-page-content');
   el.innerHTML='<div class="empty-state"><div class="empty-icon" style="animation:crownPulse 1.5s infinite">⚔</div><div class="empty-text">// LOADING GUILD...</div></div>';
   const [{data:members},{data:gloryRows}]=await Promise.all([
-    sb.from('settings').select('value').eq('key','guildMembers').single(),
-    sb.from('settings').select('value').eq('key','gloryWinners').single()
+    sb.from('settings').select('value').eq('key','guildMembers').maybeSingle(),
+    sb.from('settings').select('value').eq('key','gloryWinners').maybeSingle()
   ]);
   const list=(members&&members.value&&Array.isArray(members.value))?members.value:[];
   const gloryList=(gloryRows&&gloryRows.value&&Array.isArray(gloryRows.value))?gloryRows.value:[];
@@ -1777,7 +1904,7 @@ async function loadGuildPage(){
 
 // ======================== GLORY WINNER ADMIN ========================
 async function loadGloryAdmin(){
-  const {data:row}=await sb.from('settings').select('value').eq('key','gloryWinners').single().catch(()=>({data:null}));
+  const {data:row}=await sb.from('settings').select('value').eq('key','gloryWinners').maybeSingle();
   const list=(row&&row.value&&Array.isArray(row.value))?row.value:[];
   // Pre-fill current winner
   if(list[0]){
@@ -1810,7 +1937,7 @@ async function saveGloryWinner(){
   const note=document.getElementById('glory-note').value.trim();
   if(!name||!prize){toast('⚠ Name and Prize are required.','error');return;}
   showLoader('SAVING GLORY WINNER...');
-  const {data:row}=await sb.from('settings').select('value').eq('key','gloryWinners').single().catch(()=>({data:null}));
+  const {data:row}=await sb.from('settings').select('value').eq('key','gloryWinners').maybeSingle();
   const list=(row&&row.value&&Array.isArray(row.value))?row.value:[];
   const newEntry={name,prize,uid:uid2,week,note,savedAt:Date.now()};
   list.unshift(newEntry); // newest first
@@ -1823,7 +1950,7 @@ async function saveGloryWinner(){
 
 async function deleteGloryWinner(index){
   showLoader('REMOVING...');
-  const {data:row}=await sb.from('settings').select('value').eq('key','gloryWinners').single().catch(()=>({data:null}));
+  const {data:row}=await sb.from('settings').select('value').eq('key','gloryWinners').maybeSingle();
   const list=(row&&row.value&&Array.isArray(row.value))?row.value:[];
   list.splice(index,1);
   await sb.from('settings').upsert({key:'gloryWinners',value:list});
@@ -1833,7 +1960,7 @@ async function deleteGloryWinner(index){
 // ======================== GUILD ADMIN ========================
 async function loadGuildAdmin(){
   clearGuildForm();
-  const {data:row}=await sb.from('settings').select('value').eq('key','guildMembers').single().catch(()=>({data:null}));
+  const {data:row}=await sb.from('settings').select('value').eq('key','guildMembers').maybeSingle();
   const list=(row&&row.value&&Array.isArray(row.value))?row.value:[];
   const el=document.getElementById('guild-admin-roster');
   if(!list.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">⚔</div><div class="empty-text">// NO MEMBERS YET</div></div>';return;}
@@ -1870,7 +1997,7 @@ function clearGuildForm(){
 }
 
 async function editGuildMember(index){
-  const {data:row}=await sb.from('settings').select('value').eq('key','guildMembers').single().catch(()=>({data:null}));
+  const {data:row}=await sb.from('settings').select('value').eq('key','guildMembers').maybeSingle();
   const list=(row&&row.value&&Array.isArray(row.value))?row.value:[];
   const m=list[index];if(!m)return;
   document.getElementById('gm-edit-id').value=String(index);
@@ -1891,7 +2018,7 @@ async function saveGuildMember(){
   const bio=document.getElementById('gm-bio').value.trim();
   if(!name){toast('⚠ Name is required.','error');return;}
   showLoader('SAVING MEMBER...');
-  const {data:row}=await sb.from('settings').select('value').eq('key','guildMembers').single().catch(()=>({data:null}));
+  const {data:row}=await sb.from('settings').select('value').eq('key','guildMembers').maybeSingle();
   const list=(row&&row.value&&Array.isArray(row.value))?[...row.value]:[];
   const editIdx=document.getElementById('gm-edit-id').value;
   const entry={name,uid:uid2,rank:rank||'Member',gender,bio};
@@ -1906,7 +2033,7 @@ async function saveGuildMember(){
 async function deleteGuildMember(index){
   if(!confirm('Remove this member from the guild?'))return;
   showLoader('REMOVING...');
-  const {data:row}=await sb.from('settings').select('value').eq('key','guildMembers').single().catch(()=>({data:null}));
+  const {data:row}=await sb.from('settings').select('value').eq('key','guildMembers').maybeSingle();
   const list=(row&&row.value&&Array.isArray(row.value))?row.value:[];
   const name=list[index]&&list[index].name;
   list.splice(index,1);
@@ -1916,6 +2043,92 @@ async function deleteGuildMember(index){
   toast('Removed.','info');loadGuildAdmin();
 }
 
+
+
+// ======================== MOBILE SIDEBAR ========================
+function toggleSidebar(){
+  document.querySelectorAll('.sidebar').forEach(s=>s.classList.toggle('mobile-open'));
+  document.getElementById('sidebar-overlay').classList.toggle('open');
+}
+function closeSidebar(){
+  document.querySelectorAll('.sidebar').forEach(s=>s.classList.remove('mobile-open'));
+  document.getElementById('sidebar-overlay').classList.remove('open');
+}
+function initMobile(){
+  const hbtn=document.getElementById('hbtn');
+  if(!hbtn)return;
+  hbtn.style.display=window.innerWidth<=768?'flex':'none';
+}
+initMobile();
+window.addEventListener('resize',initMobile);
+document.querySelectorAll('.nav-item').forEach(el=>el.addEventListener('click',()=>{if(window.innerWidth<=768)closeSidebar();}));
+
+// ======================== ANNOUNCEMENT ========================
+async function loadAnnouncement(){
+  try{
+    const {data}=await sb.from('settings').select('value').eq('key','announcement').maybeSingle();
+    const msg=(data&&data.value&&data.value.text)||'';
+    const el=document.getElementById('announce-banner');
+    if(!el)return;
+    el.innerHTML=msg?`<div class="announce-bar"><span class="announce-icon">📢</span><div class="announce-text">${msg}</div><button class="announce-close" onclick="this.closest('.announce-bar').remove()">✕</button></div>`:'';
+  }catch(e){}
+}
+async function saveAnnouncement(){
+  const msg=document.getElementById('s-announce').value.trim();
+  showLoader('PUBLISHING...');
+  await sb.from('settings').upsert({key:'announcement',value:{text:msg,updated:Date.now()}});
+  hideLoader();
+  toast(msg?'✓ Announcement published!':'✓ Cleared.','success');
+  if(msg)await addActivity('purple',`Announcement: "${msg.slice(0,40)}"`);
+}
+async function clearAnnouncement(){
+  document.getElementById('s-announce').value='';
+  await saveAnnouncement();
+}
+async function loadAnnouncementSetting(){
+  try{
+    const {data}=await sb.from('settings').select('value').eq('key','announcement').maybeSingle();
+    document.getElementById('s-announce').value=(data&&data.value&&data.value.text)||'';
+  }catch(e){}
+}
+
+// ======================== EDIT TOURNAMENT ========================
+async function openEditTournament(id){
+  showLoader('LOADING...');
+  const {data:t}=await sb.from('tournaments').select('*').eq('id',id).single();
+  hideLoader();
+  if(!t){toast('⚠ Not found.','error');return;}
+  document.getElementById('et-id').value=t.id;
+  document.getElementById('et-name').value=t.name;
+  document.getElementById('et-type').value=t.type;
+  document.getElementById('et-fee').value=t.entry_fee;
+  document.getElementById('et-prize').value=t.prize;
+  document.getElementById('et-date').value=t.date;
+  document.getElementById('et-status').value=t.status;
+  document.getElementById('et-slots').value=t.max_slots||16;
+  document.getElementById('et-desc').value=t.description||'';
+  openModal('edit-tournament-modal');
+}
+async function submitEditTournament(){
+  const id=document.getElementById('et-id').value;
+  const name=document.getElementById('et-name').value.trim();
+  const fee=parseFloat(document.getElementById('et-fee').value)||0;
+  const prize=document.getElementById('et-prize').value.trim();
+  const date=document.getElementById('et-date').value;
+  const status=document.getElementById('et-status').value;
+  const type=document.getElementById('et-type').value;
+  const slots=parseInt(document.getElementById('et-slots').value)||16;
+  const desc=document.getElementById('et-desc').value.trim();
+  if(!name||!prize||!date){toast('⚠ Fill all required fields.','error');return;}
+  showLoader('SAVING...');
+  const {error}=await sb.from('tournaments').update({name,type,entry_fee:fee,prize,date,status,max_slots:slots,description:desc}).eq('id',id);
+  hideLoader();
+  if(error){toast('⚠ Save failed.','error');return;}
+  await addActivity('gold',`Tournament "${name}" edited`);
+  closeModal('edit-tournament-modal');
+  toast(`✓ "${name}" updated!`,'success');
+  loadAdminTournaments();loadAdminDashboard();
+}
 
 // ======================== 3D TILT ========================
 const box=document.getElementById('auth-box-3d');
