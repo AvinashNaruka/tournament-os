@@ -309,64 +309,71 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
 .proof-upload{background:rgba(0,0,0,0.3);border:2px dashed rgba(155,93,229,0.3);border-radius:8px;padding:14px;text-align:center;font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace;letter-spacing:1px;}
 
 
-/* ═══ MOBILE HAMBURGER ═══ */
-.hbtn{display:none;position:fixed;top:12px;left:12px;z-index:500;width:44px;height:44px;background:linear-gradient(135deg,#13131f,#0a0a16);border:1px solid rgba(0,245,212,0.3);border-radius:12px;align-items:center;justify-content:center;cursor:pointer;font-size:20px;color:var(--cyan);box-shadow:0 4px 20px rgba(0,0,0,0.6);}
-.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:150;backdrop-filter:blur(4px);}
-.sidebar-overlay.open{display:block;}
+/* ══ HAMBURGER ══ */
+#mob-btn{display:none;position:fixed;top:10px;left:10px;z-index:9999;width:46px;height:46px;
+  background:linear-gradient(135deg,#13131f,#0a0a16);border:1.5px solid rgba(0,245,212,0.4);
+  border-radius:12px;align-items:center;justify-content:center;cursor:pointer;
+  font-size:22px;color:var(--cyan);box-shadow:0 4px 20px rgba(0,0,0,0.7);}
+#mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);
+  z-index:9998;backdrop-filter:blur(4px);}
 
-/* ═══ SEARCH BAR ═══ */
-.search-wrap{margin-bottom:18px;position:relative;}
-.search-wrap::before{content:'🔍';position:absolute;left:13px;top:50%;transform:translateY(-50%);pointer-events:none;font-size:13px;}
-.search-input{width:100%;background:rgba(4,4,10,0.8);border:1px solid rgba(30,30,58,0.9);border-radius:10px;padding:10px 14px 10px 38px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s;}
-.search-input:focus{border-color:rgba(0,245,212,0.4);box-shadow:0 0 0 3px rgba(0,245,212,0.06);}
-.search-input::placeholder{color:#33334a;}
+/* ══ SEARCH BAR ══ */
+.search-wrap{margin-bottom:18px;}
+.sbar{width:100%;background:rgba(4,4,10,0.9);border:1px solid rgba(30,30,58,0.9);border-radius:10px;
+  padding:10px 14px 10px 40px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:14px;outline:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236666aa' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:12px center;transition:border-color 0.2s;}
+.sbar:focus{border-color:rgba(0,245,212,0.4);box-shadow:0 0 0 3px rgba(0,245,212,0.06);}
+.sbar::placeholder{color:#33334a;}
 
-/* ═══ ANNOUNCEMENT BANNER ═══ */
-.announce-bar{background:linear-gradient(135deg,rgba(155,93,229,0.1),rgba(0,245,212,0.06));border:1px solid rgba(155,93,229,0.25);border-radius:12px;padding:12px 16px;margin-bottom:18px;display:flex;align-items:flex-start;gap:12px;}
-.announce-bar::before{content:'';display:block;position:absolute;} /* placeholder */
-.announce-icon{font-size:20px;flex-shrink:0;}
-.announce-text{flex:1;font-size:13px;color:var(--text);font-family:'Rajdhani',sans-serif;font-weight:500;line-height:1.5;}
-.announce-close{background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;}
-.announce-close:hover{color:var(--red);}
+/* ══ ANNOUNCEMENT ══ */
+.ann-bar{display:flex;align-items:flex-start;gap:12px;background:linear-gradient(135deg,rgba(155,93,229,0.1),rgba(0,245,212,0.06));
+  border:1px solid rgba(155,93,229,0.25);border-radius:12px;padding:12px 16px;margin-bottom:18px;}
+.ann-text{flex:1;font-size:13px;color:var(--text);font-family:'Rajdhani',sans-serif;font-weight:500;line-height:1.5;}
+.ann-close{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:0 0 0 8px;line-height:1;}
 
-/* ═══ EDIT TOURNAMENT MODAL ═══ */
-#edit-tournament-modal .modal{max-width:560px;}
+/* ══ COUNTDOWN ══ */
+.t-cd{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--gold);background:rgba(255,214,10,0.08);
+  border:1px solid rgba(255,214,10,0.2);border-radius:6px;padding:3px 8px;display:inline-block;margin-bottom:8px;}
+.t-cd.hot{color:var(--red);background:rgba(255,45,85,0.08);border-color:rgba(255,45,85,0.2);}
 
-/* ═══ COUNTDOWN BADGE ═══ */
-.t-countdown{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--gold);background:rgba(255,214,10,0.08);border:1px solid rgba(255,214,10,0.2);border-radius:6px;padding:3px 8px;display:inline-block;margin-bottom:8px;}
+/* ══ ORGANISER BADGE ══ */
+.badge-organiser{background:rgba(255,214,10,0.1);color:var(--gold);border:1px solid rgba(255,214,10,0.3);}
 
-/* ═══ RESPONSIVE ═══ */
-@media(max-width:768px){
-  .hbtn{display:flex;}
-  .sidebar{transform:translateX(-260px);transition:transform 0.28s ease;z-index:200;}
-  .sidebar.mobile-open{transform:translateX(0);}
-  .main{margin-left:0!important;padding:68px 14px 24px;}
-  .stats-grid{grid-template-columns:1fr 1fr;}
-  .tournament-grid{grid-template-columns:1fr;}
-  .two-col,.three-col{grid-template-columns:1fr;}
-  .player-fields{grid-template-columns:1fr 1fr;}
+/* ══ MOBILE MAIN FIX ══ */
+@media(max-width:800px){
+  #mob-btn{display:flex!important;}
+  .sidebar{transform:translateX(-280px)!important;transition:transform 0.3s ease!important;z-index:9999!important;}
+  .sidebar.mob-open{transform:translateX(0)!important;box-shadow:8px 0 40px rgba(0,0,0,0.9)!important;}
+  #mob-overlay.show{display:block!important;}
+  .layout{display:block!important;}
+  .main{margin-left:0!important;padding:68px 14px 28px!important;width:100%!important;}
+  .stats-grid{grid-template-columns:1fr 1fr!important;}
+  .tournament-grid{grid-template-columns:1fr!important;}
+  .two-col,.three-col,.player-fields{grid-template-columns:1fr!important;}
+  .player-fields{grid-template-columns:1fr 1fr!important;}
   .page-title{font-size:20px!important;}
-  .modal{padding:22px 16px;}
-  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
-  .table-wrap table{min-width:560px;}
+  .auth-logo{font-size:30px!important;}
+  .auth-box{padding:22px 16px!important;width:96vw!important;}
+  #auth-page{padding:60px 10px 20px!important;align-items:flex-start!important;}
+  .modal{padding:20px 14px!important;width:97vw!important;}
+  .table-wrap{overflow-x:auto!important;-webkit-overflow-scrolling:touch!important;}
+  .table-wrap table{min-width:520px!important;}
   #upi-app-buttons{grid-template-columns:repeat(3,1fr)!important;}
-  .auth-box{padding:24px 18px;}
-  .auth-logo{font-size:32px;}
-  .two-col[style*="gap:20px"]{grid-template-columns:1fr;}
-  .section-title{font-size:14px;}
+  .two-col[style*="gap:20px"]{grid-template-columns:1fr!important;}
 }
 @media(max-width:420px){
-  .player-fields{grid-template-columns:1fr;}
+  .player-fields{grid-template-columns:1fr!important;}
   #upi-app-buttons{grid-template-columns:repeat(2,1fr)!important;}
-  .modal{padding:18px 12px;}
+  .stats-grid{grid-template-columns:1fr 1fr!important;}
 }
 
 </style>
 </head>
 <body>
 <div id="toast"></div>
-<button class="hbtn" id="hbtn" onclick="toggleSidebar()">☰</button>
-<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+<button id="mob-btn" onclick="mobOpen()">☰</button>
+<div id="mob-overlay" onclick="mobClose()"></div>
 
 <!-- CONTACT STRIP -->
 <div class="contact-strip" style="gap:14px;flex-wrap:wrap;">
@@ -444,8 +451,8 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
     <div class="main">
       <div id="section-tournaments">
         <div class="page-header"><div class="page-title">LIVE TOURNAMENTS</div><div class="page-subtitle">// Active arenas — register to compete</div></div>
-        <div id="announce-banner"></div>
-        <div class="search-wrap"><input class="search-input" id="t-search" placeholder="Search tournaments..." oninput="searchTs(this.value)"></div>
+        <div id="ann-wrap"></div>
+        <div class="search-wrap"><input class="sbar" id="ts-q" placeholder="Search tournaments..." oninput="filterTs(this.value)"></div>
         <div class="tournament-grid" id="tournaments-grid"></div>
       </div>
       <div id="section-my-regs" style="display:none">
@@ -476,6 +483,7 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
         <div class="nav-item" onclick="showAdminSection('glory',this)"><span class="nav-icon">🌟</span> Glory Winner</div>
         <div class="nav-item" onclick="showAdminSection('guild-admin',this)"><span class="nav-icon">⚔</span> Guild Members</div>
         <div class="nav-item" onclick="showAdminSection('forgot-requests',this)"><span class="nav-icon">🔐</span> PW Requests</div>
+        <div class="nav-item" onclick="showAdminSection('organisers',this)"><span class="nav-icon">🎮</span> Organisers</div>
         <div class="nav-item" onclick="showAdminSection('settings',this)"><span class="nav-icon">⚙️</span> Settings</div>
       </nav>
       <div class="sidebar-footer"><button class="btn btn-ghost" style="width:100%;font-size:10px" onclick="logout()">◀ LOGOUT</button></div>
@@ -532,7 +540,7 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
       <!-- USERS -->
       <div id="admin-section-users" style="display:none">
         <div class="page-header"><div class="page-title">PLAYERS</div><div class="page-subtitle">// All registered combatants — edit or remove</div></div>
-        <div class="search-wrap" style="max-width:380px"><input class="search-input" id="u-search" placeholder="Search players..." oninput="searchUsers(this.value)"></div>
+        <div class="search-wrap" style="max-width:360px"><input class="sbar" id="us-q" placeholder="Search players..." oninput="filterUsers(this.value)"></div>
         <div id="users-table"></div>
       </div>
 
@@ -586,6 +594,26 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
         <div id="guild-admin-roster"></div>
       </div>
 
+
+      <!-- ORGANISERS -->
+      <div id="admin-section-organisers" style="display:none">
+        <div class="page-header"><div class="page-title">🎮 ORGANISERS</div><div class="page-subtitle">// Create & manage tournament organisers</div></div>
+        <div class="settings-card">
+          <div class="settings-card-title"><span class="icon">➕</span> Create New Organiser</div>
+          <div class="two-col">
+            <div class="form-group"><label class="form-label">Username</label><input type="text" id="org-username" class="form-input" placeholder="organiser_username"></div>
+            <div class="form-group"><label class="form-label">Password</label><input type="password" id="org-password" class="form-input" placeholder="Min 4 characters"></div>
+          </div>
+          <div class="two-col">
+            <div class="form-group"><label class="form-label">Display Name</label><input type="text" id="org-name" class="form-input" placeholder="e.g. BGMI Tournaments, Valorant India"></div>
+            <div class="form-group"><label class="form-label">Game / Category</label><input type="text" id="org-game" class="form-input" placeholder="e.g. Free Fire, BGMI, Valorant"></div>
+          </div>
+          <button class="btn btn-cyan" style="width:auto" onclick="createOrganiser()">🎮 CREATE ORGANISER</button>
+        </div>
+        <div class="section-title">Active Organisers</div>
+        <div id="org-list"></div>
+      </div>
+
       <!-- SETTINGS -->
       <div id="admin-section-settings" style="display:none">
         <div class="page-header"><div class="page-title">SETTINGS</div><div class="page-subtitle">// Admin account & system configuration</div></div>
@@ -593,11 +621,11 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
         <!-- Announcement Banner -->
         <div class="settings-card">
           <div class="settings-card-title"><span class="icon">📢</span> Announcement Banner</div>
-          <p style="font-size:12px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-bottom:14px;line-height:1.7">Players dekhenge yeh message Tournaments page pe. Blank rakhne se banner chhuup jayega.</p>
-          <div class="form-group"><label class="form-label">Message</label><textarea id="s-announce" class="form-input" rows="2" placeholder="e.g. Aaj raat 10 baje registration band! Discord join karo updates ke liye."></textarea></div>
+          <p style="font-size:12px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-bottom:14px;line-height:1.7">Players ko Tournaments page pe dikhega. Blank = hidden.</p>
+          <div class="form-group"><label class="form-label">Message</label><textarea id="s-ann" class="form-input" rows="2" placeholder="e.g. Aaj raat 10 baje registration band!"></textarea></div>
           <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <button class="btn btn-cyan" style="width:auto" onclick="saveAnnouncement()">📢 PUBLISH</button>
-            <button class="btn btn-red" style="width:auto" onclick="clearAnnouncement()">✕ CLEAR</button>
+            <button class="btn btn-cyan" style="width:auto" onclick="saveAnn()">📢 PUBLISH</button>
+            <button class="btn btn-red" style="width:auto" onclick="clearAnn()">✕ CLEAR</button>
           </div>
         </div>
 
@@ -666,7 +694,7 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
         <div class="settings-card">
           <div class="settings-card-title"><span class="icon">📡</span> System Information</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-            <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">VERSION<br><span style="color:var(--cyan);font-size:15px;font-weight:700">TOS v3.11.5</span></div>
+            <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">VERSION<br><span style="color:var(--cyan);font-size:15px;font-weight:700">TOS v5.0.0</span></div>
             <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">STATUS<br><span style="color:var(--green);font-size:15px;font-weight:700"><span class="online-dot"></span>ONLINE</span></div>
             <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">STORAGE<br><span id="sys-storage" style="color:var(--gold);font-size:13px">—</span></div>
             <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)">ADMIN SINCE<br><span id="sys-since" style="color:var(--text);font-size:13px">—</span></div>
@@ -693,13 +721,13 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
 </div>
 
 <!-- EDIT TOURNAMENT MODAL -->
-<div class="modal-overlay" id="edit-tournament-modal">
+<div class="modal-overlay" id="edit-t-modal">
   <div class="modal">
     <div class="modal-title">✏ EDIT ARENA</div>
     <input type="hidden" id="et-id">
     <div class="two-col">
-      <div class="form-group"><label class="form-label">Tournament Name</label><input type="text" id="et-name" class="form-input"></div>
-      <div class="form-group"><label class="form-label">Type</label><select id="et-type" class="form-input"><option value="solo">Solo</option><option value="duo">Duo</option><option value="squad">Squad</option></select></div>
+      <div class="form-group"><label class="form-label">Name</label><input type="text" id="et-name" class="form-input"></div>
+      <div class="form-group"><label class="form-label">Type</label><select id="et-type" class="form-input"><option value="solo">Solo (1P)</option><option value="duo">Duo (2P)</option><option value="squad">Squad (4P)</option></select></div>
     </div>
     <div class="two-col">
       <div class="form-group"><label class="form-label">Entry Fee (₹)</label><input type="number" id="et-fee" class="form-input" min="0"></div>
@@ -714,12 +742,11 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
       <div class="form-group"><label class="form-label">Description</label><input type="text" id="et-desc" class="form-input"></div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-cyan" style="flex:1" onclick="submitEditTournament()">💾 SAVE CHANGES</button>
-      <button class="btn btn-ghost" style="width:auto" onclick="closeModal('edit-tournament-modal')">CANCEL</button>
+      <button class="btn btn-cyan" style="flex:1" onclick="saveEditT()">💾 SAVE</button>
+      <button class="btn btn-ghost" style="width:auto" onclick="closeModal('edit-t-modal')">CANCEL</button>
     </div>
   </div>
 </div>
-
 <!-- CREATE TOURNAMENT MODAL -->
 <div class="modal-overlay" id="create-tournament-modal">
   <div class="modal">
@@ -1012,6 +1039,8 @@ async function doLogin(){
     if(found.role==='admin'){
       document.getElementById('admin-name-display').textContent=found.username.toUpperCase();
       showPage('admin-page');loadAdminDashboard();
+    }else if(found.role==='organiser'){
+      showOrgPage(found);
     }else{
       showPage('user-page');
       document.getElementById('user-avatar').textContent=found.username[0].toUpperCase();
@@ -1060,8 +1089,38 @@ function showUserSection(name,el){
   if(name==='guild')loadGuildPage();
 }
 
-// Tournament + regs cache for search
-let _tsCache=[],_regsCache=[];
+// ─── Tournament cache ───
+let _tsAll=[],_regsAll=[];
+function tCd(ds){const ms=new Date(ds)-new Date();if(ms<=0)return'<span class="t-cd hot">🔴 STARTED</span>';const d=Math.floor(ms/86400000);if(d>0)return`<span class="t-cd">⏳ ${d}d left</span>`;const hh=Math.floor(ms/3600000);return`<span class="t-cd hot">⚡ ${hh}h left</span>`;}
+function renderTCards(ts){
+  const grid=document.getElementById('tournaments-grid');
+  if(!ts||!ts.length){grid.innerHTML='<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-text">// NO RESULTS</div></div>';return;}
+  grid.innerHTML=ts.map(t=>{
+    const rc=_regsAll.filter(r=>r.tournament_id===t.id&&r.status!=='rejected').length;
+    const unl=t.unlimited_slots;
+    const ms=unl?'∞':t.max_slots||16;
+    const pct=unl?Math.min(100,rc*5):Math.min(100,Math.round((rc/(t.max_slots||16))*100));
+    const full=!unl&&rc>=(t.max_slots||16);
+    const orgLabel=t.org_name?`<div style="font-size:9px;color:var(--gold);font-family:'Share Tech Mono',monospace;margin-bottom:6px;letter-spacing:1px">🎮 ${t.org_name} ${t.org_game?'· '+t.org_game:''}</div>`:'';
+    return`<div class="t-card ${t.type}"><div class="t-card-glow"></div>
+      <div class="t-card-header"><div class="t-name">${t.name}</div>${typeBadge(t.type)}</div>
+      ${orgLabel}${tCd(t.date)}
+      <div class="t-meta">
+        <div class="t-meta-item">DATE: <span>${t.date}</span></div>
+        <div class="t-meta-item">MODE: <span>${t.type.toUpperCase()}</span></div>
+        <div class="t-meta-item">SLOTS: <span style="color:${full?'var(--red)':unl?'var(--cyan)':'var(--text)'}">${unl?'♾':rc+'/'+ms}</span></div>
+      </div>
+      ${t.description?`<div style="font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-bottom:10px;line-height:1.5">${t.description}</div>`:''}
+      <div class="t-divider"></div>
+      <div class="t-footer"><div class="t-fee">${t.entry_fee>0?'₹'+t.entry_fee:'FREE'}</div><div class="t-prize">🏅 ${t.prize}</div></div>
+      <div class="t-slots-bar"><div class="t-slots-label"><span>${full?'🔴 FULL':'FILLING UP'}</span><span>${unl?'♾':rc+'/'+ms}</span></div><div class="t-slots-track"><div class="t-slots-fill" style="width:${pct}%;background:${full?'var(--red)':'linear-gradient(90deg,var(--cyan),var(--purple))'}"></div></div></div>
+      <button class="btn btn-primary" style="font-size:10px;padding:10px 16px;margin-top:12px" onclick="openRegister('${t.id}')"${full?' disabled style="opacity:0.4;cursor:not-allowed;pointer-events:none"':''}>
+        ${full?'🔴 SLOTS FULL':'⚔ REGISTER NOW'}
+      </button>
+    </div>`;
+  }).join('');
+}
+function filterTs(q){const s=q.toLowerCase().trim();renderTCards(s?_tsAll.filter(t=>t.name.toLowerCase().includes(s)||t.type.includes(s)||(t.org_game||'').toLowerCase().includes(s)||(t.org_name||'').toLowerCase().includes(s)):_tsAll);}
 async function loadTournaments(){
   showLoader('LOADING ARENAS...');
   const [{data:ts},{data:regs}]=await Promise.all([
@@ -1069,51 +1128,10 @@ async function loadTournaments(){
     sb.from('registrations').select('*')
   ]);
   hideLoader();
-  _tsCache=ts||[];_regsCache=regs||[];
-  const grid=document.getElementById('tournaments-grid');
-  if(!_tsCache.length){grid.innerHTML='<div class="empty-state"><div class="empty-icon">🏆</div><div class="empty-text">// NO LIVE TOURNAMENTS</div></div>';return;}
-  renderTCards(_tsCache);
-  loadAnnouncement();
-}
-function searchTs(q){
-  const s=q.toLowerCase().trim();
-  renderTCards(s?_tsCache.filter(t=>t.name.toLowerCase().includes(s)||t.type.includes(s)||t.prize.toLowerCase().includes(s)):_tsCache);
-}
-function countdown(dateStr){
-  const d=new Date(dateStr)-new Date();
-  if(d<=0)return'<span class="t-countdown">🔴 STARTED</span>';
-  const days=Math.floor(d/86400000);
-  if(days>0)return`<span class="t-countdown">⏳ ${days} day${days>1?'s':''} left</span>`;
-  const hrs=Math.floor(d/3600000);
-  return`<span class="t-countdown">⚡ ${hrs}h left</span>`;
-}
-function renderTCards(ts){
-  const grid=document.getElementById('tournaments-grid');
-  if(!ts||!ts.length){grid.innerHTML='<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-text">// NO RESULTS</div></div>';return;}
-  grid.innerHTML=ts.map(t=>{
-    const regCount=_regsCache.filter(r=>r.tournament_id===t.id&&r.status!=='rejected').length;
-    const unlimited=t.unlimited_slots;
-    const maxSlots=unlimited?'∞':t.max_slots||16;
-    const pct=unlimited?Math.min(100,regCount*5):Math.min(100,Math.round((regCount/(t.max_slots||16))*100));
-    const full=!unlimited&&regCount>=(t.max_slots||16);
-    return`<div class="t-card ${t.type}"><div class="t-card-glow"></div>
-      <div class="t-card-header"><div class="t-name">${t.name}</div>${typeBadge(t.type)}</div>
-      ${countdown(t.date)}
-      <div class="t-meta">
-        <div class="t-meta-item">DATE: <span>${t.date}</span></div>
-        <div class="t-meta-item">MODE: <span>${t.type.toUpperCase()}</span></div>
-        <div class="t-meta-item">SLOTS: <span style="color:${full?'var(--red)':'var(--cyan)'}">${regCount}/${maxSlots}</span></div>
-        ${unlimited?`<div class="t-meta-item"><span style="color:var(--cyan)">♾ UNLIMITED</span></div>`:''}
-      </div>
-      ${t.description?`<div style="font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-bottom:10px;line-height:1.5">${t.description}</div>`:''}
-      <div class="t-divider"></div>
-      <div class="t-footer"><div class="t-fee">${t.entry_fee>0?'₹'+t.entry_fee:'FREE'}</div><div class="t-prize">🏅 ${t.prize}</div></div>
-      <div class="t-slots-bar"><div class="t-slots-label"><span>${full?'🔴 FULL':'FILLING UP'}</span><span>${regCount}/${maxSlots}</span></div><div class="t-slots-track"><div class="t-slots-fill" style="width:${pct}%;background:${full?'var(--red)':'linear-gradient(90deg,var(--cyan),var(--purple))'}"></div></div></div>
-      <button class="btn btn-primary" style="font-size:10px;padding:10px 16px;margin-top:12px" onclick="openRegister('${t.id}')"${full&&!unlimited?' disabled style="opacity:0.4;cursor:not-allowed"':''}>
-        ${full&&!unlimited?'🔴 SLOTS FULL':'⚔ REGISTER NOW'}
-      </button>
-    </div>`;
-  }).join('');
+  _tsAll=ts||[];_regsAll=regs||[];
+  if(!_tsAll.length){document.getElementById('tournaments-grid').innerHTML='<div class="empty-state"><div class="empty-icon">🏆</div><div class="empty-text">// NO LIVE TOURNAMENTS</div></div>';return;}
+  renderTCards(_tsAll);
+  loadAnn();
 }
 
 async function loadMyRegistrations(){
@@ -1158,19 +1176,19 @@ async function proceedToPayment(){
   const {data:t}=await sb.from('tournaments').select('*').eq('id',registeringTournamentId).single();
   if(!t){hideLoader();toast('⚠ Tournament not found.','error');return;}
   const count=playerCount(t.type);
-  const collectedPlayers=[];
   for(let i=0;i<count;i++){
     const username=document.getElementById(`p-${i}-username`).value.trim();
     const uid2=document.getElementById(`p-${i}-uid`).value.trim();
     const phone=document.getElementById(`p-${i}-phone`).value.trim();
     if(!username||!uid2||!phone){hideLoader();toast('⚠ Fill all player fields.','error');return;}
     if(!/^\d{10}$/.test(phone)){hideLoader();toast(`⚠ Player ${i+1}: Phone must be 10 digits.`,'error');return;}
-    collectedPlayers.push({username,uid:uid2,phone});
   }
   const {data:existing}=await sb.from('registrations').select('id').eq('user_id',currentUser.id).eq('tournament_id',registeringTournamentId).maybeSingle();
   hideLoader();
   if(existing){toast('⚠ Already registered!','error');return;}
-  window._pendingPlayers=collectedPlayers;
+  const _pl=[];
+  for(let i=0;i<count;i++) _pl.push({username:document.getElementById(`p-${i}-username`).value.trim(),uid:document.getElementById(`p-${i}-uid`).value.trim(),phone:document.getElementById(`p-${i}-phone`).value.trim()});
+  window._pendingPlayers=_pl;
   closeModal('register-modal');
 
   // Load UPI settings
@@ -1247,8 +1265,7 @@ async function submitWithPayment(){
   const fee=t.entry_fee;
   if(Number(fee)>0&&!txnId){toast('⚠ Enter your Transaction ID / UTR number.','error');return;}
   if(Number(fee)>0&&!appUsed){toast('⚠ Please select which UPI app you used.','error');return;}
-  const players=window._pendingPlayers||[];
-  if(!players.length){toast('⚠ Player data missing. Please start over.','error');closeModal('payment-modal');return;}
+  const players=window._pendingPlayers||[];if(!players.length){toast('⚠ Please restart registration.','error');return;}
   showLoader('SUBMITTING REGISTRATION...');
   const {error}=await sb.from('registrations').insert({
     id:uid(),user_id:currentUser.id,tournament_id:registeringTournamentId,
@@ -1258,17 +1275,17 @@ async function submitWithPayment(){
   });
   hideLoader();
   if(error){toast('⚠ Registration failed. Try again.','error');console.error(error);return;}
+  await addActivity('gold',`${currentUser.username} registered for "${t.name}" via ${appUsed||'UPI'}`);
   window._pendingPlayers=[];
-  await addActivity('gold',`${currentUser.username} registered for "${t.name}"${appUsed?' via '+appUsed:''}`);
   closeModal('payment-modal');
-  toast('✓ Registered! Admin will verify & approve your slot.','success');
+  toast('✓ Registered! Pending approval.','success');
   loadTournaments();
 }
 
 // ======================== ADMIN SECTIONS ========================
 function showAdminSection(name,el){
   document.querySelectorAll('#admin-page .nav-item').forEach(i=>i.classList.remove('active'));el.classList.add('active');
-  ['dashboard','tournaments','registrations','users','glory','guild-admin','forgot-requests','settings'].forEach(s=>document.getElementById('admin-section-'+s).style.display='none');
+  ['dashboard','tournaments','registrations','users','glory','guild-admin','forgot-requests','organisers','settings'].forEach(s=>document.getElementById('admin-section-'+s).style.display='none');
   document.getElementById('admin-section-'+name).style.display='block';
   if(name==='dashboard')loadAdminDashboard();
   if(name==='tournaments')loadAdminTournaments();
@@ -1278,6 +1295,7 @@ function showAdminSection(name,el){
   if(name==='guild-admin')loadGuildAdmin();
   if(name==='forgot-requests')loadForgotRequests();
   if(name==='settings')loadSettings();
+  if(name==='organisers')loadOrganisers();
 }
 
 async function loadAdminDashboard(){
@@ -1340,8 +1358,8 @@ async function loadAdminTournaments(){
       <div style="font-size:12px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-bottom:10px">PRIZE: <span style="color:var(--gold)">${t.prize}</span></div>
       <div class="t-slots-bar"><div class="t-slots-label"><span>REGISTERED</span><span>${regCount}/${maxSlots}</span></div><div class="t-slots-track"><div class="t-slots-fill" style="width:${pct}%"></div></div></div>
       <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">
-        <button class="btn btn-ghost btn-sm" onclick="openEditTournament('${t.id}')">✏ Edit</button>
-        ${t.status==='live'?`<button class="btn btn-ghost btn-sm" onclick="setTournamentStatus('${t.id}','completed')">✓ Complete</button><button class="btn btn-red btn-sm" onclick="setTournamentStatus('${t.id}','cancelled')">✗ Cancel</button>`:''}
+        <button class="btn btn-ghost btn-sm" onclick="openEditT('${t.id}')">✏ Edit</button>
+        ${t.status==='live'?`<button class="btn btn-ghost btn-sm" onclick="setTournamentStatus('${t.id}','completed')">✓ Done</button><button class="btn btn-red btn-sm" onclick="setTournamentStatus('${t.id}','cancelled')">✗ Cancel</button>`:''}
       </div>
     </div>`;
   }).join('');
@@ -1403,26 +1421,12 @@ async function rejectReg(id){
 }
 
 // ======================== USERS ========================
-let _usersCache=[],_uregsCache=[];
-async function loadUsers(){
-  showLoader('LOADING PLAYERS...');
-  const [{data:users},{data:regs}]=await Promise.all([
-    sb.from('users').select('*').neq('role','admin').order('created_at',{ascending:false}),
-    sb.from('registrations').select('*')
-  ]);
-  hideLoader();
-  _usersCache=users||[];_uregsCache=regs||[];
-  renderUsers(_usersCache);
-}
-function searchUsers(q){
-  const s=q.toLowerCase().trim();
-  renderUsers(s?_usersCache.filter(u=>u.username.toLowerCase().includes(s)||(u.email||'').includes(s)):_usersCache);
-}
+let _usAll=[],_urAll=[];
 function renderUsers(users){
   const el=document.getElementById('users-table');
   if(!users||!users.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">👥</div><div class="empty-text">// NO PLAYERS FOUND</div></div>';return;}
   el.innerHTML=`<div class="table-wrap"><table><thead><tr><th>#</th><th>Callsign</th><th>Mobile</th><th>Joined</th><th>Regs</th><th>Pending</th><th>Actions</th></tr></thead><tbody>${users.map((u,i)=>{
-    const ur=_uregsCache.filter(r=>r.user_id===u.id);
+    const ur=_urAll.filter(r=>r.user_id===u.id);
     return`<tr>
       <td style="font-family:'Share Tech Mono',monospace;color:var(--muted)">${String(i+1).padStart(2,'0')}</td>
       <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="width:30px;height:30px;font-size:11px">${u.username[0].toUpperCase()}</div><strong style="font-family:'Orbitron',sans-serif;font-size:11px">${u.username}</strong></div></td>
@@ -1436,6 +1440,17 @@ function renderUsers(users){
       </div></td>
     </tr>`;
   }).join('')}</tbody></table></div>`;
+}
+function filterUsers(q){const s=q.toLowerCase().trim();renderUsers(s?_usAll.filter(u=>u.username.toLowerCase().includes(s)||(u.email||'').includes(s)):_usAll);}
+async function loadUsers(){
+  showLoader('LOADING PLAYERS...');
+  const [{data:users},{data:regs}]=await Promise.all([
+    sb.from('users').select('*').neq('role','admin').neq('role','organiser').order('created_at',{ascending:false}),
+    sb.from('registrations').select('*')
+  ]);
+  hideLoader();
+  _usAll=users||[];_urAll=regs||[];
+  renderUsers(_usAll);
 }
 
 function openEditUser(userId,username){
@@ -1555,7 +1570,7 @@ async function loadSettings(){
   else preview.style.display='none';
 
   document.getElementById('sys-storage').textContent='Supabase Cloud';
-  loadAnnouncementSetting();
+  loadAnnSetting();
   document.getElementById('sys-since').textContent=admin&&admin.created_at?new Date(admin.created_at).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}):'—';
 }
 
@@ -2045,59 +2060,56 @@ async function deleteGuildMember(index){
 
 
 
-// ======================== MOBILE SIDEBAR ========================
-function toggleSidebar(){
-  document.querySelectorAll('.sidebar').forEach(s=>s.classList.toggle('mobile-open'));
-  document.getElementById('sidebar-overlay').classList.toggle('open');
+// ══════════════════════════════════════════
+// MOBILE SIDEBAR
+// ══════════════════════════════════════════
+function mobOpen(){
+  document.querySelectorAll('.sidebar').forEach(s=>s.classList.add('mob-open'));
+  document.getElementById('mob-overlay').classList.add('show');
+  document.body.style.overflow='hidden';
 }
-function closeSidebar(){
-  document.querySelectorAll('.sidebar').forEach(s=>s.classList.remove('mobile-open'));
-  document.getElementById('sidebar-overlay').classList.remove('open');
+function mobClose(){
+  document.querySelectorAll('.sidebar').forEach(s=>s.classList.remove('mob-open'));
+  document.getElementById('mob-overlay').classList.remove('show');
+  document.body.style.overflow='';
 }
-function initMobile(){
-  const hbtn=document.getElementById('hbtn');
-  if(!hbtn)return;
-  hbtn.style.display=window.innerWidth<=768?'flex':'none';
-}
-initMobile();
-window.addEventListener('resize',initMobile);
-document.querySelectorAll('.nav-item').forEach(el=>el.addEventListener('click',()=>{if(window.innerWidth<=768)closeSidebar();}));
+(function(){
+  function cw(){const b=document.getElementById('mob-btn');if(b)b.style.display=window.innerWidth<=800?'flex':'none';}
+  cw();window.addEventListener('resize',cw);
+})();
+document.querySelectorAll('.nav-item').forEach(el=>el.addEventListener('click',()=>{if(window.innerWidth<=800)mobClose();}));
 
-// ======================== ANNOUNCEMENT ========================
-async function loadAnnouncement(){
+// ══════════════════════════════════════════
+// ANNOUNCEMENT
+// ══════════════════════════════════════════
+async function loadAnn(){
   try{
     const {data}=await sb.from('settings').select('value').eq('key','announcement').maybeSingle();
     const msg=(data&&data.value&&data.value.text)||'';
-    const el=document.getElementById('announce-banner');
-    if(!el)return;
-    el.innerHTML=msg?`<div class="announce-bar"><span class="announce-icon">📢</span><div class="announce-text">${msg}</div><button class="announce-close" onclick="this.closest('.announce-bar').remove()">✕</button></div>`:'';
+    const w=document.getElementById('ann-wrap');if(!w)return;
+    w.innerHTML=msg?`<div class="ann-bar"><span style="font-size:20px;flex-shrink:0">📢</span><div class="ann-text">${msg}</div><button class="ann-close" onclick="this.closest('.ann-bar').remove()">✕</button></div>`:'';
   }catch(e){}
 }
-async function saveAnnouncement(){
-  const msg=document.getElementById('s-announce').value.trim();
+async function saveAnn(){
+  const msg=document.getElementById('s-ann').value.trim();
   showLoader('PUBLISHING...');
-  await sb.from('settings').upsert({key:'announcement',value:{text:msg,updated:Date.now()}});
-  hideLoader();
-  toast(msg?'✓ Announcement published!':'✓ Cleared.','success');
+  await sb.from('settings').upsert({key:'announcement',value:{text:msg,ts:Date.now()}});
+  hideLoader();toast(msg?'✓ Published!':'✓ Cleared.','success');
   if(msg)await addActivity('purple',`Announcement: "${msg.slice(0,40)}"`);
 }
-async function clearAnnouncement(){
-  document.getElementById('s-announce').value='';
-  await saveAnnouncement();
-}
-async function loadAnnouncementSetting(){
-  try{
-    const {data}=await sb.from('settings').select('value').eq('key','announcement').maybeSingle();
-    document.getElementById('s-announce').value=(data&&data.value&&data.value.text)||'';
-  }catch(e){}
+async function clearAnn(){document.getElementById('s-ann').value='';await saveAnn();}
+async function loadAnnSetting(){
+  try{const {data}=await sb.from('settings').select('value').eq('key','announcement').maybeSingle();
+  const el=document.getElementById('s-ann');if(el)el.value=(data&&data.value&&data.value.text)||'';}catch(e){}
 }
 
-// ======================== EDIT TOURNAMENT ========================
-async function openEditTournament(id){
+// ══════════════════════════════════════════
+// EDIT TOURNAMENT
+// ══════════════════════════════════════════
+async function openEditT(id){
   showLoader('LOADING...');
   const {data:t}=await sb.from('tournaments').select('*').eq('id',id).single();
-  hideLoader();
-  if(!t){toast('⚠ Not found.','error');return;}
+  hideLoader();if(!t){toast('⚠ Not found.','error');return;}
   document.getElementById('et-id').value=t.id;
   document.getElementById('et-name').value=t.name;
   document.getElementById('et-type').value=t.type;
@@ -2107,9 +2119,9 @@ async function openEditTournament(id){
   document.getElementById('et-status').value=t.status;
   document.getElementById('et-slots').value=t.max_slots||16;
   document.getElementById('et-desc').value=t.description||'';
-  openModal('edit-tournament-modal');
+  openModal('edit-t-modal');
 }
-async function submitEditTournament(){
+async function saveEditT(){
   const id=document.getElementById('et-id').value;
   const name=document.getElementById('et-name').value.trim();
   const fee=parseFloat(document.getElementById('et-fee').value)||0;
@@ -2119,15 +2131,345 @@ async function submitEditTournament(){
   const type=document.getElementById('et-type').value;
   const slots=parseInt(document.getElementById('et-slots').value)||16;
   const desc=document.getElementById('et-desc').value.trim();
-  if(!name||!prize||!date){toast('⚠ Fill all required fields.','error');return;}
+  if(!name||!prize||!date){toast('⚠ Fill required fields.','error');return;}
   showLoader('SAVING...');
   const {error}=await sb.from('tournaments').update({name,type,entry_fee:fee,prize,date,status,max_slots:slots,description:desc}).eq('id',id);
   hideLoader();
   if(error){toast('⚠ Save failed.','error');return;}
   await addActivity('gold',`Tournament "${name}" edited`);
-  closeModal('edit-tournament-modal');
-  toast(`✓ "${name}" updated!`,'success');
+  closeModal('edit-t-modal');toast(`✓ "${name}" updated!`,'success');
   loadAdminTournaments();loadAdminDashboard();
+}
+
+// ══════════════════════════════════════════
+// ORGANISER MANAGEMENT (Admin)
+// ══════════════════════════════════════════
+async function createOrganiser(){
+  const username=document.getElementById('org-username').value.trim();
+  const password=document.getElementById('org-password').value;
+  const name=document.getElementById('org-name').value.trim();
+  const game=document.getElementById('org-game').value.trim();
+  if(!username||!password){toast('⚠ Username and password required.','error');return;}
+  if(username.length<3){toast('⚠ Username min 3 chars.','error');return;}
+  if(password.length<4){toast('⚠ Password min 4 chars.','error');return;}
+  showLoader('CREATING ORGANISER...');
+  const {data:ex}=await sb.from('users').select('id').eq('username',username).maybeSingle();
+  if(ex){hideLoader();toast('⚠ Username already taken.','error');return;}
+  const {error}=await sb.from('users').insert({
+    id:uid(),username,password,email:null,
+    role:'organiser',
+    org_name:name||username,
+    org_game:game||'General',
+    created_at:Date.now()
+  });
+  hideLoader();
+  if(error){toast('⚠ Failed. Check Supabase schema.','error');console.error(error);return;}
+  ['org-username','org-password','org-name','org-game'].forEach(id=>document.getElementById(id).value='');
+  await addActivity('gold',`Organiser "${username}" created (${game||'General'})`);
+  toast(`✓ Organiser "${username}" created!`,'success');
+  loadOrganisers();
+}
+
+async function loadOrganisers(){
+  showLoader('LOADING...');
+  const [{data:orgs},{data:ts}]=await Promise.all([
+    sb.from('users').select('*').eq('role','organiser').order('created_at',{ascending:false}),
+    sb.from('tournaments').select('*')
+  ]);
+  hideLoader();
+  const el=document.getElementById('org-list');
+  if(!orgs||!orgs.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">🎮</div><div class="empty-text">// NO ORGANISERS YET</div></div>';return;}
+  el.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Username</th><th>Display Name</th><th>Game</th><th>Tournaments</th><th>Joined</th><th>Actions</th></tr></thead><tbody>${orgs.map(o=>{
+    const tCount=(ts||[]).filter(t=>t.organiser_id===o.id).length;
+    return`<tr>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div class="avatar" style="width:28px;height:28px;font-size:10px;background:linear-gradient(135deg,var(--gold),var(--red))">${o.username[0].toUpperCase()}</div>
+        <strong style="font-family:'Orbitron',sans-serif;font-size:11px">${o.username}</strong>
+        <span class="t-type-badge badge-sm badge-organiser">ORGANISER</span>
+      </div></td>
+      <td style="font-size:12px;color:var(--text)">${o.org_name||'—'}</td>
+      <td style="font-size:11px;color:var(--gold);font-family:'Share Tech Mono',monospace">${o.org_game||'—'}</td>
+      <td style="font-family:'Orbitron',sans-serif;font-size:14px;color:var(--cyan)">${tCount}</td>
+      <td style="font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace">${o.created_at?timeAgo(o.created_at):'—'}</td>
+      <td><div class="actions-cell">
+        <button class="btn btn-ghost btn-sm" onclick="resetOrgPw('${o.id}','${o.username}')">🔑 Reset PW</button>
+        <button class="btn btn-red btn-sm" onclick="deleteOrganiser('${o.id}','${o.username}')">🗑 DEL</button>
+      </div></td>
+    </tr>`;
+  }).join('')}</tbody></table></div>`;
+}
+
+async function resetOrgPw(id,username){
+  const pw=prompt(`New password for "${username}" (min 4 chars):`);
+  if(!pw||pw.length<4){toast('⚠ Password too short.','error');return;}
+  showLoader('RESETTING...');
+  await sb.from('users').update({password:pw}).eq('id',id);
+  hideLoader();toast(`✓ Password reset for "${username}".`,'success');
+  await addActivity('gold',`Organiser "${username}" password reset`);
+}
+
+async function deleteOrganiser(id,username){
+  if(!confirm(`Delete organiser "${username}"? Their tournaments will remain.`))return;
+  showLoader('DELETING...');
+  await sb.from('users').delete().eq('id',id);
+  hideLoader();toast(`🗑 "${username}" deleted.`,'error');
+  await addActivity('red',`Organiser "${username}" deleted`);
+  loadOrganisers();
+}
+
+// ══════════════════════════════════════════
+// ORGANISER PAGE
+// ══════════════════════════════════════════
+let orgUser=null,orgTFilter='all';
+
+function showOrgPage(user){
+  orgUser=user;
+  // Build organiser page dynamically
+  let orgPage=document.getElementById('org-page');
+  if(!orgPage){
+    orgPage=document.createElement('div');
+    orgPage.id='org-page';
+    orgPage.className='page';
+    orgPage.innerHTML=`
+    <div class="layout">
+      <div class="sidebar">
+        <div class="sidebar-brand"><div class="sidebar-brand-icon">🎮</div>TOS</div>
+        <div class="sidebar-user">
+          <div class="avatar" style="background:linear-gradient(135deg,var(--gold),var(--red))">${user.username[0].toUpperCase()}</div>
+          <div>
+            <div class="sidebar-username" id="org-name-display">${user.username.toUpperCase()}</div>
+            <div class="sidebar-role" style="color:var(--gold)">▸ Organiser</div>
+          </div>
+        </div>
+        <nav class="sidebar-nav">
+          <div class="nav-item active" onclick="showOrgSection('dashboard',this)"><span class="nav-icon">📊</span> Dashboard</div>
+          <div class="nav-item" onclick="showOrgSection('tournaments',this)"><span class="nav-icon">🏆</span> My Tournaments</div>
+          <div class="nav-item" onclick="showOrgSection('registrations',this)"><span class="nav-icon">📋</span> Registrations</div>
+        </nav>
+        <div class="sidebar-footer"><button class="btn btn-ghost" style="width:100%;font-size:10px" onclick="logout()">◀ LOGOUT</button></div>
+      </div>
+      <div class="main">
+        <!-- ORG DASHBOARD -->
+        <div id="org-sec-dashboard">
+          <div class="page-header">
+            <div class="page-title" style="font-size:22px">${user.org_name||user.username}</div>
+            <div class="page-subtitle">// ${user.org_game||'Tournament Organiser'} — Command Panel</div>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card c-cyan"><div class="stat-label">My Tournaments</div><div class="stat-value" id="org-stat-t">0</div></div>
+            <div class="stat-card c-gold"><div class="stat-label">Total Registrations</div><div class="stat-value" id="org-stat-r">0</div></div>
+            <div class="stat-card c-red"><div class="stat-label">Pending Approval</div><div class="stat-value" id="org-stat-p">0</div></div>
+            <div class="stat-card c-purple"><div class="stat-label">Approved</div><div class="stat-value" id="org-stat-a">0</div></div>
+          </div>
+          <div class="section-title">Recent Registrations</div>
+          <div id="org-recent-regs"></div>
+        </div>
+        <!-- ORG TOURNAMENTS -->
+        <div id="org-sec-tournaments" style="display:none">
+          <div class="page-header"><div class="page-title">MY TOURNAMENTS</div><div class="page-subtitle">// Create & manage your arenas</div></div>
+          <button class="btn btn-cyan" style="width:auto;margin-bottom:20px" onclick="openOrgCreateT()">⚡ CREATE TOURNAMENT</button>
+          <div class="pill-tabs">
+            <div class="pill-tab active" onclick="orgFilterT('all',this)">All</div>
+            <div class="pill-tab" onclick="orgFilterT('live',this)">Live</div>
+            <div class="pill-tab" onclick="orgFilterT('completed',this)">Completed</div>
+          </div>
+          <div class="tournament-grid" id="org-tournaments-grid"></div>
+        </div>
+        <!-- ORG REGISTRATIONS -->
+        <div id="org-sec-registrations" style="display:none">
+          <div class="page-header"><div class="page-title">REGISTRATIONS</div><div class="page-subtitle">// Players who registered for your tournaments</div></div>
+          <div class="pill-tabs">
+            <div class="pill-tab active" onclick="orgFilterR('all',this)">All</div>
+            <div class="pill-tab" onclick="orgFilterR('pending',this)">Pending</div>
+            <div class="pill-tab" onclick="orgFilterR('approved',this)">Approved</div>
+            <div class="pill-tab" onclick="orgFilterR('rejected',this)">Rejected</div>
+          </div>
+          <div id="org-regs-table"></div>
+        </div>
+      </div>
+    </div>`;
+    document.body.appendChild(orgPage);
+  }
+  showPage('org-page');
+  loadOrgDashboard();
+}
+
+function showOrgSection(name,el){
+  document.querySelectorAll('#org-page .nav-item').forEach(i=>i.classList.remove('active'));
+  el.classList.add('active');
+  ['dashboard','tournaments','registrations'].forEach(s=>document.getElementById('org-sec-'+s).style.display='none');
+  document.getElementById('org-sec-'+name).style.display='block';
+  if(name==='dashboard')loadOrgDashboard();
+  if(name==='tournaments')loadOrgTournaments();
+  if(name==='registrations')loadOrgRegistrations();
+}
+
+async function loadOrgDashboard(){
+  showLoader('LOADING...');
+  const [{data:ts},{data:regs}]=await Promise.all([
+    sb.from('tournaments').select('*').eq('organiser_id',orgUser.id),
+    sb.from('registrations').select('*')
+  ]);
+  hideLoader();
+  const myTs=ts||[];
+  const myTIds=myTs.map(t=>t.id);
+  const myRegs=(regs||[]).filter(r=>myTIds.includes(r.tournament_id));
+  document.getElementById('org-stat-t').textContent=myTs.length;
+  document.getElementById('org-stat-r').textContent=myRegs.length;
+  document.getElementById('org-stat-p').textContent=myRegs.filter(r=>r.status==='pending').length;
+  document.getElementById('org-stat-a').textContent=myRegs.filter(r=>r.status==='approved').length;
+  const recent=myRegs.slice(-5).reverse();
+  const el=document.getElementById('org-recent-regs');
+  if(!recent.length){el.innerHTML='<div class="empty-state" style="padding:30px"><div class="empty-text">// NO REGISTRATIONS YET</div></div>';return;}
+  el.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Player</th><th>Tournament</th><th>Payment</th><th>Status</th><th>Time</th><th>Actions</th></tr></thead><tbody>${recent.map(r=>{
+    const t=myTs.find(x=>x.id===r.tournament_id);
+    const pay=r.payment;
+    return`<tr>
+      <td style="font-family:'Orbitron',sans-serif;font-size:11px">${(r.players&&r.players[0]&&r.players[0].username)||'—'}</td>
+      <td style="font-size:12px">${t?t.name:'—'}</td>
+      <td style="font-family:'Share Tech Mono',monospace;font-size:10px">${pay?(pay.fee>0?'₹'+pay.fee+' · '+pay.appUsed:'FREE'):'—'}</td>
+      <td>${statusBadge(r.status)}</td>
+      <td style="font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace">${timeAgo(r.created_at)}</td>
+      <td><div class="actions-cell">${r.status==='pending'?`<button class="btn btn-cyan btn-sm" onclick="orgApproveReg('${r.id}')">✓</button><button class="btn btn-red btn-sm" onclick="orgRejectReg('${r.id}')">✗</button>`:''}</div></td>
+    </tr>`;
+  }).join('')}</tbody></table></div>`;
+}
+
+let _orgTFilter='all',_orgRFilter='all';
+
+function orgFilterT(f,el){
+  _orgTFilter=f;
+  document.querySelectorAll('#org-sec-tournaments .pill-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');loadOrgTournaments();
+}
+function orgFilterR(f,el){
+  _orgRFilter=f;
+  document.querySelectorAll('#org-sec-registrations .pill-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');loadOrgRegistrations();
+}
+
+async function loadOrgTournaments(){
+  showLoader('LOADING...');
+  let q=sb.from('tournaments').select('*').eq('organiser_id',orgUser.id).order('created_at',{ascending:false});
+  if(_orgTFilter!=='all')q=q.eq('status',_orgTFilter);
+  const [{data:ts},{data:regs}]=await Promise.all([q,sb.from('registrations').select('*')]);
+  hideLoader();
+  const grid=document.getElementById('org-tournaments-grid');
+  const allTs=ts||[];
+  if(!allTs.length){grid.innerHTML='<div class="empty-state"><div class="empty-icon">🏆</div><div class="empty-text">// NO TOURNAMENTS YET</div></div>';return;}
+  grid.innerHTML=allTs.map(t=>{
+    const rc=(regs||[]).filter(r=>r.tournament_id===t.id&&r.status!=='rejected').length;
+    const ms=t.unlimited_slots?'∞':t.max_slots||16;
+    const pct=t.unlimited_slots?Math.min(100,rc*5):Math.min(100,Math.round((rc/(t.max_slots||16))*100));
+    return`<div class="t-card ${t.type}"><div class="t-card-glow"></div>
+      <div class="t-card-header"><div class="t-name">${t.name}</div>${typeBadge(t.type)}</div>
+      <div class="t-meta">
+        <div class="t-meta-item">DATE: <span>${t.date}</span></div>
+        <div class="t-meta-item">SLOTS: <span>${rc}/${ms}</span></div>
+        <div class="t-meta-item">STATUS: <span>${t.status.toUpperCase()}</span></div>
+      </div>
+      <div class="t-divider"></div>
+      <div class="t-footer"><div class="t-fee">${t.entry_fee>0?'₹'+t.entry_fee:'FREE'}</div><div class="t-prize">🏅 ${t.prize}</div></div>
+      <div class="t-slots-bar"><div class="t-slots-label"><span>FILLED</span><span>${rc}/${ms}</span></div><div class="t-slots-track"><div class="t-slots-fill" style="width:${pct}%"></div></div></div>
+      <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">
+        <button class="btn btn-ghost btn-sm" onclick="openEditT('${t.id}')">✏ Edit</button>
+        ${t.status==='live'?`<button class="btn btn-ghost btn-sm" onclick="orgSetStatus('${t.id}','completed')">✓ Done</button><button class="btn btn-red btn-sm" onclick="orgSetStatus('${t.id}','cancelled')">✗ Cancel</button>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function orgSetStatus(id,status){
+  showLoader('UPDATING...');
+  await sb.from('tournaments').update({status}).eq('id',id).eq('organiser_id',orgUser.id);
+  hideLoader();toast(`✓ Marked as ${status}.`,'success');loadOrgTournaments();
+}
+
+async function loadOrgRegistrations(){
+  showLoader('LOADING...');
+  const [{data:ts},{data:allRegs},{data:users}]=await Promise.all([
+    sb.from('tournaments').select('*').eq('organiser_id',orgUser.id),
+    sb.from('registrations').select('*').order('created_at',{ascending:false}),
+    sb.from('users').select('id,username')
+  ]);
+  hideLoader();
+  const myTIds=(ts||[]).map(t=>t.id);
+  let regs=(allRegs||[]).filter(r=>myTIds.includes(r.tournament_id));
+  if(_orgRFilter!=='all')regs=regs.filter(r=>r.status===_orgRFilter);
+  const el=document.getElementById('org-regs-table');
+  if(!regs.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-text">// NO REGISTRATIONS</div></div>';return;}
+  el.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Player</th><th>Tournament</th><th>Team</th><th>Payment</th><th>Status</th><th>Time</th><th>Actions</th></tr></thead><tbody>${regs.map(r=>{
+    const user=(users||[]).find(u=>u.id===r.user_id);
+    const t=(ts||[]).find(x=>x.id===r.tournament_id);
+    const pay=r.payment;
+    const pList=(r.players||[]).map(p=>`<div style="font-size:10px;font-family:'Share Tech Mono',monospace"><span style="color:var(--text)">${p.username}</span> <span style="color:var(--muted)">${p.uid}</span></div>`).join('');
+    const payCell=pay?`<div style="font-family:'Share Tech Mono',monospace;font-size:10px">${pay.fee>0?`<span style="color:var(--gold)">₹${pay.fee}</span><br><span style="color:var(--muted)">${pay.appUsed||''}</span><br><span style="color:var(--cyan);font-size:9px">TXN: ${pay.txnId||'—'}</span>`:'<span style="color:var(--green)">FREE</span>'}</div>`:'—';
+    return`<tr>
+      <td><strong style="font-family:'Orbitron',sans-serif;font-size:11px">${user?user.username:'—'}</strong></td>
+      <td style="font-size:12px">${t?t.name:'—'}</td>
+      <td>${pList}</td>
+      <td>${payCell}</td>
+      <td>${statusBadge(r.status)}</td>
+      <td style="font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace">${timeAgo(r.created_at)}</td>
+      <td><div class="actions-cell">${r.status==='pending'?`<button class="btn btn-cyan btn-sm" onclick="orgApproveReg('${r.id}')">✓ OK</button><button class="btn btn-red btn-sm" onclick="orgRejectReg('${r.id}')">✗ REJ</button>`:''}</div></td>
+    </tr>`;
+  }).join('')}</tbody></table></div>`;
+}
+
+async function orgApproveReg(id){
+  showLoader('APPROVING...');
+  await sb.from('registrations').update({status:'approved'}).eq('id',id);
+  hideLoader();toast('✓ Approved!','success');
+  loadOrgRegistrations();loadOrgDashboard();
+}
+async function orgRejectReg(id){
+  showLoader('REJECTING...');
+  await sb.from('registrations').update({status:'rejected'}).eq('id',id);
+  hideLoader();toast('✗ Rejected.','error');
+  loadOrgRegistrations();loadOrgDashboard();
+}
+
+// Organiser creates tournament
+function openOrgCreateT(){
+  // Reset form
+  ['ct-name','ct-fee','ct-prize','ct-desc'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  const cd=document.getElementById('ct-date');if(cd)cd.value='';
+  const cs=document.getElementById('ct-slots');if(cs){cs.value='16';cs.disabled=false;cs.style.opacity='1';}
+  unlimitedSlotsOn=false;
+  const sw=document.getElementById('unlimited-slots-switch');if(sw)sw.classList.remove('on');
+  openModal('create-tournament-modal');
+}
+
+// Patch submitCreateTournament to attach organiser_id when organiser creates
+const _origCreate=submitCreateTournament;
+async function submitCreateTournament(){
+  const name=document.getElementById('ct-name').value.trim();
+  const type=document.getElementById('ct-type').value;
+  const fee=parseFloat(document.getElementById('ct-fee').value);
+  const prize=document.getElementById('ct-prize').value.trim();
+  const date=document.getElementById('ct-date').value;
+  const slots=unlimitedSlotsOn?9999:parseInt(document.getElementById('ct-slots').value)||16;
+  const desc=document.getElementById('ct-desc').value.trim();
+  if(!name||isNaN(fee)||!prize||!date){toast('⚠ Fill all required fields.','error');return;}
+  showLoader('CREATING TOURNAMENT...');
+  const insertData={
+    id:uid(),name,type,entry_fee:fee,prize,date,status:'live',
+    max_slots:slots,unlimited_slots:unlimitedSlotsOn,description:desc,created_at:Date.now()
+  };
+  // If organiser is creating, attach their ID and info
+  if(currentUser&&currentUser.role==='organiser'){
+    insertData.organiser_id=currentUser.id;
+    insertData.org_name=currentUser.org_name||currentUser.username;
+    insertData.org_game=currentUser.org_game||'';
+  }
+  const {error}=await sb.from('tournaments').insert(insertData);
+  hideLoader();
+  if(error){toast('⚠ Failed to create tournament.','error');console.error(error);return;}
+  await addActivity('cyan',`Tournament "${name}" created${currentUser.role==='organiser'?' by '+currentUser.username:''}`);
+  closeModal('create-tournament-modal');
+  toast(`✓ Arena "${name}" created!`,'success');
+  if(currentUser.role==='organiser'){loadOrgTournaments();loadOrgDashboard();}
+  else{loadAdminTournaments();loadAdminDashboard();}
 }
 
 // ======================== 3D TILT ========================
