@@ -1630,6 +1630,7 @@ async function loadAdminTournaments(){
       <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">
         <button class="btn btn-ghost btn-sm" onclick="openEditT('${t.id}')">✏ Edit</button>
         ${t.status==='live'?`<button class="btn btn-ghost btn-sm" onclick="setTournamentStatus('${t.id}','completed')">✓ Done</button><button class="btn btn-red btn-sm" onclick="setTournamentStatus('${t.id}','cancelled')">✗ Cancel</button>`:''}
+        <button class="btn btn-red btn-sm" onclick="deleteTournament('${t.id}','${t.name.replace(/'/g,'')}')">🗑 Delete</button>
       </div>
     </div>`;
   }).join('');
@@ -1642,6 +1643,20 @@ async function setTournamentStatus(id,status){
   hideLoader();
   await addActivity(status==='completed'?'cyan':'red',`Tournament "${t?.name}" marked as ${status}`);
   toast(`✓ Tournament marked as ${status}.`,'success');loadAdminTournaments();
+}
+
+async function deleteTournament(id,name){
+  if(!confirm('Delete "'+name+'"?\n\nAll registrations will also be deleted. Cannot be undone!'))return;
+  showLoader('DELETING...');
+  await Promise.all([
+    sb.from('registrations').delete().eq('tournament_id',id),
+    sb.from('tournaments').delete().eq('id',id)
+  ]);
+  hideLoader();
+  await addActivity('red','Tournament "'+name+'" permanently deleted');
+  toast('"'+name+'" deleted.','error');
+  if(window._orgUser){renderOrgTs();loadOrgDash();}
+  else{loadAdminTournaments();loadAdminDashboard();}
 }
 
 function filterRegs(filter,el){
@@ -2815,6 +2830,7 @@ async function renderOrgTs(){
       <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">
         <button class="btn btn-ghost btn-sm" onclick="openEditT('${t.id}')">\u270F Edit</button>
         ${t.status==='live'?`<button class="btn btn-ghost btn-sm" onclick="orgSS('${t.id}','completed')">\u2713 Done</button><button class="btn btn-red btn-sm" onclick="orgSS('${t.id}','cancelled')">\u2717 Cancel</button>`:''}
+        <button class="btn btn-red btn-sm" onclick="deleteTournament('${t.id}','${t.name.replace(/'/g,'')}')">\uD83D\uDDD1 Delete</button>
       </div>
     </div>`;
   }).join('');
