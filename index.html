@@ -502,6 +502,67 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
 .t-social-btn.wa{background:rgba(37,211,102,0.1);border-color:rgba(37,211,102,0.3);color:#25d366;}
 .t-social-btn.dc{background:rgba(88,101,242,0.1);border-color:rgba(88,101,242,0.3);color:#5865f2;}
 .t-social-btn:hover{transform:translateY(-1px);}
+
+/* ═══ ANALYTICS CHARTS ═══ */
+.chart-bar-wrap{display:flex;align-items:flex-end;gap:6px;height:140px;padding:10px 0 0;border-bottom:1px solid rgba(30,30,58,0.8);}
+.chart-bar-col{display:flex;flex-direction:column;align-items:center;flex:1;height:100%;}
+.chart-bar{width:100%;border-radius:4px 4px 0 0;background:linear-gradient(180deg,var(--cyan),var(--purple));min-height:2px;transition:height 0.5s cubic-bezier(0.34,1.56,0.64,1);}
+.chart-bar.gold{background:linear-gradient(180deg,var(--gold),#ff6b00);}
+.chart-bar.red{background:linear-gradient(180deg,var(--red),#7a0020);}
+.chart-lbl{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--muted);margin-top:5px;text-align:center;}
+.chart-val{font-family:'Orbitron',sans-serif;font-size:9px;color:var(--text);margin-bottom:2px;}
+.analytics-card{background:linear-gradient(145deg,#0f0f1e,#0a0a16);border:1px solid rgba(30,30,58,0.9);border-radius:14px;padding:18px;margin-bottom:16px;}
+.analytics-title{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:14px;text-transform:uppercase;}
+.top-player-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(20,20,36,0.7);}
+.top-player-row:last-child{border-bottom:none;}
+.insight-card{background:rgba(0,0,0,0.2);border-radius:10px;padding:14px;display:flex;align-items:center;gap:14px;}
+.insight-icon{font-size:28px;flex-shrink:0;}
+.insight-val{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;}
+.insight-lbl{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;margin-top:2px;}
+
+/* ═══ TOURNAMENT BANNER ═══ */
+.t-banner-img{width:100%;height:120px;object-fit:cover;border-radius:10px 10px 0 0;display:block;}
+.t-banner-placeholder{width:100%;height:90px;background:linear-gradient(135deg,#0d0d1e,#1a1a30);display:flex;align-items:center;justify-content:center;font-size:36px;border-radius:10px 10px 0 0;}
+.banner-upload-area{border:2px dashed rgba(0,245,212,0.3);border-radius:10px;padding:20px;text-align:center;cursor:pointer;transition:all 0.2s;background:rgba(0,245,212,0.02);}
+.banner-upload-area:hover{border-color:rgba(0,245,212,0.6);background:rgba(0,245,212,0.05);}
+.banner-preview{width:100%;height:140px;object-fit:cover;border-radius:10px;display:none;margin-top:10px;}
+
+/* ═══ BULK ACTIONS ═══ */
+.bulk-bar{display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(0,245,212,0.05);border:1px solid rgba(0,245,212,0.2);border-radius:10px;margin-bottom:14px;flex-wrap:wrap;}
+.bulk-count{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--cyan);letter-spacing:1px;}
+.select-cb{width:18px;height:18px;accent-color:var(--cyan);cursor:pointer;}
+
+/* ═══ PUBLIC TOURNAMENT PAGE ═══ */
+.pub-hero{background:linear-gradient(135deg,#0a0a1a,#130d20,#0a1015);border-radius:20px;overflow:hidden;margin-bottom:24px;position:relative;}
+.pub-hero-img{width:100%;height:200px;object-fit:cover;opacity:0.4;}
+.pub-hero-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;}
+.pub-hero-title{font-family:'Orbitron',sans-serif;font-size:26px;font-weight:900;letter-spacing:2px;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,0.8);}
+.pub-detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:24px;}
+.pub-detail-card{background:linear-gradient(145deg,#14142a,#0e0e1e);border:1px solid rgba(30,30,58,0.9);border-radius:14px;padding:16px;text-align:center;}
+.pub-detail-val{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;color:var(--cyan);}
+.pub-detail-lbl{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);margin-top:4px;letter-spacing:1px;}
+.pub-reg-btn{display:block;width:100%;padding:16px;font-family:'Orbitron',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;text-align:center;background:linear-gradient(180deg,#c53bff,#7b2ff7,#5a1fd4);color:#fff;border-radius:12px;text-decoration:none;margin-bottom:16px;box-shadow:0 6px 24px rgba(124,47,247,0.4);cursor:pointer;border:none;}
+
+/* ═══ ANNOUNCEMENT FEED ═══ */
+.feed-item{padding:14px 16px;border-bottom:1px solid rgba(20,20,36,0.8);display:flex;gap:12px;}
+.feed-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--red));display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;}
+.feed-body{flex:1;min-width:0;}
+.feed-author{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;color:var(--cyan);}
+.feed-msg{font-size:13px;color:var(--text);margin-top:3px;line-height:1.5;word-break:break-word;}
+.feed-time{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);margin-top:4px;}
+.feed-pinned{background:rgba(255,214,10,0.05);border-left:3px solid var(--gold);}
+
+/* ═══ MOBILE RESPONSIVE ADD-ONS ═══ */
+@media(max-width:860px){
+  .pub-detail-grid{grid-template-columns:repeat(2,1fr)!important;}
+  .chart-bar-wrap{height:100px!important;}
+  .bulk-bar{gap:8px!important;}
+  .pub-hero-title{font-size:20px!important;}
+}
+@media(max-width:480px){
+  .pub-detail-grid{grid-template-columns:repeat(2,1fr)!important;}
+  .analytics-card{padding:12px!important;}
+}
 </style>
 </head>
 <body>
@@ -613,6 +674,7 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
         <div class="nav-item active" onclick="showUserSection('tournaments',this)"><span class="nav-icon">🏆</span> Tournaments</div>
         <div class="nav-item" onclick="showUserSection('my-regs',this)"><span class="nav-icon">📋</span> My Registrations</div>
         <div class="nav-item" onclick="showUserSection('profile',this)"><span class="nav-icon">👤</span> My Profile</div>
+        <div class="nav-item" onclick="showUserSection('feed',this)"><span class="nav-icon">💬</span> Feed</div>
         <div class="nav-item" onclick="showUserSection('guild',this)"><span class="nav-icon">⚔</span> Guild</div>
       </nav>
       <div class="sidebar-footer">
@@ -635,6 +697,10 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
         <div id="my-regs-list"></div>
       </div>
       <div id="section-profile" style="display:none"><div id="profile-content"></div></div>
+      <div id="section-feed" style="display:none">
+        <div class="page-header"><div class="page-title">💬 FEED</div><div class="page-subtitle">// Updates & announcements from organisers</div></div>
+        <div id="user-feed-list" style="background:linear-gradient(180deg,#0f0f1e,#0a0a16);border:1px solid rgba(30,30,58,0.9);border-radius:14px;overflow:hidden;"></div>
+      </div>
       <div id="section-guild" style="display:none">
         <div id="guild-page-content"></div>
       </div>
@@ -652,12 +718,13 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
         <div><div class="sidebar-username" id="admin-name-display">ADMIN</div><div class="sidebar-role" style="color:var(--gold)">▸ System Control</div></div>
       </div>
       <nav class="sidebar-nav">
-        <div class="nav-item active" onclick="showAdminSection('dashboard',this)"><span class="nav-icon">📊</span> Dashboard</div>
+        <div class="nav-item active" id="admin-nav-dashboard" onclick="showAdminSection('dashboard',this)"><span class="nav-icon">📊</span> Dashboard</div>
         <div class="nav-item" onclick="showAdminSection('tournaments',this)"><span class="nav-icon">🏆</span> Tournaments</div>
         <div class="nav-item" onclick="showAdminSection('registrations',this)"><span class="nav-icon">📋</span> Registrations</div>
         <div class="nav-item" onclick="showAdminSection('users',this)"><span class="nav-icon">👥</span> Users</div>
         <div class="nav-item" onclick="showAdminSection('glory',this)"><span class="nav-icon">🌟</span> Glory Winner</div>
         <div class="nav-item" onclick="showAdminSection('leaderboard',this)"><span class="nav-icon">📊</span> Leaderboard</div>
+        <div class="nav-item" onclick="showAdminSection('feed',this)"><span class="nav-icon">💬</span> Announcement Feed</div>
         <div class="nav-item" onclick="showAdminSection('guild-admin',this)"><span class="nav-icon">⚔</span> Guild Members</div>
         <div class="nav-item" onclick="showAdminSection('forgot-requests',this)"><span class="nav-icon">🔐</span> PW Requests</div>
         <div class="nav-item" onclick="showAdminSection('organisers',this)"><span class="nav-icon">🎮</span> Organisers</div>
@@ -705,6 +772,13 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
       <!-- REGISTRATIONS -->
       <div id="admin-section-registrations" style="display:none">
         <div class="page-header"><div class="page-title">REGISTRATIONS</div><div class="page-subtitle">// Approve or reject combatants</div></div>
+        <div class="bulk-bar">
+          <span class="bulk-count" id="bulk-count">0 selected</span>
+          <button class="btn btn-cyan btn-sm" onclick="bulkApprove()">✓ Approve Selected</button>
+          <button class="btn btn-red btn-sm" onclick="bulkReject()">✗ Reject Selected</button>
+          <button class="btn btn-gold btn-sm" onclick="exportRegsCSV()">⬇ Export CSV</button>
+          <button class="btn btn-ghost btn-sm" onclick="selectAllRegs()">☑ Select All Pending</button>
+        </div>
         <div class="pill-tabs">
           <div class="pill-tab active" onclick="filterRegs('all',this)">All</div>
           <div class="pill-tab" onclick="filterRegs('pending',this)">Pending</div>
@@ -858,6 +932,37 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
         <div id="org-list"></div>
       </div>
 
+
+      <!-- ANALYTICS -->
+      <div id="admin-section-analytics" style="display:none">
+        <div class="page-header"><div class="page-title">📈 ANALYTICS</div><div class="page-subtitle">// Platform insights & revenue tracking</div></div>
+        <div id="analytics-content"></div>
+      </div>
+
+      <!-- ANNOUNCEMENT FEED ADMIN -->
+      <div id="admin-section-feed" style="display:none">
+        <div class="page-header"><div class="page-title">💬 ANNOUNCEMENT FEED</div><div class="page-subtitle">// Post updates for players</div></div>
+        <div class="settings-card">
+          <div class="settings-card-title"><span class="icon">📝</span> Post Announcement</div>
+          <div class="form-group">
+            <label class="form-label">Select Tournament (optional)</label>
+            <select id="feed-t-select" class="form-input">
+              <option value="">-- Global (all players see this) --</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea id="feed-msg-input" class="form-input" rows="3" placeholder="e.g. Room ID will be shared 30 mins before match. Stay tuned!"></textarea>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <button class="btn btn-cyan" style="width:auto" onclick="postFeedMsg(false)">📢 POST</button>
+            <button class="btn btn-gold" style="width:auto" onclick="postFeedMsg(true)">📌 POST PINNED</button>
+          </div>
+        </div>
+        <div class="section-title">Recent Posts</div>
+        <div id="admin-feed-list" style="background:linear-gradient(180deg,#0f0f1e,#0a0a16);border:1px solid rgba(30,30,58,0.9);border-radius:14px;overflow:hidden;"></div>
+      </div>
+
       <!-- SETTINGS -->
       <div id="admin-section-settings" style="display:none">
         <div class="page-header"><div class="page-title">SETTINGS</div><div class="page-subtitle">// Admin account & system configuration</div></div>
@@ -950,6 +1055,19 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
   </div>
 </div>
 
+
+<!-- PUBLIC TOURNAMENT PAGE -->
+<div id="pub-page" class="page">
+  <div style="min-height:100vh;padding:20px;max-width:700px;margin:0 auto">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px">
+      <div style="font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">TournamentOS</div>
+      <div style="flex:1"></div>
+      <button class="btn btn-ghost btn-sm" onclick="showPage('auth-page')">LOGIN / REGISTER</button>
+    </div>
+    <div id="pub-content"></div>
+  </div>
+</div>
+
 <!-- REGISTER MODAL -->
 <div class="modal-overlay" id="register-modal">
   <div class="modal">
@@ -990,6 +1108,15 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
       <div class="form-group"><label class="form-label">🎮 Discord Link</label><input type="text" id="et-dc" class="form-input" placeholder="https://discord.gg/..."></div>
     </div>
     <div class="form-group"><label class="form-label">📋 Game Rules</label><textarea id="et-ru" class="form-input" rows="2" placeholder="Rules for this tournament..."></textarea></div>
+    <div class="form-group">
+      <label class="form-label">🖼 Change Banner</label>
+      <div class="banner-upload-area" onclick="document.getElementById('et-banner-file').click()">
+        <div style="font-size:22px;margin-bottom:4px">🖼</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted)">Click to upload new banner</div>
+      </div>
+      <input type="file" id="et-banner-file" accept="image/*" style="display:none" onchange="previewBanner(this,'et-banner-preview')">
+      <img id="et-banner-preview" class="banner-preview">
+    </div>
     <div class="modal-footer">
       <button class="btn btn-cyan" style="flex:1" onclick="saveEditT()">💾 SAVE CHANGES</button>
       <button class="btn btn-ghost" style="width:auto" onclick="closeModal('et-modal')">CANCEL</button>
@@ -1033,6 +1160,22 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
       <div class="form-group"><label class="form-label">🎮 Discord Server Link</label><input type="text" id="ct-dc" class="form-input" placeholder="https://discord.gg/..."></div>
     </div>
     <div class="form-group"><label class="form-label">📋 Game Rules (optional)</label><textarea id="ct-rules" class="form-input" rows="2" placeholder="e.g. No hackers, must be in guild, squad must be full..."></textarea></div>
+    <div class="form-group">
+      <label class="form-label">🖼 Tournament Banner (optional)</label>
+      <div class="banner-upload-area" onclick="document.getElementById('ct-banner-file').click()">
+        <div style="font-size:28px;margin-bottom:6px">🖼</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted)">Click to upload banner image</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);margin-top:4px">JPG/PNG · Max 1MB recommended</div>
+      </div>
+      <input type="file" id="ct-banner-file" accept="image/*" style="display:none" onchange="previewBanner(this,'ct-banner-preview')">
+      <img id="ct-banner-preview" class="banner-preview">
+    </div>
+    <div class="form-group">
+      <div class="toggle-wrap" onclick="toggleAutoClose()" id="auto-close-toggle">
+        <div class="toggle-switch" id="auto-close-switch"></div>
+        <div><div class="toggle-label">⏰ AUTO-CLOSE REGISTRATION ON DATE</div><div style="font-size:10px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-top:2px">Registration automatically stops when tournament date arrives</div></div>
+      </div>
+    </div>
     <div class="modal-footer">
       <button class="btn btn-cyan" style="flex:1" onclick="submitCreateTournament()">⚡ CREATE TOURNAMENT</button>
       <button class="btn btn-ghost" style="width:auto" onclick="closeModal('create-tournament-modal')">CANCEL</button>
@@ -1340,12 +1483,13 @@ async function logout(){
 // ======================== USER SECTIONS ========================
 function showUserSection(name,el){
   document.querySelectorAll('#user-page .nav-item').forEach(i=>i.classList.remove('active'));el.classList.add('active');
-  ['tournaments','my-regs','guild','profile'].forEach(s=>document.getElementById('section-'+s).style.display='none');
+  ['tournaments','my-regs','guild','profile','feed'].forEach(s=>document.getElementById('section-'+s).style.display='none');
   document.getElementById('section-'+name).style.display='block';
   if(name==='tournaments')loadTournaments();
   if(name==='my-regs')loadMyRegistrations();
   if(name==='guild')loadGuildPage();
   if(name==='profile')loadMyProfile();
+  if(name==='feed')loadUserFeed();
 }
 
 let _tsAll=[],_rAll=[];
@@ -1361,8 +1505,9 @@ function renderTCards(ts){
     const full=!unl&&rc>=(t.max_slots||16);
     const orgTag=t.org_name?`<div style="font-size:9px;color:#ff6b00;font-family:'Share Tech Mono',monospace;margin-bottom:5px">🎮 ${t.org_name}${t.org_game?' · '+t.org_game:''}</div>`:'';
     const gameTag=t.game_name?`<span style="background:rgba(0,150,255,0.1);color:#0096ff;border:1px solid rgba(0,150,255,0.25);border-radius:4px;font-size:9px;padding:2px 7px;font-family:'Share Tech Mono',monospace;letter-spacing:1px;margin-bottom:6px;display:inline-block">${t.game_name}</span><br>`:'';
+    const bannerHtml=t.banner_url?`<div style="height:90px;background:url('${t.banner_url}') center/cover;border-radius:10px 10px 0 0;margin:-22px -22px 14px;overflow:hidden"></div>`:''
     return`<div class="t-card ${t.type}"><div class="t-card-glow"></div>
-      <div class="t-card-header"><div class="t-name">${t.name}</div>${typeBadge(t.type)}</div>
+      ${bannerHtml}<div class="t-card-header"><div class="t-name">${t.name}</div>${typeBadge(t.type)}</div>
       ${orgTag}${gameTag}${mkCd(t.date)}
       <div class="t-meta">
         <div class="t-meta-item">DATE: <span>${t.date}</span></div>
@@ -1554,7 +1699,7 @@ async function submitWithPayment(){
 // ======================== ADMIN SECTIONS ========================
 function showAdminSection(name,el){
   document.querySelectorAll('#admin-page .nav-item').forEach(i=>i.classList.remove('active'));el.classList.add('active');
-  ['dashboard','tournaments','registrations','users','glory','guild-admin','forgot-requests','organisers','leaderboard','settings'].forEach(s=>{const el=document.getElementById('admin-section-'+s);if(el)el.style.display='none';});
+  ['dashboard','tournaments','registrations','users','glory','guild-admin','forgot-requests','organisers','leaderboard','analytics','feed','settings'].forEach(s=>{const el=document.getElementById('admin-section-'+s);if(el)el.style.display='none';});
   document.getElementById('admin-section-'+name).style.display='block';
   if(name==='dashboard')loadAdminDashboard();
   if(name==='tournaments')loadAdminTournaments();
@@ -1566,6 +1711,8 @@ function showAdminSection(name,el){
   if(name==='settings')loadSettings();
   if(name==='organisers')loadOrgs();
   if(name==='leaderboard')loadAdminLeaderboard();
+  if(name==='analytics')loadAnalytics();
+  if(name==='feed')loadAdminFeed();
 }
 
 async function loadAdminDashboard(){
@@ -1629,6 +1776,7 @@ async function loadAdminTournaments(){
       <div class="t-slots-bar"><div class="t-slots-label"><span>REGISTERED</span><span>${regCount}/${maxSlots}</span></div><div class="t-slots-track"><div class="t-slots-fill" style="width:${pct}%"></div></div></div>
       <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">
         <button class="btn btn-ghost btn-sm" onclick="openEditT('${t.id}')">✏ Edit</button>
+        <button class="btn btn-ghost btn-sm" onclick="openPublicPage('${t.id}')">🌐 Public</button>
         ${t.status==='live'?`<button class="btn btn-ghost btn-sm" onclick="setTournamentStatus('${t.id}','completed')">✓ Done</button><button class="btn btn-red btn-sm" onclick="setTournamentStatus('${t.id}','cancelled')">✗ Cancel</button>`:''}
         <button class="btn btn-red btn-sm" onclick="deleteTournament('${t.id}','${t.name.replace(/'/g,'')}')">🗑 Delete</button>
       </div>
@@ -1820,12 +1968,16 @@ async function submitCreateTournament(){
   const wa_link=document.getElementById('ct-wa')?document.getElementById('ct-wa').value.trim():'';
   const dc_link=document.getElementById('ct-dc')?document.getElementById('ct-dc').value.trim():'';
   const rules=document.getElementById('ct-rules')?document.getElementById('ct-rules').value.trim():'';
+  const auto_close=document.getElementById('auto-close-switch')&&document.getElementById('auto-close-switch').classList.contains('on');
+  const bannerFile=document.getElementById('ct-banner-file')&&document.getElementById('ct-banner-file').files[0];
+  const banner_url=bannerFile?await uploadBanner(bannerFile):null;
   if(!name||isNaN(fee)||!prize||!date){toast('⚠ Fill all required fields.','error');return;}
   showLoader('CREATING TOURNAMENT...');
   const {error}=await sb.from('tournaments').insert({
     id:uid(),name,type,entry_fee:fee,prize,date,status:'live',
     max_slots:slots,unlimited_slots:unlimitedSlotsOn,description:desc,game_name:game_name||'',
-    wa_link:wa_link||null,dc_link:dc_link||null,rules:rules||null,created_at:Date.now()
+    wa_link:wa_link||null,dc_link:dc_link||null,rules:rules||null,
+    auto_close:auto_close||false,banner_url:banner_url||null,created_at:Date.now()
   });
   hideLoader();
   if(error){toast('⚠ Failed to create tournament.','error');console.error(error);return;}
@@ -2531,7 +2683,11 @@ async function saveEditT(){
   const waLink=document.getElementById('et-wa')?document.getElementById('et-wa').value.trim():null;
   const dcLink=document.getElementById('et-dc')?document.getElementById('et-dc').value.trim():null;
   const rulesVal=document.getElementById('et-ru')?document.getElementById('et-ru').value.trim():null;
-  const {error}=await sb.from('tournaments').update({name,type,entry_fee:fee,prize,date,status,max_slots:slots,game_name,description:desc,wa_link:waLink||null,dc_link:dcLink||null,rules:rulesVal||null}).eq('id',id);
+  const eBannerFile=document.getElementById('et-banner-file')&&document.getElementById('et-banner-file').files[0];
+  const eBannerUrl=eBannerFile?await uploadBanner(eBannerFile):undefined;
+  const updData={name,type,entry_fee:fee,prize,date,status,max_slots:slots,game_name,description:desc,wa_link:waLink||null,dc_link:dcLink||null,rules:rulesVal||null};
+  if(eBannerUrl!==undefined)updData.banner_url=eBannerUrl;
+  const {error}=await sb.from('tournaments').update(updData).eq('id',id);
   hideLoader();
   if(error){toast('Save failed. Run Supabase SQL migration first.','error');console.error(error);return;}
   await addActivity('gold','Tournament "'+name+'" edited');
@@ -2688,6 +2844,7 @@ function initOrgPage(user){
           <div class="nav-item" onclick="showOS('tour',this)"><span class="nav-icon">🏆</span> My Tournaments</div>
           <div class="nav-item" onclick="showOS('regs',this)"><span class="nav-icon">📋</span> Registrations</div>
           <div class="nav-item" onclick="showOS('prof',this)"><span class="nav-icon">⚙️</span> My Profile</div>
+          <div class="nav-item" onclick="showOS('feed',this)"><span class="nav-icon">💬</span> Feed</div>
         </nav>
         <div class="sidebar-footer">
           <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);text-align:center;margin-bottom:8px">@${user.username}</div>
@@ -2699,6 +2856,7 @@ function initOrgPage(user){
         <div id="os-tour" style="display:none"></div>
         <div id="os-regs" style="display:none"></div>
         <div id="os-prof" style="display:none"></div>
+        <div id="os-feed" style="display:none"></div>
       </div>
     </div>`;
     document.body.appendChild(pg);
@@ -2711,12 +2869,13 @@ function showOS(name,el){
   if(!el)return;
   document.querySelectorAll('#org-page .nav-item').forEach(i=>i.classList.remove('active'));
   el.classList.add('active');
-  ['dash','tour','regs','prof'].forEach(s=>{const d=document.getElementById('os-'+s);if(d)d.style.display='none';});
+  ['dash','tour','regs','prof','feed'].forEach(s=>{const d=document.getElementById('os-'+s);if(d)d.style.display='none';});
   const sec=document.getElementById('os-'+name);if(sec)sec.style.display='block';
   if(name==='dash')loadOrgDash();
   if(name==='tour')loadOrgTs();
   if(name==='regs')loadOrgRegs();
   if(name==='prof')loadOrgProf();
+  if(name==='feed')loadOrgFeedPage();
 }
 
 async function loadOrgDash(){
@@ -3027,6 +3186,209 @@ window.submitCreateTournament=async function(){
   else{loadAdminTournaments();loadAdminDashboard();}
 };
 
+
+// ═══════════════════════════════════════════════════
+// BANNER UPLOAD + AUTO-CLOSE + ANALYTICS + FEED + BULK + PUBLIC PAGE
+// ═══════════════════════════════════════════════════
+function previewBanner(input,previewId){const file=input.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{const img=document.getElementById(previewId);if(img){img.src=e.target.result;img.style.display='block';}};reader.readAsDataURL(file);}
+async function uploadBanner(file){return new Promise(resolve=>{if(!file||file.size>2*1024*1024){toast('Banner must be under 2MB.','error');resolve(null);return;}const reader=new FileReader();reader.onload=e=>resolve(e.target.result);reader.onerror=()=>resolve(null);reader.readAsDataURL(file);});}
+let _autoCloseOn=false;
+function toggleAutoClose(){_autoCloseOn=!_autoCloseOn;const sw=document.getElementById('auto-close-switch');if(sw)sw.classList.toggle('on',_autoCloseOn);}
+async function checkAutoClose(){try{const today=new Date().toISOString().slice(0,10);const {data:ts}=await sb.from('tournaments').select('id,name,date,status,auto_close').eq('status','live').eq('auto_close',true);for(const t of(ts||[])){if(t.date<=today){await sb.from('tournaments').update({status:'completed'}).eq('id',t.id);await addActivity('cyan','Auto-closed: "'+t.name+'"');}}}catch(e){}}
+window.addEventListener('DOMContentLoaded',()=>setTimeout(checkAutoClose,2000));
+
+// ANALYTICS
+async function loadAnalytics(){
+  showLoader('LOADING ANALYTICS...');
+  const [{data:ts},{data:regs},{data:users}]=await Promise.all([
+    sb.from('tournaments').select('*').order('created_at',{ascending:true}),
+    sb.from('registrations').select('*').order('created_at',{ascending:true}),
+    sb.from('users').select('*').neq('role','admin').neq('role','organiser')
+  ]);
+  hideLoader();
+  const allTs=ts||[],allR=regs||[],allU=users||[];
+  const months=[];
+  for(let i=5;i>=0;i--){const d=new Date();d.setMonth(d.getMonth()-i);months.push({key:d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'),label:d.toLocaleString('en-IN',{month:'short'})});}
+  const mRegs=months.map(m=>allR.filter(r=>new Date(r.created_at).toISOString().slice(0,7)===m.key).length);
+  const mRev=months.map(m=>allR.filter(r=>r.status==='approved'&&r.payment&&r.payment.fee>0&&new Date(r.created_at).toISOString().slice(0,7)===m.key).reduce((s,r)=>s+Number(r.payment.fee||0),0));
+  const mUsers=months.map(m=>allU.filter(u=>u.created_at&&new Date(u.created_at).toISOString().slice(0,7)===m.key).length);
+  const maxR=Math.max(...mRegs,1),maxRev=Math.max(...mRev,1),maxU=Math.max(...mUsers,1);
+  const playerMap={};allR.filter(r=>r.status==='approved').forEach(r=>{playerMap[r.user_id]=(playerMap[r.user_id]||0)+1;});
+  const topPlayers=allU.map(u=>({...u,count:playerMap[u.id]||0})).sort((a,b)=>b.count-a.count).slice(0,5);
+  const gameMap={};allTs.forEach(t=>{const g=t.game_name||'Other';gameMap[g]=(gameMap[g]||0)+1;});
+  const topGames=Object.entries(gameMap).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const totalRev=allR.filter(r=>r.status==='approved'&&r.payment&&r.payment.fee>0).reduce((s,r)=>s+Number(r.payment.fee||0),0);
+  const approvalRate=allR.length?Math.round((allR.filter(r=>r.status==='approved').length/allR.length)*100):0;
+  const el=document.getElementById('analytics-content');
+  el.innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:20px">
+      <div class="insight-card"><span class="insight-icon">&#128176;</span><div><div class="insight-val" style="color:var(--gold)">&#8377;${totalRev.toLocaleString('en-IN')}</div><div class="insight-lbl">TOTAL REVENUE</div></div></div>
+      <div class="insight-card"><span class="insight-icon">&#9989;</span><div><div class="insight-val" style="color:var(--green)">${approvalRate}%</div><div class="insight-lbl">APPROVAL RATE</div></div></div>
+      <div class="insight-card"><span class="insight-icon">&#128101;</span><div><div class="insight-val" style="color:var(--cyan)">${allU.length}</div><div class="insight-lbl">TOTAL PLAYERS</div></div></div>
+      <div class="insight-card"><span class="insight-icon">&#127942;</span><div><div class="insight-val" style="color:var(--purple)">${allTs.length}</div><div class="insight-lbl">TOURNAMENTS</div></div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+      <div class="analytics-card"><div class="analytics-title">Registrations (6 months)</div><div class="chart-bar-wrap">${mRegs.map((v,i)=>`<div class="chart-bar-col"><div class="chart-val">${v}</div><div class="chart-bar" style="height:${Math.round((v/maxR)*100)}%"></div><div class="chart-lbl">${months[i].label}</div></div>`).join('')}</div></div>
+      <div class="analytics-card"><div class="analytics-title">Revenue &#8377; (6 months)</div><div class="chart-bar-wrap">${mRev.map((v,i)=>`<div class="chart-bar-col"><div class="chart-val">${v>999?Math.round(v/1000)+'k':v}</div><div class="chart-bar gold" style="height:${Math.round((v/maxRev)*100)}%"></div><div class="chart-lbl">${months[i].label}</div></div>`).join('')}</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+      <div class="analytics-card"><div class="analytics-title">New Players (6 months)</div><div class="chart-bar-wrap">${mUsers.map((v,i)=>`<div class="chart-bar-col"><div class="chart-val">${v}</div><div class="chart-bar red" style="height:${Math.round((v/maxU)*100)}%"></div><div class="chart-lbl">${months[i].label}</div></div>`).join('')}</div></div>
+      <div class="analytics-card"><div class="analytics-title">Top Games</div>${topGames.map((g,i)=>`<div class="top-player-row"><div style="font-family:'Orbitron',sans-serif;font-size:11px;width:18px;color:var(--muted)">${i+1}</div><div style="flex:1;font-size:13px">${g[0]}</div><div style="font-family:'Orbitron',sans-serif;font-size:14px;color:var(--cyan)">${g[1]}</div></div>`).join('')}</div>
+    </div>
+    <div class="analytics-card"><div class="analytics-title">Top Players (approved tournaments)</div>${topPlayers.filter(u=>u.count>0).map((u,i)=>`<div class="top-player-row"><div style="font-family:'Orbitron',sans-serif;font-size:12px;width:24px;text-align:center;color:${['var(--gold)','#c0c0d0','#cd7f32'][i]||'var(--muted)'}">${i+1}</div><div class="avatar" style="width:32px;height:32px;font-size:12px">${u.username[0].toUpperCase()}</div><div style="flex:1;font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700">${u.username}</div><div style="font-family:'Orbitron',sans-serif;font-size:16px;color:var(--cyan)">${u.count}</div></div>`).join('')}</div>`;
+}
+
+// FEED
+async function getFeedItems(){
+  try{const {data,error}=await sb.from('feed').select('*').order('created_at',{ascending:false}).limit(50);if(!error&&data)return data;}catch(e){}
+  try{const {data}=await sb.from('settings').select('value').eq('key','global_feed').maybeSingle();return(data&&data.value&&Array.isArray(data.value))?data.value:[];}catch(e){return[];}
+}
+function renderFeedItems(items,el){
+  if(!el)return;
+  if(!items||!items.length){el.innerHTML='<div class="empty-state" style="padding:30px"><div class="empty-text">// NO POSTS YET</div></div>';return;}
+  el.innerHTML=items.map(item=>`<div class="feed-item ${item.pinned?'feed-pinned':''}"><div class="feed-avatar">${(item.author||'?')[0].toUpperCase()}</div><div class="feed-body"><div class="feed-author">${item.pinned?'&#128204; ':''}${item.author||'Admin'} <span style="color:var(--muted);font-size:9px;font-family:Share Tech Mono,monospace">${item.author_role==='organiser'?'· ORG':'· ADMIN'}</span></div><div class="feed-msg">${item.message}</div><div class="feed-time">${timeAgo(item.created_at)}</div></div></div>`).join('');
+}
+async function postFeedMsg(pinned){
+  const tId=document.getElementById('feed-t-select').value;
+  const msg=document.getElementById('feed-msg-input').value.trim();
+  if(!msg){toast('Write a message first.','error');return;}
+  showLoader('POSTING...');
+  const item={id:uid(),author:currentUser.username,author_role:currentUser.role,tournament_id:tId||null,message:msg,pinned:pinned||false,created_at:Date.now()};
+  try{await sb.from('feed').insert(item);}catch(e){
+    const {data:ex}=await sb.from('settings').select('value').eq('key','global_feed').maybeSingle();
+    const list=(ex&&ex.value&&Array.isArray(ex.value))?ex.value:[];
+    list.unshift(item);if(list.length>100)list.splice(100);
+    await sb.from('settings').upsert({key:'global_feed',value:list});
+  }
+  hideLoader();document.getElementById('feed-msg-input').value='';toast('Posted!','success');loadAdminFeed();
+}
+async function loadAdminFeed(){
+  showLoader('LOADING...');
+  const {data:ts}=await sb.from('tournaments').select('id,name').order('created_at',{ascending:false});
+  const sel=document.getElementById('feed-t-select');
+  if(sel)sel.innerHTML='<option value="">-- Global --</option>'+(ts||[]).map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
+  const items=await getFeedItems();hideLoader();
+  renderFeedItems(items,document.getElementById('admin-feed-list'));
+}
+async function loadUserFeed(){
+  showLoader('LOADING FEED...');
+  const items=await getFeedItems();hideLoader();
+  renderFeedItems(items,document.getElementById('user-feed-list'));
+}
+async function orgPostFeed(){
+  const tId=document.getElementById('org-feed-t')?.value||null;
+  const msg=document.getElementById('org-feed-msg')?.value.trim();
+  if(!msg){toast('Write a message.','error');return;}
+  showLoader('POSTING...');
+  const item={id:uid(),author:window._orgUser.username,author_role:'organiser',author_id:window._orgUser.id,tournament_id:tId||null,message:msg,pinned:false,created_at:Date.now()};
+  try{await sb.from('feed').insert(item);}catch(e){
+    const {data:ex}=await sb.from('settings').select('value').eq('key','global_feed').maybeSingle();
+    const list=(ex&&ex.value&&Array.isArray(ex.value))?ex.value:[];
+    list.unshift(item);if(list.length>100)list.splice(100);
+    await sb.from('settings').upsert({key:'global_feed',value:list});
+  }
+  hideLoader();if(document.getElementById('org-feed-msg'))document.getElementById('org-feed-msg').value='';
+  toast('Posted!','success');loadOrgFeed();
+}
+async function loadOrgFeed(){const items=await getFeedItems();renderFeedItems(items,document.getElementById('org-feed-list'));}
+
+// BULK ACTIONS
+let _selectedRegs=new Set();
+function updateBulkCount(){const el=document.getElementById('bulk-count');if(el)el.textContent=_selectedRegs.size+' selected';}
+function regCbChange(cb){if(cb.checked)_selectedRegs.add(cb.value);else _selectedRegs.delete(cb.value);updateBulkCount();}
+function selectAllRegs(){document.querySelectorAll('.reg-cb').forEach(cb=>{if(cb.dataset.status==='pending'){cb.checked=true;_selectedRegs.add(cb.value);}});updateBulkCount();}
+async function bulkApprove(){
+  if(!_selectedRegs.size){toast('Select registrations first.','error');return;}
+  const ids=[..._selectedRegs];
+  if(!confirm('Approve '+ids.length+' registrations?'))return;
+  showLoader('APPROVING...');
+  for(const id of ids)await sb.from('registrations').update({status:'approved'}).eq('id',id);
+  _selectedRegs.clear();updateBulkCount();hideLoader();
+  await addActivity('cyan','Bulk approved '+ids.length+' registrations');
+  toast(ids.length+' approved!','success');loadAllRegistrations();loadAdminDashboard();
+}
+async function bulkReject(){
+  if(!_selectedRegs.size){toast('Select registrations first.','error');return;}
+  const ids=[..._selectedRegs];
+  if(!confirm('Reject '+ids.length+' registrations?'))return;
+  showLoader('REJECTING...');
+  for(const id of ids)await sb.from('registrations').update({status:'rejected'}).eq('id',id);
+  _selectedRegs.clear();updateBulkCount();hideLoader();
+  toast(ids.length+' rejected.','error');loadAllRegistrations();loadAdminDashboard();
+}
+
+// EXPORT CSV
+async function exportRegsCSV(){
+  showLoader('PREPARING CSV...');
+  const [{data:regs},{data:users},{data:ts}]=await Promise.all([
+    sb.from('registrations').select('*').order('created_at',{ascending:false}),
+    sb.from('users').select('*'),sb.from('tournaments').select('*')
+  ]);
+  hideLoader();
+  const rows=[['#','Tournament','Player','Mobile','Team UIDs','Status','Fee','TXN ID','App Used','Date']];
+  (regs||[]).forEach((r,i)=>{
+    const u=(users||[]).find(x=>x.id===r.user_id);const t=(ts||[]).find(x=>x.id===r.tournament_id);const pay=r.payment||{};
+    rows.push([i+1,t?t.name:'?',u?u.username:'?',u?u.email||'':'',(r.players||[]).map(p=>p.uid).join('|'),r.status,pay.fee||0,pay.txnId||'',pay.appUsed||'',r.created_at?new Date(r.created_at).toLocaleDateString('en-IN'):'']);
+  });
+  const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const blob=new Blob([csv],{type:'text/csv'});const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='TOS_Registrations_'+Date.now()+'.csv';a.click();URL.revokeObjectURL(url);
+  toast('CSV downloaded!','success');
+}
+
+// Patch buildRegsTable to add checkboxes
+const _origBRT=window.buildRegsTable;
+function buildRegsTable(regs,compact,users=[],ts=[]){
+  _selectedRegs.clear();updateBulkCount();
+  return`<div class="table-wrap"><table><thead><tr>${!compact?'<th></th>':''}<th>Player</th><th>Arena</th><th>Team</th><th>Payment</th><th>Status</th>${!compact?'<th>Time</th><th>Actions</th>':''}</tr></thead><tbody>${regs.map(r=>{
+    const user=users.find(u=>u.id===r.user_id);const t=ts.find(x=>x.id===r.tournament_id);
+    const pList=(r.players||[]).map(p=>`<div style="font-family:'Share Tech Mono',monospace;font-size:11px"><span style="color:var(--text);font-weight:600">${p.username}</span> <span style="color:var(--muted)">${p.uid}</span></div>`).join('');
+    const pay=r.payment;
+    const payCell=pay?`<div style="font-family:'Share Tech Mono',monospace;font-size:10px">${pay.fee>0?`<span style="color:var(--gold)">&#8377;${pay.fee}</span><br><span style="color:var(--muted)">${pay.appUsed||''}</span><br><span style="color:var(--cyan);font-size:9px">TXN: ${pay.txnId||'—'}</span>`:`<span style="color:var(--green)">FREE</span>`}</div>`:`<span style="color:var(--muted);font-size:10px">—</span>`;
+    const actions=!compact&&r.status==='pending'?`<div class="actions-cell"><button class="btn btn-cyan btn-sm" onclick="approveReg('${r.id}')">&#x2713;</button><button class="btn btn-red btn-sm" onclick="rejectReg('${r.id}')">&#x2717;</button></div>`:(!compact?'—':'');
+    const cb=!compact?`<input type="checkbox" class="select-cb reg-cb" value="${r.id}" data-status="${r.status}" onchange="regCbChange(this)">`:'';
+    return`<tr><td>${cb}</td><td><strong style="font-family:'Orbitron',sans-serif;font-size:11px">${user?user.username:'—'}</strong></td><td style="font-size:12px">${t?t.name:'—'}</td><td>${pList}</td><td>${payCell}</td><td>${statusBadge(r.status)}</td>${!compact?`<td style="font-size:11px;font-family:'Share Tech Mono',monospace;color:var(--muted)">${timeAgo(r.created_at)}</td><td>${actions}</td>`:''}</tr>`;
+  }).join('')}</tbody></table></div>`;
+}
+
+// PUBLIC TOURNAMENT PAGE
+async function openPublicPage(tId){
+  showLoader('LOADING...');
+  const [{data:t},{data:regs}]=await Promise.all([
+    sb.from('tournaments').select('*').eq('id',tId).single(),
+    sb.from('registrations').select('id').eq('tournament_id',tId).eq('status','approved')
+  ]);
+  hideLoader();if(!t){toast('Not found.','error');return;}
+  const rc=(regs||[]).length;const ms=t.unlimited_slots?null:t.max_slots||16;const full=ms&&rc>=ms;
+  const shareUrl=window.location.origin+window.location.pathname+'?t='+tId;
+  const el=document.getElementById('pub-content');
+  el.innerHTML=`
+    ${t.banner_url?`<div style="height:180px;background:url('${t.banner_url}') center/cover;border-radius:16px;margin-bottom:20px"></div>`:''}
+    <div class="pub-hero">
+      <div style="padding:28px 22px">
+        <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:8px">${t.org_name||'TournamentOS'}${t.org_game?' · '+t.org_game:''}</div>
+        <div class="pub-hero-title">${t.name}</div>
+        ${t.game_name?`<span style="background:rgba(0,150,255,0.1);color:#0096ff;border:1px solid rgba(0,150,255,0.2);border-radius:4px;font-size:10px;padding:3px 9px;font-family:'Share Tech Mono',monospace;display:inline-block;margin-top:8px">${t.game_name}</span>`:''}
+      </div>
+    </div>
+    <div class="pub-detail-grid">
+      <div class="pub-detail-card"><div class="pub-detail-val">${t.entry_fee>0?'&#8377;'+t.entry_fee:'FREE'}</div><div class="pub-detail-lbl">ENTRY FEE</div></div>
+      <div class="pub-detail-card"><div class="pub-detail-val" style="color:var(--gold)">${t.prize}</div><div class="pub-detail-lbl">PRIZE POOL</div></div>
+      <div class="pub-detail-card"><div class="pub-detail-val" style="color:var(--text);font-size:14px">${t.date}</div><div class="pub-detail-lbl">DATE</div></div>
+      <div class="pub-detail-card"><div class="pub-detail-val" style="color:${full?'var(--red)':'var(--green)'}">${full?'FULL':rc+'/'+(ms||'&#x221E;')}</div><div class="pub-detail-lbl">SLOTS</div></div>
+    </div>
+    ${t.description?`<div style="background:rgba(0,0,0,0.2);border:1px solid rgba(30,30,58,0.8);border-radius:12px;padding:16px;margin-bottom:18px;font-size:14px;color:var(--muted);line-height:1.6">${t.description}</div>`:''}
+    ${t.rules?`<div class="rules-card" style="margin-bottom:18px"><div class="rules-title">&#128203; GAME RULES</div><div class="rules-text">${t.rules}</div></div>`:''}
+    ${!full?`<button class="pub-reg-btn" onclick="showPage('auth-page')">&#x2694; REGISTER NOW — LOGIN REQUIRED</button>`:`<div style="background:rgba(255,45,85,0.08);border:1px solid rgba(255,45,85,0.25);border-radius:12px;padding:16px;text-align:center;margin-bottom:16px;font-family:'Orbitron',sans-serif;font-size:14px;color:var(--red)">&#128308; SLOTS FULL</div>`}
+    ${t.wa_link||t.dc_link?`<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px">${t.wa_link?`<a href="${t.wa_link}" target="_blank" class="t-social-btn wa" style="flex:1;justify-content:center">&#128172; WhatsApp Group</a>`:''} ${t.dc_link?`<a href="${t.dc_link}" target="_blank" class="t-social-btn dc" style="flex:1;justify-content:center">&#127918; Discord</a>`:''}</div>`:''}
+    <div style="background:rgba(0,0,0,0.2);border:1px solid rgba(30,30,58,0.8);border-radius:12px;padding:14px;text-align:center">
+      <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:8px">SHARE LINK</div>
+      <div style="font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--cyan);word-break:break-all;margin-bottom:10px">${shareUrl}</div>
+      <button class="copy-btn" onclick="cpTxt('${shareUrl}','Link')">&#128203; Copy Link</button>
+    </div>`;
+  showPage('pub-page');
+}
+(function(){const p=new URLSearchParams(window.location.search);const tId=p.get('t');if(tId)window.addEventListener('DOMContentLoaded',()=>setTimeout(()=>openPublicPage(tId),800));})();
 
 // ═══════════════════════════════════════════════════
 // RANK SYSTEM
@@ -3401,6 +3763,30 @@ function pwsInstall(){
 function initUserFeatures(){
   renderNotifBell();
   startNotifPoll();
+}
+
+
+async function loadOrgFeedPage(){
+  const el=document.getElementById('os-feed');if(!el)return;
+  // Get org's tournaments for dropdown
+  const {data:ts}=await sb.from('tournaments').select('id,name').eq('organiser_id',window._orgUser.id);
+  el.innerHTML=`
+    <div class="page-header"><div class="page-title">FEED</div><div class="page-subtitle">// Post updates to your players</div></div>
+    <div class="settings-card">
+      <div class="settings-card-title"><span class="icon">📝</span> Post Update</div>
+      <div class="form-group">
+        <label class="form-label">Tournament (optional)</label>
+        <select id="org-feed-t" class="form-input">
+          <option value="">-- All players --</option>
+          ${(ts||[]).map(t=>`<option value="${t.id}">${t.name}</option>`).join('')}
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Message</label><textarea id="org-feed-msg" class="form-input" rows="3" placeholder="e.g. Room ID will be shared 30 mins before match!"></textarea></div>
+      <button class="btn btn-cyan" style="width:auto" onclick="orgPostFeed()">📢 POST</button>
+    </div>
+    <div class="section-title">Recent Posts</div>
+    <div id="org-feed-list" style="background:linear-gradient(180deg,#0f0f1e,#0a0a16);border:1px solid rgba(30,30,58,0.9);border-radius:14px;overflow:hidden;"></div>`;
+  loadOrgFeed();
 }
 
 // ======================== 3D TILT ========================
