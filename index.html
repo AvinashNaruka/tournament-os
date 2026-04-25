@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#00f5d4">  
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TournamentOS — Command Center</title>
@@ -83,7 +81,7 @@ select.form-input{cursor:pointer;}option{background:#0e0e1c;}
 .sidebar-username{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;}
 .sidebar-role{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Share Tech Mono',monospace;}
 .sidebar-nav{padding:10px 0;flex:1;overflow-y:auto;}
-.nav-item{display:flex;align-items:center;gap:10px;padding:12px 20px;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.15s;border-left:3px solid transparent;letter-spacing:1px;text-transform:uppercase;font-family:'Orbitron',sans-serif;position:relative;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:12px 20px;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.15s;border-left:3px solid transparent;letter-spacing:1px;text-transform:uppercase;font-family:'Orbitron',sans-serif;position:relative;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;min-height:48px;}
 .nav-item:hover{color:var(--text);background:rgba(155,93,229,0.06);}
 .nav-item.active{color:var(--cyan);border-left-color:var(--cyan);background:rgba(0,245,212,0.05);text-shadow:0 0 12px rgba(0,245,212,0.4);}
 .nav-item.active::after{content:'';position:absolute;right:0;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,var(--cyan),transparent);}
@@ -1492,6 +1490,7 @@ function showUserSection(name,el){
   if(name==='guild')loadGuildPage();
   if(name==='profile')loadMyProfile();
   if(name==='feed')loadUserFeed();
+  if(window.innerWidth<=860)sbClose();
 }
 
 let _tsAll=[],_rAll=[];
@@ -1715,6 +1714,7 @@ function showAdminSection(name,el){
   if(name==='leaderboard')loadAdminLeaderboard();
   if(name==='analytics')loadAnalytics();
   if(name==='feed')loadAdminFeed();
+  if(window.innerWidth<=860)sbClose();
 }
 
 async function loadAdminDashboard(){
@@ -2878,6 +2878,7 @@ function showOS(name,el){
   if(name==='regs')loadOrgRegs();
   if(name==='prof')loadOrgProf();
   if(name==='feed')loadOrgFeedPage();
+  if(window.innerWidth<=860)sbClose();
 }
 
 async function loadOrgDash(){
